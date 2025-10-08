@@ -6,18 +6,24 @@ import { Grid } from './Grid'
 export default function Dashboard({
   name,
   currentWeigth,
+  currentWeigthDate,
   startWeigth,
   targetWeigth,
   currentCallories,
+  currentCalloriesDate,
   maxCallories,
+  balance,
   onSave,
 }: {
   name?: string
   currentWeigth?: number
+  currentWeigthDate?: string
   startWeigth?: number
   targetWeigth?: number
   currentCallories?: number
+  currentCalloriesDate?: string
   maxCallories?: number
+  balance?: number
   onSave: (newValuesObject: Partial<Storage>) => void
 }) {
   const navigate = useNavigate()
@@ -44,10 +50,13 @@ export default function Dashboard({
       </h2>
       <Grid
         currentWeigth={currentWeigth}
+        currentWeigthDate={currentWeigthDate}
         startWeigth={startWeigth}
         targetWeigth={targetWeigth}
         currentCallories={currentCallories}
+        currentCalloriesDate={currentCalloriesDate}
         maxCallories={maxCallories}
+        balance={balance as number}
         onSave={onSave}
       />
     </>

@@ -5,6 +5,7 @@ import { settings, settingsLabels } from '@/constants/settings'
 import { Input } from './ui/input'
 import { getDate } from '@/utils/getDate'
 import { useNavigate } from 'react-router-dom'
+import { toast } from 'sonner'
 
 export default function Settings({
   name,
@@ -50,7 +51,20 @@ export default function Settings({
           )
         })}
         <div className="flex mt-4 justify-end">
-          <Button variant={'outline'} className="ml-auto mr-4" type="submit">
+          <Button
+            variant={'outline'}
+            className="ml-auto mr-4"
+            type="submit"
+            onClick={() =>
+              toast.success('Сохранено', {
+                classNames: {
+                  toast:
+                    'flex justify-center !w-fit relative left-[50%] translate-x-[-50%] ',
+                  title: 'text-base ml-2 text-nowrap',
+                },
+              })
+            }
+          >
             Сохранить
           </Button>
           <Button

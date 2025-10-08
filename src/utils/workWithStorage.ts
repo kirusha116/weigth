@@ -13,6 +13,14 @@ export type Storage = {
   currentCallories: number
   currentCalloriesDate: string
   balance: number
+  taskDay: number[]
+  taskDayDate: string
+  awardDay: number[]
+  awardDayDate: string
+  completedTasks: number[]
+  completedTasksDate: string
+  completedAwards: number[]
+  completedAwardsDate: string
 }
 
 export function getStorage(): Partial<Storage> {

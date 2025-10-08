@@ -12,36 +12,45 @@ import {
   type Storage,
 } from './utils/workWithStorage'
 import { useState } from 'react'
-import { toast } from 'sonner'
 import { Toaster } from './components/ui/sonner'
-import { CheckCheck } from 'lucide-react'
+import { CheckCheck, Frown } from 'lucide-react'
+import { getDate } from './utils/getDate'
 
 export default function App() {
   if (!localStorage.getItem(localKey)) {
-    saveStorage({ balance: 0, currentCallories: 0 })
+    saveStorage({
+      balance: 0,
+      currentCallories: 0,
+      completedTasks: [],
+      completedTasksDate: getDate(),
+      completedAwards: [],
+      completedAwardsDate: getDate(),
+    })
   }
   const [storage, setStorage] = useState<Partial<Storage>>({
+    // ...{ ...getStorage(), currentWeigthDate: '' },
     ...getStorage(),
   })
   const onSave = (newStorage: Partial<Storage>) => {
-    toast.success('Сохранено', {
-      classNames: {
-        toast:
-          'flex justify-center !w-38 relative left-[50%] translate-x-[-50%] ',
-        title: 'text-base ml-2 text-nowrap',
-      },
-    })
     setStorage({ ...storage, ...newStorage })
     saveStorage({ ...storage, ...newStorage })
+    console.log(storage)
+  }
+  if (storage.completedAwardsDate !== getDate()) {
+    onSave({ completedAwards: [], completedAwardsDate: getDate() })
+  }
+  if (storage.completedTasksDate !== getDate()) {
+    onSave({ completedTasks: [], completedTasksDate: getDate() })
   }
   return (
     <>
       <Toaster
         richColors
-        icons={{ success: <CheckCheck /> }}
+        expand
+        icons={{ success: <CheckCheck />, warning: <Frown /> }}
         position="top-center"
       />
-      <BrowserRouter>
+      <BrowserRouter basename='/weigth'>
         <Routes>
           <Route
             path="/"
@@ -52,8 +61,26 @@ export default function App() {
               path="/dashboard"
               element={<Dashboard {...storage} onSave={onSave} />}
             ></Route>
-            <Route path="/tasks" element={<Tasks />}></Route>
-            <Route path="/awards" element={<Awards />}></Route>
+            <Route
+              path="/tasks"
+              element={
+                <Tasks
+                  completedTasks={storage.completedTasks as number[]}
+                  balance={storage.balance as number}
+                  onSave={onSave}
+                />
+              }
+            ></Route>
+            <Route
+              path="/awards"
+              element={
+                <Awards
+                  completedAwards={storage.completedAwards as number[]}
+                  balance={storage.balance as number}
+                  onSave={onSave}
+                />
+              }
+            ></Route>
             <Route path="/statistics" element={<Statistics />}></Route>
             <Route
               path="/settings"
