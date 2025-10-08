@@ -15,6 +15,8 @@ import { useState } from 'react'
 import { Toaster } from './components/ui/sonner'
 import { CheckCheck, Frown } from 'lucide-react'
 import { getDate } from './utils/getDate'
+import { tasks } from './constants/tasks'
+import { getRandomsId } from './utils/getRandomId'
 
 export default function App() {
   if (!localStorage.getItem(localKey)) {
@@ -42,6 +44,12 @@ export default function App() {
   if (storage.completedTasksDate !== getDate()) {
     onSave({ completedTasks: [], completedTasksDate: getDate() })
   }
+  if (storage.tasksDayDate !== getDate()) {
+    onSave({ tasksDay: getRandomsId(tasks, 3), tasksDayDate: getDate() })
+  }
+  if (storage.awardsDayDate !== getDate()) {
+    onSave({ awardsDay: getRandomsId(tasks, 3), awardsDayDate: getDate() })
+  }
   return (
     <>
       <Toaster
@@ -50,7 +58,7 @@ export default function App() {
         icons={{ success: <CheckCheck />, warning: <Frown /> }}
         position="top-center"
       />
-      <BrowserRouter basename='/weigth'>
+      <BrowserRouter basename="/weigth">
         <Routes>
           <Route
             path="/"

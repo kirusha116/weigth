@@ -1,8 +1,9 @@
+import type { taskOrAward } from '@/types/taskOrAwards'
 import { BriefcaseBusiness, Hamburger, PlugZap, Utensils } from 'lucide-react'
 
 const className = 'stroke-white'
 
-export const awards = [
+export const awards: taskOrAward[] = [
   {
     icon: <Hamburger className={className} />,
     title: 'Поход в фастфуд',

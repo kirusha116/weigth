@@ -55,7 +55,7 @@ export function Block({
         <Progress value={progressValue} />
         <p className="text-center">{progressText}</p>
         <p className="text-center mt-2">{`Не забывай записывать ${footerText}!`}</p>
-        <p className="text-center">Каждый день за это ты получаешь баллы!</p>
+        <p className="text-center">Каждый день за это ты получаешь звёздочки!</p>
       </div>
     </>
   )

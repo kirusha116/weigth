@@ -23,11 +23,15 @@ export default function Awards({
             if (!completedAwards.includes(id)) {
               return (
                 <Item
+                  style={
+                    index % 2
+                      ? { width: 'calc(50% - 2px)', marginLeft: '4px' }
+                      : { width: 'calc(50% - 2px)' }
+                  }
                   key={index}
                   icon={icon}
                   title={title}
                   price={'-' + price.toString()}
-                  index={index}
                   onSelect={() => {
                     if (balance >= price) {
                       toast.success(`Покупочка оформлена! -${price}`, {

@@ -4,6 +4,9 @@ import type { Storage } from '@/utils/workWithStorage'
 import { BlockNoData } from './BlockNoData'
 import { getDate } from '@/utils/getDate'
 import { toast } from 'sonner'
+import { BlockTasksOrAwardsDays } from './BlockTasksOrAwardsDays'
+import { tasks } from '@/constants/tasks'
+import { awards } from '@/constants/awards'
 
 export function Grid({
   currentWeigth,
@@ -15,6 +18,10 @@ export function Grid({
   maxCallories,
   balance,
   onSave,
+  tasksDay,
+  completedTasks,
+  awardsDay,
+  completedAwards,
 }: {
   currentWeigth?: number
   currentWeigthDate?: string
@@ -25,6 +32,10 @@ export function Grid({
   maxCallories?: number
   balance: number
   onSave: (newValuesObject: Partial<Storage>) => void
+  tasksDay: number[]
+  completedTasks: number[]
+  awardsDay: number[]
+  completedAwards: number[]
 }) {
   return (
     <div className="flex gap-2">
@@ -77,6 +88,14 @@ export function Grid({
             targetWeigth={!targetWeigth}
           />
         )}
+        <BlockTasksOrAwardsDays
+          variant="tasks"
+          arr={tasks}
+          ids={tasksDay}
+          balance={balance}
+          completed={completedTasks}
+          onSave={onSave}
+        />
       </div>
 
       <div className="flex flex-col gap-2 w-1/2">
@@ -134,6 +153,15 @@ export function Grid({
         ) : (
           <BlockNoData variant="callories" />
         )}
+
+        <BlockTasksOrAwardsDays
+          variant="awards"
+          arr={awards}
+          ids={awardsDay}
+          balance={balance}
+          completed={completedAwards}
+          onSave={onSave}
+        />
       </div>
     </div>
   )

@@ -1,3 +1,4 @@
+import type { taskOrAward } from '@/types/taskOrAwards'
 import {
   BedDouble,
   BicepsFlexed,
@@ -10,7 +11,7 @@ import {
 
 const className = 'stroke-white'
 
-export const tasks = [
+export const tasks: taskOrAward[] = [
   {
     icon: <BedDouble className={className} />,
     title: 'Лечь спать 10 часов',

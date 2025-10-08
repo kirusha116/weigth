@@ -21,11 +21,11 @@ export default function Tasks({
           if (!completedTasks.includes(id)) {
             return (
               <Item
+                style={{ width: 'calc(50% - 2px)' }}
                 key={index}
                 icon={icon}
                 title={title}
                 price={'+' + price.toString()}
-                index={index}
                 onSelect={() => {
                   onSave({
                     balance: balance + price,

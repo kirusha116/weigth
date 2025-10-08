@@ -13,10 +13,10 @@ export type Storage = {
   currentCallories: number
   currentCalloriesDate: string
   balance: number
-  taskDay: number[]
-  taskDayDate: string
-  awardDay: number[]
-  awardDayDate: string
+  tasksDay: number[]
+  tasksDayDate: string
+  awardsDay: number[]
+  awardsDayDate: string
   completedTasks: number[]
   completedTasksDate: string
   completedAwards: number[]

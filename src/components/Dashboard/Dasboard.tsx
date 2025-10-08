@@ -14,6 +14,10 @@ export default function Dashboard({
   maxCallories,
   balance,
   onSave,
+  tasksDay,
+  completedTasks,
+  awardsDay,
+  completedAwards,
 }: {
   name?: string
   currentWeigth?: number
@@ -25,6 +29,10 @@ export default function Dashboard({
   maxCallories?: number
   balance?: number
   onSave: (newValuesObject: Partial<Storage>) => void
+  tasksDay?: number[]
+  completedTasks?: number[]
+  awardsDay?: number[]
+  completedAwards?: number[]
 }) {
   const navigate = useNavigate()
   return (
@@ -58,6 +66,10 @@ export default function Dashboard({
         maxCallories={maxCallories}
         balance={balance as number}
         onSave={onSave}
+        tasksDay={tasksDay as number[]}
+        completedTasks={completedTasks as number[]}
+        awardsDay={awardsDay as number[]}
+        completedAwards={completedAwards as number[]}
       />
     </>
   )

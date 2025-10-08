@@ -6,21 +6,21 @@ export function Item({
   icon,
   title,
   price,
-  index,
   onSelect,
+  style,
 }: {
   icon: JSX.Element
   title: string
   price: string
-  index: number
   onSelect: () => void
+  style?: React.CSSProperties | undefined
 }) {
   return (
     <div
-      className={`flex items-center rounded-lg bg-white border shadow-xs px-3 py-2 ${
-        index % 2 && 'ml-1'
-      }`}
-      style={{ width: 'calc(50% - 2px)' }}
+      className={
+        'flex items-center rounded-lg bg-white border shadow-xs px-3 py-2'
+      }
+      style={style}
     >
       <div className="h-9 rounded-md aspect-square bg-rose-300 mr-4 flex justify-center items-center">
         {icon}
