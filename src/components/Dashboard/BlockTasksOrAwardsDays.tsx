@@ -44,7 +44,7 @@ export function BlockTasksOrAwardsDays({
   onSave: (newValuesObject: Partial<Storage>) => void
 }) {
   return (
-    <div className="w-full rounded-xl p-4 border-2 bg-white text-justify">
+    <>
       {variantProps[variant].icon}
       <p className="text-xl text-center leading-14 mb-2">
         <b>{variantProps[variant].title}</b>
@@ -70,6 +70,6 @@ export function BlockTasksOrAwardsDays({
           )
         }
       })}
-    </div>
+    </>
   )
 }

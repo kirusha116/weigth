@@ -1,5 +1,4 @@
-import { calloriesBlock, weigthBlock } from '@/constants/blockProps'
-import { Block } from './Block'
+import { BlockMainContent } from './BlockMainContent'
 import type { Storage } from '@/utils/workWithStorage'
 import { BlockNoData } from './BlockNoData'
 import { getDate } from '@/utils/getDate'
@@ -7,6 +6,7 @@ import { toast } from 'sonner'
 import { BlockTasksOrAwardsDays } from './BlockTasksOrAwardsDays'
 import { tasks } from '@/constants/tasks'
 import { awards } from '@/constants/awards'
+import { Block } from './Block'
 
 export function Grid({
   currentWeigth,
@@ -40,128 +40,135 @@ export function Grid({
   return (
     <div className="flex gap-2">
       <div className="flex flex-col gap-2 w-1/2">
-        {startWeigth && targetWeigth ? (
-          <Block
-            {...weigthBlock}
-            titleNumber={currentWeigth as number}
-            isButtonVisible={currentWeigthDate !== getDate()}
-            defaultDialogValue={(currentWeigth as number).toString()}
-            progressValue={
-              (currentWeigth as number) <= (startWeigth as number)
-                ? Math.round(
-                    (((startWeigth as number) - (currentWeigth as number)) /
-                      ((startWeigth as number) - (targetWeigth as number))) *
-                      1000,
-                  ) / 10
-                : 0
-            }
-            progressText={`Прогресс - ${
-              (currentWeigth as number) <= (startWeigth as number)
-                ? Math.round(
-                    (((startWeigth as number) - (currentWeigth as number)) /
-                      ((startWeigth as number) - (targetWeigth as number))) *
-                      1000,
-                  ) / 10
-                : 0
-            } %.
+        <Block>
+          {startWeigth && targetWeigth ? (
+            <BlockMainContent
+              variant="weigth"
+              titleNumber={currentWeigth as number}
+              isButtonVisible={currentWeigthDate !== getDate()}
+              defaultDialogValue={(currentWeigth as number).toString()}
+              progressValue={
+                (currentWeigth as number) <= (startWeigth as number)
+                  ? Math.round(
+                      (((startWeigth as number) - (currentWeigth as number)) /
+                        ((startWeigth as number) - (targetWeigth as number))) *
+                        1000,
+                    ) / 10
+                  : 0
+              }
+              progressText={`Прогресс - ${
+                (currentWeigth as number) <= (startWeigth as number)
+                  ? Math.round(
+                      (((startWeigth as number) - (currentWeigth as number)) /
+                        ((startWeigth as number) - (targetWeigth as number))) *
+                        1000,
+                    ) / 10
+                  : 0
+              } %.
             Цель - ${targetWeigth} кг.
             Осталось - ${Number(startWeigth) - Number(targetWeigth)} кг`}
-            onSave={newValue => {
-              const result: Partial<Storage> = { currentWeigth: newValue }
-              if (currentWeigthDate !== getDate()) {
-                toast.success('Молодец! +100', {
-                  classNames: {
-                    toast:
-                      'flex justify-center !w-fit relative left-[50%] translate-x-[-50%] ',
-                    title: 'text-base ml-2 text-nowrap',
-                  },
-                })
-                result.balance = balance + 100
-              }
-              onSave(result)
-            }}
+              onSave={newValue => {
+                const result: Partial<Storage> = { currentWeigth: newValue }
+                if (currentWeigthDate !== getDate()) {
+                  toast.success('Молодец! +100', {
+                    classNames: {
+                      toast:
+                        'flex justify-center !w-fit relative left-[50%] translate-x-[-50%] ',
+                      title: 'text-base ml-2 text-nowrap',
+                    },
+                  })
+                  result.balance = balance + 100
+                }
+                onSave(result)
+              }}
+            />
+          ) : (
+            <BlockNoData
+              variant="weigth"
+              startWeigth={!startWeigth}
+              targetWeigth={!targetWeigth}
+            />
+          )}
+        </Block>
+        <Block>
+          <BlockTasksOrAwardsDays
+            variant="tasks"
+            arr={tasks}
+            ids={tasksDay}
+            balance={balance}
+            completed={completedTasks}
+            onSave={onSave}
           />
-        ) : (
-          <BlockNoData
-            variant="weigth"
-            startWeigth={!startWeigth}
-            targetWeigth={!targetWeigth}
-          />
-        )}
-        <BlockTasksOrAwardsDays
-          variant="tasks"
-          arr={tasks}
-          ids={tasksDay}
-          balance={balance}
-          completed={completedTasks}
-          onSave={onSave}
-        />
+        </Block>
       </div>
 
       <div className="flex flex-col gap-2 w-1/2">
-        {maxCallories ? (
-          <Block
-            {...calloriesBlock}
-            titleNumber={currentCallories as number}
-            isButtonVisible={true}
-            defaultDialogValue={''}
-            progressValue={
-              (currentCallories as number) < (maxCallories as number)
-                ? ((currentCallories as number) / (maxCallories as number)) *
-                  100
-                : 100
-            }
-            progressText={`Сегодня еще можно скушать - ${
-              (currentCallories as number) < (maxCallories as number)
-                ? (maxCallories as number) - (currentCallories as number)
-                : 0
-            } ккал`}
-            onSave={newValue => {
-              const result: Partial<Storage> = {
-                currentCallories: (currentCallories as number) + newValue,
+        <Block>
+          {maxCallories ? (
+            <BlockMainContent
+              variant="callories"
+              titleNumber={currentCallories as number}
+              isButtonVisible={true}
+              defaultDialogValue={''}
+              progressValue={
+                (currentCallories as number) < (maxCallories as number)
+                  ? ((currentCallories as number) / (maxCallories as number)) *
+                    100
+                  : 100
               }
-              if (currentCalloriesDate !== getDate()) {
-                console.log(getDate())
-                console.log(currentCalloriesDate)
-                result.currentCalloriesDate = getDate()
-                toast.success('Молодец! +100', {
-                  classNames: {
-                    toast:
-                      'flex justify-center !w-fit relative left-[50%] translate-x-[-50%] ',
-                    title: 'text-base ml-2 text-nowrap',
-                  },
-                })
-                result.balance = balance + 100
-              }
-              if (
-                (currentCallories as number) <= (maxCallories as number) &&
-                (currentCallories as number) + newValue >
-                  (maxCallories as number)
-              ) {
-                toast.warning('Переела! -200', {
-                  classNames: {
-                    toast:
-                      'flex justify-center !w-fit relative left-[50%] translate-x-[-50%] ',
-                    title: 'text-base ml-2 text-nowrap',
-                  },
-                })
-                result.balance = (result.balance as number) - 200
-              }
-              onSave(result)
-            }}
+              progressText={`Сегодня еще можно скушать - ${
+                (currentCallories as number) < (maxCallories as number)
+                  ? (maxCallories as number) - (currentCallories as number)
+                  : 0
+              } ккал`}
+              onSave={newValue => {
+                const result: Partial<Storage> = {
+                  currentCallories: (currentCallories as number) + newValue,
+                }
+                if (currentCalloriesDate !== getDate()) {
+                  console.log(getDate())
+                  console.log(currentCalloriesDate)
+                  result.currentCalloriesDate = getDate()
+                  toast.success('Молодец! +100', {
+                    classNames: {
+                      toast:
+                        'flex justify-center !w-fit relative left-[50%] translate-x-[-50%] ',
+                      title: 'text-base ml-2 text-nowrap',
+                    },
+                  })
+                  result.balance = balance + 100
+                }
+                if (
+                  (currentCallories as number) <= (maxCallories as number) &&
+                  (currentCallories as number) + newValue >
+                    (maxCallories as number)
+                ) {
+                  toast.warning('Переела! -200', {
+                    classNames: {
+                      toast:
+                        'flex justify-center !w-fit relative left-[50%] translate-x-[-50%] ',
+                      title: 'text-base ml-2 text-nowrap',
+                    },
+                  })
+                  result.balance = (result.balance as number) - 200
+                }
+                onSave(result)
+              }}
+            />
+          ) : (
+            <BlockNoData variant="callories" />
+          )}
+        </Block>
+        <Block>
+          <BlockTasksOrAwardsDays
+            variant="awards"
+            arr={awards}
+            ids={awardsDay}
+            balance={balance}
+            completed={completedAwards}
+            onSave={onSave}
           />
-        ) : (
-          <BlockNoData variant="callories" />
-        )}
-
-        <BlockTasksOrAwardsDays
-          variant="awards"
-          arr={awards}
-          ids={awardsDay}
-          balance={balance}
-          completed={completedAwards}
-          onSave={onSave}
-        />
+        </Block>
       </div>
     </div>
   )

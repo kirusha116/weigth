@@ -22,8 +22,8 @@ export default function Layout({ balance }: { balance: number }) {
         <p className="flex text-lg">{`Баланс: ${balance}`}</p>
         <Star className="ml-1 size-5 stroke-rose-300 fill-rose-300" />
       </header>
-      <main className="container xl:max-w-7xl p-5 m-auto flex">
-        <nav>
+      <main className="container xl:max-w-7xl px-5 m-auto flex">
+        <nav className='mt-4'>
           {Object.values(menu).map(key => {
             return (
               <NavLink
@@ -41,7 +41,7 @@ export default function Layout({ balance }: { balance: number }) {
             )
           })}
         </nav>
-        <section className="py-3 px-8 xl:mr-47 grow">
+        <section className="px-8 xl:mr-47 grow">
           <Outlet />
         </section>
       </main>

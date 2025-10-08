@@ -26,16 +26,14 @@ export function BlockNoData({
   }
   return (
     <>
-      <div className="w-full rounded-xl p-4 border-2 bg-white text-justify">
-        <p>{`Для отображения данного блока необходимо указать ${variantProps[variant]}`}</p>
-        <Button
-          variant="rose"
-          className="block ml-auto mr-0 mt-4 leading-4"
-          onClick={() => navigate('/settings')}
-        >
-          Указать
-        </Button>
-      </div>
+      <p>{`Для отображения данного блока необходимо указать ${variantProps[variant]}`}</p>
+      <Button
+        variant="rose"
+        className="block ml-auto mr-0 mt-4 leading-4"
+        onClick={() => navigate('/settings')}
+      >
+        Указать
+      </Button>
     </>
   )
 }

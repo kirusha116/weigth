@@ -13,7 +13,7 @@ export function Item({
   title: string
   price: string
   onSelect: () => void
-  style?: React.CSSProperties | undefined
+  style?: React.CSSProperties
 }) {
   return (
     <div
