@@ -1,48 +1,39 @@
-import type { taskOrAward } from '@/types/taskOrAwards'
 import { BicepsFlexed, Sparkles } from 'lucide-react'
-import type { JSX } from 'react'
-import { Item } from '../Item'
-import type { Storage } from '@/utils/workWithStorage'
+import type { JSX, ReactElement } from 'react'
+import { TasksDay } from '../Tasks'
+import { AwardsDay } from '../Awards'
 
 type Variant = 'tasks' | 'awards'
 const iconClassName = 'stroke-rose-300 size-14 absolute'
 const variantProps: {
   [key in Variant]: {
     icon: JSX.Element
+    arr: ReactElement
     title: string
     description: string
     keyOfStorage: keyof Storage
+    sign: string
   }
 } = {
   tasks: {
     icon: <BicepsFlexed className={iconClassName} />,
+    arr: <TasksDay />,
     title: 'Задания дня!',
     description: 'Успей выполнить пока награда так высока!',
     keyOfStorage: 'completedTasks',
+    sign: '+',
   },
   awards: {
     icon: <Sparkles className={iconClassName} />,
+    arr: <AwardsDay />,
     title: 'Скидки дня!',
     description: 'Лишь бы звёздочек хватило(',
     keyOfStorage: 'completedAwards',
+    sign: '-',
   },
 }
 
-export function BlockTasksOrAwardsDays({
-  variant,
-  arr,
-  ids,
-  balance,
-  completed,
-  onSave,
-}: {
-  variant: Variant
-  arr: taskOrAward[]
-  ids: number[]
-  balance: number
-  completed: number[]
-  onSave: (newValuesObject: Partial<Storage>) => void
-}) {
+export function BlockTasksOrAwardsDays({ variant }: { variant: Variant }) {
   return (
     <>
       {variantProps[variant].icon}
@@ -52,24 +43,7 @@ export function BlockTasksOrAwardsDays({
       <p className="text-base text-center mb-3">
         {variantProps[variant].description}
       </p>
-      {arr.map(({ icon, id, price, title }, index) => {
-        if (ids.includes(id) && !completed.includes(id)) {
-          return (
-            <Item
-              key={index}
-              icon={icon}
-              title={title}
-              price={'+' + (2 * price).toString()}
-              onSelect={() => {
-                onSave({
-                  balance: balance + 2 * price,
-                  [variantProps[variant].keyOfStorage]: [...completed, id],
-                })
-              }}
-            />
-          )
-        }
-      })}
+      <div className="flex flex-col gap-1">{variantProps[variant].arr}</div>
     </>
   )
 }

@@ -1,8 +1,10 @@
-import { menuIcons, menuLabels, menu } from '@/constants/menu'
+import { menu, menuIcons, menuLabels } from '@/constants/menu'
+import { useGetStorage } from '@/hooks/storageHooks'
 import { Star } from 'lucide-react'
 import { NavLink, Outlet } from 'react-router-dom'
 
-export default function Layout({ balance }: { balance: number }) {
+export default function Layout() {
+  const balance = useGetStorage().balance
   return (
     <>
       <header className="container xl:max-w-7xl p-5 m-auto flex justify-between items-center">
@@ -23,7 +25,7 @@ export default function Layout({ balance }: { balance: number }) {
         <Star className="ml-1 size-5 stroke-rose-300 fill-rose-300" />
       </header>
       <main className="container xl:max-w-7xl px-5 m-auto flex">
-        <nav className='mt-4'>
+        <nav className="mt-4">
           {Object.values(menu).map(key => {
             return (
               <NavLink

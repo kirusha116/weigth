@@ -7,25 +7,29 @@ export const awards: taskOrAward[] = [
   {
     icon: <Hamburger className={className} />,
     title: 'Поход в фастфуд',
-    price: 1500,
+    price: -1500,
     id: 1,
+    discount: 2/3,
   },
   {
     icon: <Utensils className={className} />,
     title: 'Поход в ресторан',
-    price: 4000,
+    price: -4000,
     id: 2,
+    discount: 0.75,
   },
   {
     icon: <PlugZap className={className} />,
     title: 'Аналог дайсон',
-    price: 200000,
+    price: -200000,
     id: 3,
+    discount: 0.7,
   },
   {
     icon: <BriefcaseBusiness className={className} />,
     title: 'Уволиться с работы',
-    price: 1000000,
+    price: -1000000,
     id: 4,
+    discount: 0.85,
   },
 ]

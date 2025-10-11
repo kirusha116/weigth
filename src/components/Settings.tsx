@@ -1,26 +1,18 @@
-import { Button } from './ui/button'
-import { removeStorage, type Storage } from '@/utils/workWithStorage'
-import { useForm, type SubmitHandler } from 'react-hook-form'
-import { settings, settingsLabels } from '@/constants/settings'
-import { Input } from './ui/input'
+import { settings, settingsLabels, settingsTypeOfInput } from '@/constants/settings'
+import { useAppDispatch, useGetStorage } from '@/hooks/storageHooks'
 import { getDate } from '@/utils/getDate'
+import { useForm, type SubmitHandler } from 'react-hook-form'
 import { useNavigate } from 'react-router-dom'
+import { Input } from './ui/input'
+import { Button } from './ui/button'
 import { toast } from 'sonner'
+import { removeStorage } from '@/utils/workWithStorage'
+import { handleSave } from '@/store/store'
+import type { Storage } from '@/types/Storage'
 
-export default function Settings({
-  name,
-  startWeigth,
-  targetWeigth,
-  maxCallories,
-
-  onSave,
-}: {
-  name?: string
-  startWeigth?: number
-  targetWeigth?: number
-  maxCallories?: number
-  onSave: (newStorage: Storage) => void
-}) {
+export default function Settings() {
+  const { name, startWeigth, targetWeigth, maxCallories } = useGetStorage()
+  const dispatch = useAppDispatch()
   const navigate = useNavigate()
   const { register, handleSubmit, reset } = useForm<Storage>({
     defaultValues: { name, startWeigth, targetWeigth, maxCallories },
@@ -32,7 +24,7 @@ export default function Settings({
       storage.currentWeigthDate = storage.startWeigthDate
       storage.currentWeigth = storage.startWeigth
     }
-    onSave(storage)
+    dispatch(handleSave(storage))
   }
 
   return (
@@ -46,7 +38,11 @@ export default function Settings({
           return (
             <div key={key}>
               <label className="text-md">{settingsLabels[key]}</label>
-              <Input className="bg-white mt-2 mb-4" {...register(key)} />
+              <Input
+                className="bg-white mt-2 mb-4"
+                {...register(key)}
+                type={settingsTypeOfInput[key]}
+              />
             </div>
           )
         })}

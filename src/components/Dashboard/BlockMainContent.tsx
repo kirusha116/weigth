@@ -43,6 +43,7 @@ export function BlockMainContent({
   defaultDialogValue,
   progressValue,
   progressText,
+  indicatorStyle,
   onSave,
 }: {
   variant: Variant
@@ -51,6 +52,7 @@ export function BlockMainContent({
   defaultDialogValue: string
   progressValue: number
   progressText: string
+  indicatorStyle: string
   onSave: (newValue: number) => void
 }) {
   return (
@@ -72,7 +74,7 @@ export function BlockMainContent({
           onSave={onSave}
         />
       )}
-      <Progress value={progressValue} className="mb-2" />
+      <Progress value={progressValue} className={`mb-2 ${indicatorStyle}`} />
       <p className="text-center">{progressText}</p>
       <p className="text-center mt-2">{`Не забывай записывать ${variantProps[variant].footerText}!`}</p>
       <p className="text-center">Каждый день за это ты получаешь звёздочки!</p>
