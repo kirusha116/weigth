@@ -1,36 +1,69 @@
 import { tasks } from '@/constants/tasks'
 import { Item } from './Item'
-import type { Storage } from '@/utils/workWithStorage'
+import { useAppDispatch, useGetStorage } from '@/hooks/storageHooks'
+import { handleSave } from '@/store/store'
 
-export default function Tasks({
-  completedTasks,
-  balance,
-  onSave,
-}: {
-  completedTasks: number[]
-  balance: number
-  onSave: (newValuesObject: Partial<Storage>) => void
-}) {
+export function TasksDay({ styled }: { styled?: boolean }) {
+  const { completedTasks, balance, tasksDay } = useGetStorage()
+  const dispatch = useAppDispatch()
+  return (
+    <>
+      {tasks.map(({ icon, id, price, title, discount }, index) => {
+        if (tasksDay.includes(id) && !completedTasks.includes(id)) {
+          return (
+            <Item
+              style={{ width: styled ? 'calc(50% - 2px)' : '' }}
+              key={index}
+              icon={icon}
+              title={title}
+              oldPrice={'+' + Math.abs(price).toString()}
+              discount={'+' + Math.round((discount - 1) * 100) + '%'}
+              price={'+' + Math.abs(discount * price).toString()}
+              onButtonClick={() => {
+                dispatch(
+                  handleSave({
+                    balance: balance + discount * price,
+                    completedTasks: [...completedTasks, id],
+                  }),
+                )
+              }}
+            />
+          )
+        }
+      })}
+    </>
+  )
+}
+
+export default function Tasks() {
+  const { completedTasks, balance, tasksDay } = useGetStorage()
+  const dispatch = useAppDispatch()
+
   return (
     <div className="mr-6">
       <h1 className="text-2xl mb-6">
         <b>Задания</b>
       </h1>
-      <div className="flex flex-wrap ">
+
+      <div className="flex flex-wrap gap-1">
+        <TasksDay styled />
+
         {tasks.map(({ icon, title, price, id }, index) => {
-          if (!completedTasks.includes(id)) {
+          if (!tasksDay.includes(id) && !completedTasks.includes(id)) {
             return (
               <Item
                 style={{ width: 'calc(50% - 2px)' }}
                 key={index}
                 icon={icon}
                 title={title}
-                price={'+' + price.toString()}
-                onSelect={() => {
-                  onSave({
-                    balance: balance + price,
-                    completedTasks: [...completedTasks, id],
-                  })
+                price={'+' + Math.abs(price).toString()}
+                onButtonClick={() => {
+                  dispatch(
+                    handleSave({
+                      balance: balance + price,
+                      completedTasks: [...completedTasks, id],
+                    }),
+                  )
                 }}
               />
             )

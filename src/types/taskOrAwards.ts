@@ -5,4 +5,5 @@ export type taskOrAward = {
   title: string
   price: number
   id: number
+  discount: number
 }

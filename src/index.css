@@ -115,6 +115,6 @@
     @apply border-border outline-ring/50;
   }
   body {
-    @apply text-foreground bg-rose-50/35;
+    @apply bg-background text-foreground;
   }
 }
