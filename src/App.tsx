@@ -1,5 +1,5 @@
 import { CheckCheck, Frown } from 'lucide-react'
-import { BrowserRouter, Navigate, Route, Routes } from 'react-router-dom'
+import { BrowserRouter, Route, Routes } from 'react-router-dom'
 import Layout from './components/Layout'
 import { Provider } from 'react-redux'
 import { Toaster } from './components/ui/sonner'
@@ -20,11 +20,10 @@ function App() {
           icons={{ success: <CheckCheck />, warning: <Frown /> }}
           position="top-center"
         />
-        <BrowserRouter basename='/weigth'>
+        <BrowserRouter basename="/weigth">
           <Routes>
             <Route path="/" element={<Layout />}>
-              <Route index element={<Navigate to={'/dashboard'} />}></Route>
-              <Route path="/dashboard" element={<Dashboard />}></Route>
+              <Route index element={<Dashboard />}></Route>
               <Route path="/tasks" element={<Tasks />}></Route>
               <Route path="/awards" element={<Awards />}></Route>
               <Route path="/statistics" element={<Statistics />}></Route>

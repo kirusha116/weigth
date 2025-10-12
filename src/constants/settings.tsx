@@ -17,10 +17,3 @@ export const settingsLabels = {
   [settings.targetWeigth]: 'Цель',
   [settings.maxCallories]: 'Допустимое количество каллорий в день',
 } as const
-
-export const settingsTypeOfInput = {
-  [settings.name]: '',
-  [settings.startWeigth]: 'number',
-  [settings.targetWeigth]: 'number',
-  [settings.maxCallories]: 'number',
-} as const

@@ -3,7 +3,7 @@ import { Progress } from '../ui/progress'
 import type { JSX } from 'react'
 import { Carrot, Gauge } from 'lucide-react'
 
-type Variant = 'weigth' | 'callories'
+export type Variant = 'weigth' | 'callories'
 
 const variantProps: {
   [key in Variant]: {
@@ -69,6 +69,7 @@ export function BlockMainContent({
       </div>
       {isButtonVisible && (
         <BlockDialog
+          variant={variant}
           {...variantProps[variant].blockDialog}
           defaultValue={defaultDialogValue}
           onSave={onSave}

@@ -12,13 +12,16 @@ import {
 } from '../ui/dialog'
 import { Input } from '../ui/input'
 import { useState } from 'react'
+import type { Variant } from './BlockMainContent'
 
 export default function BlockDialog({
+  variant,
   dialogTriggerText,
   dialogHeader,
   defaultValue,
   onSave,
 }: {
+  variant: Variant
   dialogTriggerText: string
   dialogHeader: string
   defaultValue: string
@@ -56,13 +59,36 @@ export default function BlockDialog({
             </span>
           </DialogDescription>
         </DialogHeader>
-        <Input
-          className="mb-3"
-          defaultValue={inputValue}
-          onChange={e => {
-            setInputValue(e.target.value)
-          }}
-        />
+        {variant === 'weigth' && (
+          <Input
+            className="mb-3"
+            onPaste={e => e.preventDefault()}
+            value={inputValue}
+            onInput={e => {
+              const input = e.target as HTMLInputElement
+              let val = input.value.replace(/[^0-9.,]/g, '')
+              val = val.replace(',', '.')
+              const parts = val.split('.')
+              if (parts.length > 2)
+                val = parts[0] + '.' + parts.slice(1).join('')
+              if (Number(val) % 1)
+                val = (Math.floor(Number(val) * 10) / 10).toString()
+              setInputValue(val)
+            }}
+          />
+        )}
+        {variant === 'callories' && (
+          <Input
+            className="mb-3"
+            value={inputValue}
+            onPaste={e => e.preventDefault()}
+            onInput={e => {
+              const input = e.target as HTMLInputElement
+              const val = input.value.replace(/[^0-9]/g, '')
+              setInputValue(val)
+            }}
+          />
+        )}
         <DialogFooter>
           <DialogClose asChild>
             <Button

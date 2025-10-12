@@ -43,10 +43,14 @@ export function createCalloriesProps(
         : 100,
 
     progressText: `Сегодня еще можно скушать - ${
-      currentCallories < maxCallories ? maxCallories - currentCallories : 0
+      currentCallories < maxCallories
+        ? Math.round(maxCallories - currentCallories)
+        : 0
     } ккал`,
 
-    indicatorStyle: `${currentCallories <= maxCallories ? 'bg-green-400' : 'bg-red-400'}`,
+    indicatorStyle: `${
+      currentCallories <= maxCallories ? 'bg-green-400' : 'bg-red-400'
+    }`,
 
     onSave: (newValue: number) => {
       const result: Result = {

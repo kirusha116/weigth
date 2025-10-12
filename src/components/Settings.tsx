@@ -1,4 +1,4 @@
-import { settings, settingsLabels, settingsTypeOfInput } from '@/constants/settings'
+import { settings, settingsLabels } from '@/constants/settings'
 import { useAppDispatch, useGetStorage } from '@/hooks/storageHooks'
 import { getDate } from '@/utils/getDate'
 import { useForm, type SubmitHandler } from 'react-hook-form'
@@ -11,19 +11,33 @@ import { handleSave } from '@/store/store'
 import type { Storage } from '@/types/Storage'
 
 export default function Settings() {
-  const { name, startWeigth, targetWeigth, maxCallories } = useGetStorage()
+  const { name, startWeigth, targetWeigth, maxCallories, startWeigthDate } =
+    useGetStorage()
   const dispatch = useAppDispatch()
   const navigate = useNavigate()
-  const { register, handleSubmit, reset } = useForm<Storage>({
-    defaultValues: { name, startWeigth, targetWeigth, maxCallories },
+  const { register, handleSubmit, reset, setValue } = useForm<{
+    [key in keyof Storage]: string
+  }>({
+    defaultValues: {
+      name,
+      startWeigth: startWeigth?.toString(),
+      targetWeigth: targetWeigth?.toString(),
+      maxCallories: maxCallories?.toString(),
+    },
   })
-  const onSubmit: SubmitHandler<Storage> = data => {
-    const storage: Storage = { ...data }
-    if (!storage.startWeigthDate && storage.startWeigth) {
+  const onSubmit: SubmitHandler<{ [key in keyof Storage]: string }> = data => {
+    const storage: Partial<Storage> = {}
+    if (data.name) storage.name = data.name
+    if (data.startWeigth) storage.startWeigth = Number(data.startWeigth)
+    if (data.targetWeigth) storage.targetWeigth = Number(data.targetWeigth)
+    if (data.maxCallories) storage.maxCallories = Number(data.maxCallories)
+
+    if (!startWeigthDate && storage.startWeigth) {
       storage.startWeigthDate = getDate()
       storage.currentWeigthDate = storage.startWeigthDate
       storage.currentWeigth = storage.startWeigth
     }
+    console.log(storage)
     dispatch(handleSave(storage))
   }
 
@@ -38,11 +52,37 @@ export default function Settings() {
           return (
             <div key={key}>
               <label className="text-md">{settingsLabels[key]}</label>
-              <Input
-                className="bg-white mt-2 mb-4"
-                {...register(key)}
-                type={settingsTypeOfInput[key]}
-              />
+              {key === 'name' ? (
+                <Input className="bg-white mt-2 mb-4" {...register(key)} />
+              ) : key === 'maxCallories' ? (
+                <Input
+                  className="bg-white mt-2 mb-4"
+                  {...register(key)}
+                  onPaste={e => e.preventDefault()}
+                  onInput={e => {
+                    const input = e.target as HTMLInputElement
+                    const val = input.value.replace(/[^0-9]/g, '')
+                    setValue(key, val, { shouldValidate: true })
+                  }}
+                />
+              ) : (
+                <Input
+                  className="bg-white mt-2 mb-4"
+                  {...register(key)}
+                  onPaste={e => e.preventDefault()}
+                  onInput={e => {
+                    const input = e.target as HTMLInputElement
+                    let val = input.value.replace(/[^0-9.,]/g, '')
+                    val = val.replace(',', '.')
+                    const parts = val.split('.')
+                    if (parts.length > 2)
+                      val = parts[0] + '.' + parts.slice(1).join('')
+                    if (Number(val) % 1)
+                      val = (Math.floor(Number(val) * 10) / 10).toString()
+                    setValue(key, val, { shouldValidate: true })
+                  }}
+                />
+              )}
             </div>
           )
         })}

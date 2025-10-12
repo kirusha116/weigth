@@ -30,7 +30,7 @@ export default function Layout() {
             return (
               <NavLink
                 key={key}
-                to={`/${key}`}
+                to={`/${key !== 'dashboard' ? key : ''}`}
                 className={({ isActive }) =>
                   isActive
                     ? 'flex p-3 pr-15 bg-rose-50 rounded-md *:stroke-rose-400'

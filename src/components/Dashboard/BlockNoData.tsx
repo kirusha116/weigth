@@ -18,15 +18,15 @@ export function BlockNoData({
   const navigate = useNavigate()
   const variantProps: VariantProps = {
     weigth: `
-        ${startWeigth && 'начальный вес'} 
-        ${startWeigth && targetWeigth && 'и'} 
-        ${targetWeigth && 'цель'}
+        ${startWeigth ? 'начальный вес' : ''} 
+        ${startWeigth && targetWeigth ? 'и' : ''} 
+        ${targetWeigth ? 'цель' : ''}
     `,
     callories: 'допустимое количество калорий в день',
   }
   return (
     <>
-      <p>{`Для отображения данного блока необходимо указать ${variantProps[variant]}`}</p>
+      <p className="text-center">{`Для отображения данного блока необходимо указать ${variantProps[variant]}`}</p>
       <Button
         variant="rose"
         className="block ml-auto mr-0 mt-4 leading-4"
