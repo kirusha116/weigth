@@ -49,7 +49,7 @@ export function createWeigthProps(
               1000,
           ) / 10
         : 0
-    } %.  Цель - ${targetWeigth} кг.  Осталось - ${
+    } %. Цель - ${targetWeigth} кг. Осталось - ${
       Math.round((startWeigth - targetWeigth) * 10) / 10
     } кг`,
 

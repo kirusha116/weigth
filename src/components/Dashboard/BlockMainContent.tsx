@@ -4,8 +4,7 @@ import type { JSX } from 'react'
 import { Carrot, Gauge } from 'lucide-react'
 
 export type Variant = 'weigth' | 'callories'
-
-const variantProps: {
+type VariantProps = {
   [key in Variant]: {
     icon: JSX.Element
     title1: string
@@ -13,30 +12,10 @@ const variantProps: {
     blockDialog: { dialogTriggerText: string; dialogHeader: string }
     footerText: string
   }
-} = {
-  weigth: {
-    icon: <Gauge className="stroke-rose-300 size-14" />,
-    title1: 'Текущий вес -',
-    title2: 'кг',
-    blockDialog: {
-      dialogTriggerText: 'Записать результат взвешивания',
-      dialogHeader: 'Запиши свой сегодняшний вес',
-    },
-    footerText: 'вес',
-  },
-  callories: {
-    icon: <Carrot className="stroke-rose-300 size-14" />,
-    title1: 'Калории дня -',
-    title2: 'ккал',
-    blockDialog: {
-      dialogTriggerText: 'Добавить калории',
-      dialogHeader: 'Запиши калории',
-    },
-    footerText: 'калории',
-  },
 }
 
 export function BlockMainContent({
+  isPad,
   variant,
   titleNumber,
   isButtonVisible,
@@ -46,6 +25,7 @@ export function BlockMainContent({
   indicatorStyle,
   onSave,
 }: {
+  isPad: boolean
   variant: Variant
   titleNumber: number
   isButtonVisible: boolean
@@ -55,18 +35,59 @@ export function BlockMainContent({
   indicatorStyle: string
   onSave: (newValue: number) => void
 }) {
+  const variantProps: VariantProps = {
+    weigth: {
+      icon: <Gauge className="stroke-rose-300 size-14" />,
+      title1: 'Текущий вес ',
+      title2: 'кг',
+      blockDialog: {
+        dialogTriggerText: 'Записать результат взвешивания',
+        dialogHeader: 'Запиши свой сегодняшний вес',
+      },
+      footerText: 'вес',
+    },
+    callories: {
+      icon: <Carrot className="stroke-rose-300 size-14" />,
+      title1: 'Калории дня ',
+      title2: 'ккал',
+      blockDialog: {
+        dialogTriggerText: 'Добавить калории',
+        dialogHeader: 'Запиши калории',
+      },
+      footerText: 'калории',
+    },
+  }
+
   return (
     <>
-      <div className="flex flex-row justify-around items-end mb-3">
-        {variantProps[variant].icon}
-        <div className="grow flex flex-row justify-center items-end">
-          <p>
-            <b className="text-xl mb-2">{variantProps[variant].title1}</b>
-            <b className="text-4xl mb-2">{` ${titleNumber} `}</b>
-            <b className="text-2xl mb-2">{variantProps[variant].title2}</b>
-          </p>
+      {!isPad && (
+        <div className="flex flex-row justify-around items-end mb-3">
+          {variantProps[variant].icon}
+          <div className="grow flex flex-row justify-center items-end">
+            <p>
+              <b className="text-xl mb-2">
+                {variantProps[variant].title1 + ' -'}
+              </b>
+              <b className="text-4xl mb-2">{` ${titleNumber} `}</b>
+              <b className="text-2xl mb-2">{variantProps[variant].title2}</b>
+            </p>
+          </div>
         </div>
-      </div>
+      )}
+      {isPad && (
+        <div className="flex flex-row justify-around items-center mb-3">
+          {variantProps[variant].icon}
+          <div className="grow">
+            <p className="text-xl text-center">
+              <b>{variantProps[variant].title1}</b>
+            </p>
+            <p className="text-xl mb-1 text-center">
+              <b className="text-4xl">{` ${titleNumber} `}</b>
+              <b className="text-2xl">{variantProps[variant].title2}</b>
+            </p>
+          </div>
+        </div>
+      )}
       {isButtonVisible && (
         <BlockDialog
           variant={variant}
@@ -78,7 +99,7 @@ export function BlockMainContent({
       <Progress value={progressValue} className={`mb-2 ${indicatorStyle}`} />
       <p className="text-center">{progressText}</p>
       <p className="text-center mt-2">{`Не забывай записывать ${variantProps[variant].footerText}!`}</p>
-      <p className="text-center">Каждый день за это ты получаешь звёздочки!</p>
+      <p className="text-center">{`Каждый\u00A0день\u00A0за\u00A0это\u00A0ты получаешь\u00A0звёздочки!`}</p>
     </>
   )
 }
