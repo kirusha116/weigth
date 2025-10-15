@@ -69,4 +69,11 @@ export const tasks: taskOrAward[] = [
     id: 8,
     discount: 1.2,
   },
+  {
+    icon: <HeartHandshake className={className} />,
+    title: 'Массаж ручек по 10 мин',
+    price: 250,
+    id: 9,
+    discount: 1.2,
+  },
 ]

@@ -26,13 +26,12 @@ export function Grid() {
   const dispatch = useAppDispatch()
   const isPad = !useMediaQuery('(min-width: 1024px), (max-width: 640px)')
   const isMobile = !useMediaQuery('(min-width: 641px)')
-  const haveBottomMenu = !useMediaQuery('(min-width: 768px)')
   const isSmallMobile = !useMediaQuery('(min-width: 400px)')
   console.log(isPad || isSmallMobile)
   return (
     <>
       {!isMobile && (
-        <div className={`flex gap-2 ${haveBottomMenu ? 'mb-20' : ''}`}>
+        <div className="flex gap-2">
           <div
             className="flex flex-col gap-2"
             style={{ width: 'calc(50% - 4px)' }}
@@ -87,7 +86,7 @@ export function Grid() {
         </div>
       )}
       {isMobile && (
-        <div className="flex flex-col gap-2 mb-20">
+        <div className="flex flex-col gap-2">
           <Block>
             {startWeigth &&
             targetWeigth &&

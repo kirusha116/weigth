@@ -53,11 +53,19 @@ export default function Settings() {
             <div key={key}>
               <label className="text-md">{settingsLabels[key]}</label>
               {key === 'name' ? (
-                <Input className="bg-white mt-2 mb-4" {...register(key)} />
+                <Input
+                  className="bg-white mt-2 mb-4"
+                  {...register(key)}
+                  enterKeyHint="done"
+                />
               ) : key === 'maxCallories' ? (
                 <Input
                   className="bg-white mt-2 mb-4"
                   {...register(key)}
+                  type="text"
+                  inputMode="numeric"
+                  pattern="[0-9]*"
+                  enterKeyHint="done"
                   onPaste={e => e.preventDefault()}
                   onInput={e => {
                     const input = e.target as HTMLInputElement
@@ -69,6 +77,10 @@ export default function Settings() {
                 <Input
                   className="bg-white mt-2 mb-4"
                   {...register(key)}
+                  type="text"
+                  inputMode="numeric"
+                  pattern="[0-9]*"
+                  enterKeyHint="done"
                   onPaste={e => e.preventDefault()}
                   onInput={e => {
                     const input = e.target as HTMLInputElement

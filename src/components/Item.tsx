@@ -29,7 +29,7 @@ export function Item({
   return (
     <div
       className={
-        'flex items-center rounded-lg bg-white border shadow-xs px-3 py-2 relative'
+        'flex items-center rounded-lg bg-white border shadow-xs px-3 py-2 relative w-full'
       }
       style={style}
     >
@@ -76,7 +76,7 @@ export function Item({
       <Button
         size="icon"
         variant="rose"
-        className="!size-9"
+        className="!size-9 ml-4"
         onClick={() => onButtonClick()}
       >
         <CircleCheck className="stroke-white size-6" />

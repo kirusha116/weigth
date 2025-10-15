@@ -97,7 +97,9 @@ export function BlockMainContent({
         />
       )}
       <Progress value={progressValue} className={`mb-2 ${indicatorStyle}`} />
-      <p className="text-center">{progressText}</p>
+      <p className="text-center">
+        {progressText}
+      </p>
       <p className="text-center mt-2">{`Не забывай записывать ${variantProps[variant].footerText}!`}</p>
       <p className="text-center">{`Каждый\u00A0день\u00A0за\u00A0это\u00A0ты получаешь\u00A0звёздочки!`}</p>
     </>

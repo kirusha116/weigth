@@ -29,8 +29,8 @@ export default function Layout() {
           <h2 className="ml-3 text-md text-gray-700">Похудение с мотивацией</h2>
         </NavLink>
         <div className="grow"></div>
-        <p className="flex text-lg">{`Баланс: ${balance}`}</p>
-        <Star className="ml-1 size-5 stroke-rose-300 fill-rose-300" />
+        <p className="flex text-xl">{balance}</p>
+        <Star className="ml-1 size-6 stroke-rose-300 fill-rose-300" />
       </header>
       <main className="container xl:max-w-7xl px-5 m-auto flex">
         {!isMobile && (
@@ -42,8 +42,8 @@ export default function Layout() {
                   to={`/${key !== 'dashboard' ? key : ''}`}
                   className={({ isActive }) =>
                     isActive
-                      ? 'flex p-3 pr-15 bg-rose-50 rounded-md *:stroke-rose-400'
-                      : 'flex p-3 pr-15 rounded-md'
+                      ? 'flex p-3 pr-15 bg-rose-50 rounded-md *:stroke-rose-400 xl:w-auto w-fit'
+                      : 'flex p-3 pr-15 rounded-md xl:w-auto w-fit'
                   }
                 >
                   {menuIcons[key]}
@@ -54,7 +54,7 @@ export default function Layout() {
           </nav>
         )}
         {isMobile && (
-          <nav className="fixed left-0 top-full -translate-y-full flex w-full justify-around pt-3 pb-5 items-end bg-white border-t z-50">
+          <nav className="fixed left-0 top-full -translate-y-full flex w-full justify-around pt-3 pb-8 items-end bg-white border-t z-50">
             {Object.values(mobileMenu).map(key => {
               return (
                 <NavLink
@@ -72,7 +72,7 @@ export default function Layout() {
             })}
           </nav>
         )}
-        <section className="md:ml-4 xl:mr-47 grow">
+        <section className={`md:ml-4 xl:mr-47 grow ${isMobile ? 'mb-21' : ''}`}>
           <Outlet />
         </section>
       </main>

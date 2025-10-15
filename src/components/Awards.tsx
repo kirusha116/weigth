@@ -3,6 +3,7 @@ import { Item } from './Item'
 import { toast } from 'sonner'
 import { useAppDispatch, useGetStorage } from '@/hooks/storageHooks'
 import { handleSave } from '@/store/store'
+import { useMediaQuery } from 'usehooks-ts'
 
 export function AwardsDay({ styled }: { styled?: boolean }) {
   const { completedAwards, balance, awardsDay } = useGetStorage()
@@ -60,19 +61,20 @@ export function AwardsDay({ styled }: { styled?: boolean }) {
 export default function Awards() {
   const { completedAwards, balance, awardsDay } = useGetStorage()
   const dispatch = useAppDispatch()
+  const isMobile = !useMediaQuery('(min-width: 768px)')
   return (
     <>
-      <div className="mr-6">
+      <div>
         <h1 className="text-2xl mb-6">
           <b>Награды</b>
         </h1>
         <div className="flex flex-wrap gap-1">
-          <AwardsDay styled />
+          <AwardsDay styled={!isMobile} />
           {awards.map(({ icon, title, price, id }, index) => {
             if (!awardsDay.includes(id)! && !completedAwards.includes(id)) {
               return (
                 <Item
-                  style={{ width: 'calc(50% - 2px)' }}
+                  style={{ width: isMobile ? '' : 'calc(50% - 2px)' }}
                   key={index}
                   icon={icon}
                   title={title}

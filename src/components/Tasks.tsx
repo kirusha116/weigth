@@ -2,6 +2,7 @@ import { tasks } from '@/constants/tasks'
 import { Item } from './Item'
 import { useAppDispatch, useGetStorage } from '@/hooks/storageHooks'
 import { handleSave } from '@/store/store'
+import { useMediaQuery } from 'usehooks-ts'
 
 export function TasksDay({ styled }: { styled?: boolean }) {
   const { completedTasks, balance, tasksDay } = useGetStorage()
@@ -38,21 +39,22 @@ export function TasksDay({ styled }: { styled?: boolean }) {
 export default function Tasks() {
   const { completedTasks, balance, tasksDay } = useGetStorage()
   const dispatch = useAppDispatch()
+  const isMobile = !useMediaQuery('(min-width: 768px)')
 
   return (
-    <div className="mr-6">
+    <div>
       <h1 className="text-2xl mb-6">
         <b>Задания</b>
       </h1>
 
       <div className="flex flex-wrap gap-1">
-        <TasksDay styled />
+        <TasksDay styled={!isMobile} />
 
         {tasks.map(({ icon, title, price, id }, index) => {
           if (!tasksDay.includes(id) && !completedTasks.includes(id)) {
             return (
               <Item
-                style={{ width: 'calc(50% - 2px)' }}
+                style={{ width: isMobile ? '' : 'calc(50% - 2px)' }}
                 key={index}
                 icon={icon}
                 title={title}
