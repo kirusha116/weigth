@@ -1,132 +1,31 @@
-import { useAppDispatch, useGetStorage } from '@/hooks/storageHooks'
-import { Block } from './Block'
-import { BlockNoData } from './BlockNoData'
-import { BlockTasksOrAwardsDays } from './BlockTasksOrAwardsDays'
-import { BlockMainContent } from './BlockMainContent'
-import type {
-  Storage,
-  StorageSettedCallories,
-  StorageSettedWeigth,
-} from '@/types/Storage'
-import { createWeigthProps } from '@/utils/createWeigthProps'
-import { createCalloriesProps } from '@/utils/createCalloriesProps'
-import { handleSave } from '@/store/store'
+import BlockWeigth from './BlockWeigth'
+import BlockCallories from './BlockCallories'
+import BlockTasks from './BlockTasks'
+import BlockAwards from './BlockAwards'
 import { useMediaQuery } from 'usehooks-ts'
 
 export function Grid() {
-  const storage = useGetStorage()
-  const {
-    startWeigth,
-    targetWeigth,
-    maxCallories,
-    startWeigthDate,
-    currentWeigth,
-    currentWeigthDate,
-  } = storage
-  const dispatch = useAppDispatch()
-  const isPad = !useMediaQuery('(min-width: 1024px), (max-width: 640px)')
-  const isMobile = !useMediaQuery('(min-width: 641px)')
-  const isSmallMobile = !useMediaQuery('(min-width: 400px)')
-  console.log(isPad || isSmallMobile)
+  const isMobile = !useMediaQuery('(min-width: 1024px)')
   return (
     <>
-      {!isMobile && (
-        <div className="flex gap-2">
-          <div
-            className="flex flex-col gap-2"
-            style={{ width: 'calc(50% - 4px)' }}
-          >
-            <Block>
-              {startWeigth &&
-              targetWeigth &&
-              startWeigthDate &&
-              currentWeigth &&
-              currentWeigthDate ? (
-                <BlockMainContent
-                  isPad={isPad || isMobile}
-                  {...createWeigthProps(
-                    storage as StorageSettedWeigth,
-                    (newObj: Partial<Storage>) => dispatch(handleSave(newObj)),
-                  )}
-                />
-              ) : (
-                <BlockNoData
-                  variant="weigth"
-                  startWeigth={!startWeigth}
-                  targetWeigth={!targetWeigth}
-                />
-              )}
-            </Block>
-            <Block>
-              <BlockTasksOrAwardsDays variant="tasks" />
-            </Block>
-          </div>
-
-          <div
-            className="flex flex-col gap-2"
-            style={{ width: 'calc(50% - 4px)' }}
-          >
-            <Block>
-              {maxCallories ? (
-                <BlockMainContent
-                  isPad={isPad || isMobile}
-                  {...createCalloriesProps(
-                    storage as StorageSettedCallories,
-                    (newObj: Partial<Storage>) => dispatch(handleSave(newObj)),
-                  )}
-                />
-              ) : (
-                <BlockNoData variant="callories" />
-              )}
-            </Block>
-            <Block>
-              <BlockTasksOrAwardsDays variant="awards" />
-            </Block>
-          </div>
+      {isMobile && (
+        <div>
+          <BlockWeigth />
+          <BlockCallories />
+          <BlockTasks />
+          <BlockAwards />
         </div>
       )}
-      {isMobile && (
-        <div className="flex flex-col gap-2">
-          <Block>
-            {startWeigth &&
-            targetWeigth &&
-            startWeigthDate &&
-            currentWeigth &&
-            currentWeigthDate ? (
-              <BlockMainContent
-                isPad={isPad || isSmallMobile}
-                {...createWeigthProps(
-                  storage as StorageSettedWeigth,
-                  (newObj: Partial<Storage>) => dispatch(handleSave(newObj)),
-                )}
-              />
-            ) : (
-              <BlockNoData
-                variant="weigth"
-                startWeigth={!startWeigth}
-                targetWeigth={!targetWeigth}
-              />
-            )}
-          </Block>
-          <Block>
-            {maxCallories ? (
-              <BlockMainContent
-                isPad={isPad || isSmallMobile}
-                {...createCalloriesProps(
-                  storage as StorageSettedCallories,
-                  (newObj: Partial<Storage>) => dispatch(handleSave(newObj)),
-                )}
-              />
-            ) : (
-              <BlockNoData variant="callories" />
-            )}
-          </Block>
-          <Block>
-            <BlockTasksOrAwardsDays variant="tasks" />
-          </Block>
-          <Block>
-            <BlockTasksOrAwardsDays variant="awards" />
-          </Block>
+      {!isMobile && (
+        <div className="flex">
+          <div>
+            <BlockWeigth />
+            <BlockTasks />
+          </div>
+          <div>
+            <BlockCallories />
+            <BlockAwards />
+          </div>
         </div>
       )}
     </>

@@ -39,6 +39,7 @@ export default function BlockDialog({
         </Button>
       </DialogTrigger>
       <DialogContent
+        onOpenAutoFocus={(e: Event) => e.preventDefault()}
         showCloseButton={false}
         className="w-auto px-5 py-4"
         onCloseAutoFocus={() => setInputValue(defaultValue)}

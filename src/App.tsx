@@ -18,6 +18,7 @@ function App() {
           richColors
           expand
           icons={{ success: <CheckCheck />, warning: <Frown /> }}
+          theme="light"
           position="top-center"
         />
         <BrowserRouter basename="/weigth">

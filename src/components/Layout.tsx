@@ -12,7 +12,7 @@ import { useMediaQuery } from 'usehooks-ts'
 
 export default function Layout() {
   const balance = useGetStorage().balance
-  const isMobile = !useMediaQuery('(min-width: 768px)')
+  const isMobile = !useMediaQuery('(min-width: 1024px)')
   return (
     <>
       <header className="container xl:max-w-7xl p-5 m-auto flex justify-between items-center">

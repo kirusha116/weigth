@@ -13,7 +13,7 @@ type BlockMainContentProps = {
   onSave: (newValue: number) => void
 }
 
-type Result = Pick<Storage, 'currentWeigth' | 'balance'>
+type Result = Pick<Storage, 'currentWeigth' | 'balance' | 'currentWeigthDate'>
 
 export function createWeigthProps(
   {
@@ -61,6 +61,7 @@ export function createWeigthProps(
         balance: balance,
       }
       if (currentWeigthDate !== getDate()) {
+        result.currentWeigthDate = getDate()
         toast.success('Молодец! +100', {
           classNames: {
             toast:
