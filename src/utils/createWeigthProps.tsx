@@ -1,21 +1,13 @@
 import type { Storage, StorageSettedWeigth } from '@/types/Storage'
 import { getDate } from './getDate'
 import { toast } from 'sonner'
-
-type BlockMainContentProps = {
-  variant: 'weigth' | 'callories'
-  titleNumber: number
-  isButtonVisible: boolean
-  defaultDialogValue: string
-  progressValue: number
-  progressText: string
-  indicatorStyle: string
-  onSave: (newValue: number) => void
-}
+import { Gauge } from 'lucide-react'
+import type { BlockMainContentProps } from '@/types/BlockMainContentProps'
 
 type Result = Pick<Storage, 'currentWeigth' | 'balance' | 'currentWeigthDate'>
 
 export function createWeigthProps(
+  isMobile: boolean,
   {
     startWeigth,
     targetWeigth,
@@ -27,6 +19,18 @@ export function createWeigthProps(
 ): BlockMainContentProps {
   const weigth: BlockMainContentProps = {
     variant: 'weigth',
+
+    icon: <Gauge className="stroke-rose-300 size-14" />,
+
+    title1: 'Текущий вес ',
+
+    title2: 'кг',
+
+    dialogTriggerText: `${isMobile ? 'Р' : 'Записать р'}езультат взвешивания`,
+
+    dialogHeader: 'Запиши свой сегодняшний вес',
+
+    footerText: 'вес',
 
     titleNumber: currentWeigth,
 
@@ -42,16 +46,16 @@ export function createWeigthProps(
           ) / 10
         : 0,
 
-    progressText: `Прогресс - ${
+    progressText: `Прогресс\u00A0\u2011\u00A0${
       currentWeigth <= startWeigth
         ? Math.round(
             ((startWeigth - currentWeigth) / (startWeigth - targetWeigth)) *
               1000,
           ) / 10
         : 0
-    } %. Цель - ${targetWeigth} кг. Осталось - ${
+    }\u00A0%. Цель\u00A0\u2011\u00A0${targetWeigth}\u00A0кг. Осталось\u00A0\u2011\u00A0${
       Math.round((startWeigth - targetWeigth) * 10) / 10
-    } кг`,
+    }\u00A0кг`,
 
     indicatorStyle: 'bg-gradient-to-r from-red-400 via-yellow-400 to-green-400',
 

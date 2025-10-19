@@ -5,7 +5,7 @@ import BlockAwards from './BlockAwards'
 import { useMediaQuery } from 'usehooks-ts'
 
 export function Grid() {
-  const isMobile = !useMediaQuery('(min-width: 1024px)')
+  const isMobile = !useMediaQuery('(min-width: 640px)')
   return (
     <>
       {isMobile && (

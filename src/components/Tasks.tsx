@@ -3,6 +3,7 @@ import { Item } from './Item'
 import { useAppDispatch, useGetStorage } from '@/hooks/storageHooks'
 import { handleSave } from '@/store/store'
 import { useMediaQuery } from 'usehooks-ts'
+import { toast } from 'sonner'
 
 export function TasksDay({ styled }: { styled?: boolean }) {
   const { completedTasks, balance, tasksDay } = useGetStorage()
@@ -21,6 +22,13 @@ export function TasksDay({ styled }: { styled?: boolean }) {
               discount={'+' + Math.round((discount - 1) * 100) + '%'}
               price={'+' + Math.abs(discount * price).toString()}
               onButtonClick={() => {
+                toast.success(`Молодец! +${Math.abs(discount * price)}`, {
+                  classNames: {
+                    toast:
+                      'flex justify-center !w-fit relative left-[50%] translate-x-[-50%] ',
+                    title: 'text-base ml-2 text-nowrap',
+                  },
+                })
                 dispatch(
                   handleSave({
                     balance: balance + discount * price,
@@ -60,6 +68,13 @@ export default function Tasks() {
                 title={title}
                 price={'+' + Math.abs(price).toString()}
                 onButtonClick={() => {
+                  toast.success(`Молодец! +${Math.abs(price)}`, {
+                    classNames: {
+                      toast:
+                        'flex justify-center !w-fit relative left-[50%] translate-x-[-50%] ',
+                      title: 'text-base ml-2 text-nowrap',
+                    },
+                  })
                   dispatch(
                     handleSave({
                       balance: balance + price,

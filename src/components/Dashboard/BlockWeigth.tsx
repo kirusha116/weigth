@@ -3,9 +3,9 @@ import { Block } from './Block'
 import { BlockMainContent } from './BlockMainContent'
 import { createWeigthProps } from '@/utils/createWeigthProps'
 import type { StorageSettedWeigth } from '@/types/Storage'
-import { useMediaQuery } from 'usehooks-ts'
 import { BlockNoData } from './BlockNoData'
 import { handleSave } from '@/store/store'
+import { useMediaQuery } from 'usehooks-ts'
 
 export default function BlockWeigth() {
   const storage = useGetStorage()
@@ -17,7 +17,8 @@ export default function BlockWeigth() {
     currentWeigthDate,
   } = storage
   const dispatch = useAppDispatch()
-  const isSmallMobile = !useMediaQuery('(min-width: 400px)')
+  const isMobile = !useMediaQuery('(min-width: 768px), (max-width: 639.5px)')
+  const isSmallMobile = !useMediaQuery('(min-width: 400.5px)')
   return (
     <Block>
       {startWeigth &&
@@ -26,8 +27,8 @@ export default function BlockWeigth() {
       currentWeigth &&
       currentWeigthDate ? (
         <BlockMainContent
-          isPad={isSmallMobile}
           {...createWeigthProps(
+            isMobile || isSmallMobile,
             storage as StorageSettedWeigth,
             (newObj: Partial<Storage>) => dispatch(handleSave(newObj)),
           )}

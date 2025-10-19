@@ -1,18 +1,8 @@
 import type { Storage, StorageSettedCallories } from '@/types/Storage'
 import { getDate } from './getDate'
 import { toast } from 'sonner'
-
-type Variant = 'weigth' | 'callories'
-type BlockMainContentProps = {
-  variant: Variant
-  titleNumber: number
-  isButtonVisible: boolean
-  defaultDialogValue: string
-  progressValue: number
-  progressText: string
-  indicatorStyle: string
-  onSave: (newValue: number) => void
-}
+import { Carrot } from 'lucide-react'
+import type { BlockMainContentProps } from '@/types/BlockMainContentProps'
 
 type Result = Pick<
   Storage,
@@ -20,6 +10,7 @@ type Result = Pick<
 >
 
 export function createCalloriesProps(
+  isMobile: boolean,
   {
     balance,
     currentCallories,
@@ -30,6 +21,18 @@ export function createCalloriesProps(
 ): BlockMainContentProps {
   const callories: BlockMainContentProps = {
     variant: 'callories',
+
+    icon: <Carrot className="stroke-rose-300 size-14" />,
+
+    title1: 'Калории дня ',
+
+    title2: 'ккал',
+
+    dialogTriggerText: 'Добавить калории',
+
+    dialogHeader: 'Запиши калории',
+
+    footerText: 'калории',
 
     titleNumber: currentCallories,
 
@@ -42,7 +45,7 @@ export function createCalloriesProps(
         ? (currentCallories / maxCallories) * 100
         : 100,
 
-    progressText: `Сегодня еще можно скушать - ${
+    progressText: `${isMobile ? 'М' : 'Сегодня еще м'}ожно скушать - ${
       currentCallories < maxCallories
         ? Math.round(maxCallories - currentCallories)
         : 0

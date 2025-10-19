@@ -12,7 +12,6 @@ import {
 } from '../ui/dialog'
 import { Input } from '../ui/input'
 import { useState } from 'react'
-import type { Variant } from './BlockMainContent'
 
 export default function BlockDialog({
   variant,
@@ -21,7 +20,7 @@ export default function BlockDialog({
   defaultValue,
   onSave,
 }: {
-  variant: Variant
+  variant: 'weigth' | 'callories'
   dialogTriggerText: string
   dialogHeader: string
   defaultValue: string
