@@ -2,7 +2,7 @@ import { Badge, CircleCheck, Star } from 'lucide-react'
 import { Button } from './ui/button'
 import { useEffect, useRef, useState, type JSX } from 'react'
 
-export function Item({
+export default function Item({
   icon,
   title,
   price,

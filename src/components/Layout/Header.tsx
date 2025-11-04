@@ -27,7 +27,7 @@ export default function Header() {
 
   const loadLogin = async () => {
     setIsHeartVisible(true)
-    const loadedLogin = await import('@/components/Login')
+    const loadedLogin = await import('./Login')
     setLogin(() => loadedLogin.default)
     setIsHeartVisible(false)
   }

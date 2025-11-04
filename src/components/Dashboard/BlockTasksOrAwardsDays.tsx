@@ -1,7 +1,13 @@
 import { BicepsFlexed, Sparkles } from 'lucide-react'
-import type { JSX, ReactElement } from 'react'
-import { TasksDay } from '../../pages/Tasks'
-import { AwardsDay } from '../../pages/Awards'
+import { lazy, Suspense, type JSX, type ReactElement } from 'react'
+import { BlockHeart } from '../Heart'
+
+const TasksDay = lazy(() =>
+  import('../../components/Tasks/Tasks').then(module => ({ default: module.TasksDay })),
+)
+const AwardsDay = lazy(() =>
+  import('../../components/Awards/Awards').then(module => ({ default: module.AwardsDay })),
+)
 
 type Variant = 'tasks' | 'awards'
 const iconClassName = 'stroke-rose-300 size-14 absolute'
@@ -17,7 +23,11 @@ const variantProps: {
 } = {
   tasks: {
     icon: <BicepsFlexed className={iconClassName} />,
-    arr: <TasksDay />,
+    arr: (
+      <Suspense fallback={<BlockHeart />}>
+        <TasksDay />
+      </Suspense>
+    ),
     title: 'Задания дня!',
     description: 'Успей выполнить пока награда так высока!',
     keyOfStorage: 'completedTasks',
@@ -25,7 +35,11 @@ const variantProps: {
   },
   awards: {
     icon: <Sparkles className={iconClassName} />,
-    arr: <AwardsDay />,
+    arr: (
+      <Suspense fallback={<BlockHeart />}>
+        <AwardsDay />
+      </Suspense>
+    ),
     title: 'Скидки дня!',
     description: 'Лишь бы звёздочек хватило(',
     keyOfStorage: 'completedAwards',

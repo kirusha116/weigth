@@ -1,4 +1,3 @@
-import { Button } from './ui/button'
 import {
   Dialog,
   DialogClose,
@@ -6,17 +5,18 @@ import {
   DialogFooter,
   DialogHeader,
   DialogTitle,
-} from './ui/dialog'
-import { Input } from './ui/input'
+} from '../ui/dialog'
+import { Input } from '../ui/input'
 import { useForm, type SubmitHandler } from 'react-hook-form'
-import '../firebase.js'
+import '@/firebase.js'
 import {
   getAuth,
   signInWithEmailAndPassword,
   createUserWithEmailAndPassword,
 } from 'firebase/auth'
 import { toast } from 'sonner'
-import { Label } from './ui/label.js'
+import { Label } from '../ui/label.js'
+import { Button } from '../ui/button.js'
 
 type Data = {
   email: string

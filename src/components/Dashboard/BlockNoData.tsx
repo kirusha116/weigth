@@ -6,7 +6,7 @@ type VariantProps = {
   callories: string
 }
 
-export function BlockNoData({
+export default function BlockNoData({
   variant,
   startWeigth,
   targetWeigth,

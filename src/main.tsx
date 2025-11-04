@@ -1,7 +1,7 @@
 import { lazy, StrictMode, Suspense } from 'react'
 import { createRoot } from 'react-dom/client'
 import './index.css'
-import {Heart} from './components/Heart'
+import { Heart } from './components/Heart'
 
 const App = lazy(() => import('./App'))
 

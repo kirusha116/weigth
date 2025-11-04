@@ -3,7 +3,7 @@ import { Progress } from '../ui/progress'
 import { useMediaQuery } from 'usehooks-ts'
 import type { BlockMainContentProps } from '@/types/BlockMainContentProps'
 
-export function BlockMainContent({
+export default function BlockMainContent({
   variant,
   icon,
   title1,

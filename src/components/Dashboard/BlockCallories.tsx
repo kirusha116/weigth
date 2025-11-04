@@ -1,11 +1,15 @@
 import { useAppDispatch, useGetStorage } from '@/hooks/storageHooks'
-import { Block } from './Block'
-import { BlockMainContent } from './BlockMainContent'
 import type { StorageSettedCallories } from '@/types/Storage'
-import { BlockNoData } from './BlockNoData'
 import { handleSave } from '@/store/store'
 import { createCalloriesProps } from '@/utils/createCalloriesProps'
 import { useMediaQuery } from 'usehooks-ts'
+import { lazy } from 'react'
+
+const Block = lazy(() =>
+  import('./Block').then(module => ({ default: module.Block })),
+)
+const BlockMainContent = lazy(() => import('./BlockMainContent'))
+const BlockNoData = lazy(() => import('./BlockNoData'))
 
 export default function BlockCallories() {
   const storage = useGetStorage()

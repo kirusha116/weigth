@@ -1,8 +1,11 @@
-import BlockWeigth from './BlockWeigth'
-import BlockCallories from './BlockCallories'
-import BlockTasks from './BlockTasks'
-import BlockAwards from './BlockAwards'
+import { lazy, Suspense } from 'react'
 import { useMediaQuery } from 'usehooks-ts'
+import { BlockHeart } from '../Heart'
+
+const BlockWeigth = lazy(() => import('./BlockWeigth'))
+const BlockCallories = lazy(() => import('./BlockCallories'))
+const BlockTasks = lazy(() => import('./BlockTasks'))
+const BlockAwards = lazy(() => import('./BlockAwards'))
 
 export default function Grid() {
   const isMobile = !useMediaQuery('(min-width: 768px)')
@@ -10,21 +13,37 @@ export default function Grid() {
     <>
       {isMobile && (
         <div>
-          <BlockWeigth />
-          <BlockCallories />
-          <BlockTasks />
-          <BlockAwards />
+          <Suspense fallback={<BlockHeart />}>
+            <BlockWeigth />
+          </Suspense>
+          <Suspense fallback={<BlockHeart />}>
+            <BlockCallories />
+          </Suspense>
+          <Suspense fallback={<BlockHeart />}>
+            <BlockTasks />
+          </Suspense>
+          <Suspense fallback={<BlockHeart />}>
+            <BlockAwards />
+          </Suspense>
         </div>
       )}
       {!isMobile && (
         <div className="flex">
           <div className="w-1/2">
-            <BlockWeigth />
-            <BlockTasks />
+            <Suspense fallback={<BlockHeart />}>
+              <BlockWeigth />
+            </Suspense>
+            <Suspense fallback={<BlockHeart />}>
+              <BlockTasks />
+            </Suspense>
           </div>
           <div className="w-1/2">
-            <BlockCallories />
-            <BlockAwards />
+            <Suspense fallback={<BlockHeart />}>
+              <BlockCallories />
+            </Suspense>
+            <Suspense fallback={<BlockHeart />}>
+              <BlockAwards />
+            </Suspense>
           </div>
         </div>
       )}

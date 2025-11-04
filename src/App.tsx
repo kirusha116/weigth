@@ -3,8 +3,7 @@ import { BrowserRouter, Route, Routes } from 'react-router-dom'
 import { Provider } from 'react-redux'
 import { Toaster } from './components/ui/sonner'
 import { store } from './store/store'
-import { lazy, Suspense } from 'react'
-import { Heart } from './components/Heart.js'
+import { lazy } from 'react'
 import './firebase.js'
 
 const Layout = lazy(() => import('./pages/Layout'))
@@ -26,17 +25,15 @@ function App() {
           position="top-center"
         />
         <BrowserRouter basename="/weigth">
-          <Suspense fallback={<Heart />}>
-            <Routes>
-              <Route path="" element={<Layout />}>
-                <Route index element={<Dashboard />}></Route>
-                <Route path="tasks" element={<Tasks />}></Route>
-                <Route path="awards" element={<Awards />}></Route>
-                <Route path="statistics" element={<Statistics />}></Route>
-                <Route path="settings" element={<Settings />}></Route>
-              </Route>
-            </Routes>
-          </Suspense>
+          <Routes>
+            <Route path="" element={<Layout />}>
+              <Route index element={<Dashboard />}></Route>
+              <Route path="tasks" element={<Tasks />}></Route>
+              <Route path="awards" element={<Awards />}></Route>
+              <Route path="statistics" element={<Statistics />}></Route>
+              <Route path="settings" element={<Settings />}></Route>
+            </Route>
+          </Routes>
         </BrowserRouter>
       </Provider>
     </>
