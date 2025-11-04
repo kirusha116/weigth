@@ -77,3 +77,4 @@ export const tasks: taskOrAward[] = [
     discount: 1.2,
   },
 ]
+

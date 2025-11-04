@@ -1,7 +1,7 @@
 import { BicepsFlexed, Sparkles } from 'lucide-react'
 import type { JSX, ReactElement } from 'react'
-import { TasksDay } from '../Tasks'
-import { AwardsDay } from '../Awards'
+import { TasksDay } from '../../pages/Tasks'
+import { AwardsDay } from '../../pages/Awards'
 
 type Variant = 'tasks' | 'awards'
 const iconClassName = 'stroke-rose-300 size-14 absolute'

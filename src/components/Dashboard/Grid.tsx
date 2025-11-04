@@ -4,8 +4,8 @@ import BlockTasks from './BlockTasks'
 import BlockAwards from './BlockAwards'
 import { useMediaQuery } from 'usehooks-ts'
 
-export function Grid() {
-  const isMobile = !useMediaQuery('(min-width: 640px)')
+export default function Grid() {
+  const isMobile = !useMediaQuery('(min-width: 768px)')
   return (
     <>
       {isMobile && (
@@ -18,11 +18,11 @@ export function Grid() {
       )}
       {!isMobile && (
         <div className="flex">
-          <div>
+          <div className="w-1/2">
             <BlockWeigth />
             <BlockTasks />
           </div>
-          <div>
+          <div className="w-1/2">
             <BlockCallories />
             <BlockAwards />
           </div>

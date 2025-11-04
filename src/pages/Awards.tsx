@@ -1,5 +1,5 @@
 import { awards } from '@/constants/awards'
-import { Item } from './Item'
+import { Item } from '../components/Item'
 import { toast } from 'sonner'
 import { useAppDispatch, useGetStorage } from '@/hooks/storageHooks'
 import { handleSave } from '@/store/store'
@@ -41,7 +41,7 @@ export function AwardsDay({ styled }: { styled?: boolean }) {
                     }),
                   )
                 } else {
-                  toast.warning(`Упс! Не хватает звёздочек!`, {
+                  toast.warning('Упс! Не хватает звёздочек!', {
                     classNames: {
                       toast:
                         'flex justify-center !w-fit relative left-[50%] translate-x-[-50%] ',

@@ -3,12 +3,12 @@ import { getRandomsId } from './getRandomId'
 import { getDate } from './getDate'
 import { tasks } from '@/constants/tasks'
 import { awards } from '@/constants/awards'
-
 const localKey = 'weigth'
 
 function hasStorage(): boolean {
   return Boolean(localStorage.getItem(localKey as string))
 }
+
 
 export function saveStorage(storage: Storage) {
   localStorage.setItem(localKey, JSON.stringify(storage))
@@ -26,6 +26,7 @@ export function getStorage(): Storage {
       tasksDay: getRandomsId(tasks, 2),
       awardsDay: getRandomsId(awards, 1),
       lastDateOfLoad: getDate(),
+      timestamp: Date.now(),
     }
   } else {
     storage = JSON.parse(localStorage.getItem(localKey) as string)
@@ -38,6 +39,7 @@ export function getStorage(): Storage {
         tasksDay: getRandomsId(tasks, 2),
         awardsDay: getRandomsId(awards, 1),
         lastDateOfLoad: getDate(),
+        timestamp: Date.now(),
       }
     }
   }

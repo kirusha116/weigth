@@ -1,9 +1,8 @@
+import { Button } from '@/components/ui/button'
 import { useNavigate } from 'react-router-dom'
-import { Button } from '../ui/button'
 import { useGetStorage } from '@/hooks/storageHooks'
-import { Grid } from './Grid'
 
-export default function Dashboard() {
+export default function DashboardName() {
   const navigate = useNavigate()
   const name = useGetStorage().name
   return (
@@ -27,7 +26,6 @@ export default function Dashboard() {
       <h2 className="text-md text-gray-700 mb-6">
         Держись! Каждый маленький шаг - это прогресс!
       </h2>
-      <Grid />
     </>
   )
 }

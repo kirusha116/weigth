@@ -2,13 +2,14 @@ import { settings, settingsLabels } from '@/constants/settings'
 import { useAppDispatch, useGetStorage } from '@/hooks/storageHooks'
 import { getDate } from '@/utils/getDate'
 import { useForm, type SubmitHandler } from 'react-hook-form'
-import { useNavigate } from 'react-router-dom'
-import { Input } from './ui/input'
-import { Button } from './ui/button'
+import { Input } from '../components/ui/input'
+import { Button } from '../components/ui/button'
 import { toast } from 'sonner'
 import { removeStorage } from '@/utils/workWithStorage'
 import { handleSave } from '@/store/store'
 import type { Storage } from '@/types/Storage'
+import { getAuth, signOut } from 'firebase/auth'
+import { useNavigate } from 'react-router-dom'
 
 export default function Settings() {
   const { name, startWeigth, targetWeigth, maxCallories, startWeigthDate } =
@@ -37,7 +38,6 @@ export default function Settings() {
       storage.currentWeigthDate = storage.startWeigthDate
       storage.currentWeigth = storage.startWeigth
     }
-    console.log(storage)
     dispatch(handleSave(storage))
   }
 
@@ -125,6 +125,23 @@ export default function Settings() {
           </Button>
         </div>
       </form>
+      <Button
+        className="block mt-4 ml-auto mr-0 bg-black text-white"
+        onClick={() => {
+          const auth = getAuth()
+          signOut(auth)
+            .then(() => {
+              removeStorage()
+              navigate('/')
+              location.reload()
+            })
+            .catch(error => {
+              console.log(error.code)
+            })
+        }}
+      >
+        Выйти из профиля
+      </Button>
       <Button
         className="block mt-4 ml-auto mr-0 bg-black text-white"
         onClick={() => {

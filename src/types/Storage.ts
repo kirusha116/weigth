@@ -14,6 +14,7 @@ export type PartialStorage = {
   completedTasks: number[]
   completedAwards: number[]
   lastDateOfLoad: string
+  timestamp: number
 }
 
 type WeigthKeys =
