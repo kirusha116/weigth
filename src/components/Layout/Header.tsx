@@ -4,26 +4,18 @@ import { Star } from 'lucide-react'
 import { Button } from '@/components/ui/button'
 import { useGetStorage } from '@/hooks/storageHooks'
 import { getAuth, onAuthStateChanged } from 'firebase/auth'
-import { useState, type JSX } from 'react'
+import { useState } from 'react'
 import { Heart } from '@/components/Heart'
+import type { AsyncStateOfComp } from '@/types/AsyncStateOfComp'
 
 export default function Header() {
   const balance = useGetStorage().balance
   const isSmall = !useMediaQuery('(min-width: 480px)')
 
   const [isAuth, setIsAuth] = useState<boolean>(true)
-  const [isOpen, setIsOpen] = useState<boolean>(true)
+  const [isLoginOpen, setIsLoginOpen] = useState<boolean>(false)
   const [isHeartVisible, setIsHeartVisible] = useState<boolean>(false)
-  const [Login, setLogin] =
-    useState<
-      ({
-        isOpen,
-        onOpenChange,
-      }: {
-        isOpen: boolean
-        onOpenChange: React.Dispatch<React.SetStateAction<boolean>>
-      }) => JSX.Element
-    >()
+  const [Login, setLogin] = useState<AsyncStateOfComp>(null)
 
   const loadLogin = async () => {
     setIsHeartVisible(true)
@@ -59,14 +51,15 @@ export default function Header() {
           className="text-base ml-4"
           onClick={() => {
             if (!Login) loadLogin()
-            setIsOpen(true)
+            setIsLoginOpen(true)
           }}
         >
           Войти
         </Button>
       )}
+
       {isHeartVisible && <Heart />}
-      {Login && <Login isOpen={isOpen} onOpenChange={setIsOpen} />}
+      {Login && <Login isOpen={isLoginOpen} onOpenChange={setIsLoginOpen} />}
     </header>
   )
 }

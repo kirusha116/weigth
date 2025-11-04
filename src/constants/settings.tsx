@@ -2,6 +2,7 @@ export type Settings = {
   name: string
   startWeigth: string
   targetWeigth: string
+  maxCallories: string
 }
 
 export const settings = {

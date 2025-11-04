@@ -1,4 +1,4 @@
-import { getStorage, saveStorage } from '@/utils/workWithStorage'
+import { getStorage, saveStorage } from '@/store/workWithStorage'
 import {
   configureStore,
   createSlice,

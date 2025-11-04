@@ -1,40 +1,65 @@
-import { removeStorage } from '@/utils/workWithStorage'
-import { getAuth, signOut } from 'firebase/auth'
 import { Button } from '@/components/ui/button'
-import { useNavigate } from 'react-router-dom'
-
+import { useState } from 'react'
+import { Heart } from '../Heart'
+import type { WarningStateOfComp } from '@/types/AsyncStateOfComp'
+import { getAuth, onAuthStateChanged } from 'firebase/auth'
 
 export default function Bottom() {
-  const navigate = useNavigate()
+  const [isHeartOpen, setIsHeartOpen] = useState<boolean>(false)
+  const [isExitOpen, setIsExitOpen] = useState<boolean>(false)
+  const [isResetOpen, setIsResetOpen] = useState<boolean>(false)
+  const [WarningDialog, setWarningDialog] = useState<WarningStateOfComp>(null)
+  const [isAuth, setIsAuth] = useState<boolean | null>(null)
+
+  const loadWarningDialog = async () => {
+    setIsHeartOpen(true)
+    const loadedWarningDialog = await import('./WarningDialog')
+    setWarningDialog(() => loadedWarningDialog.default)
+    setIsHeartOpen(false)
+  }
+
+  onAuthStateChanged(getAuth(), () => {
+    setIsAuth(!!getAuth().currentUser)
+  })
+
   return (
     <>
+      {isAuth && (
+        <Button
+          className="block mt-4 ml-auto mr-0 bg-black text-white"
+          onClick={() => {
+            if (!WarningDialog) loadWarningDialog()
+            setIsExitOpen(true)
+          }}
+        >
+          Выйти из профиля
+        </Button>
+      )}
       <Button
         className="block mt-4 ml-auto mr-0 bg-black text-white"
         onClick={() => {
-          const auth = getAuth()
-          signOut(auth)
-            .then(() => {
-              removeStorage()
-              navigate('/')
-              location.reload()
-            })
-            .catch(error => {
-              console.log(error.code)
-            })
-        }}
-      >
-        Выйти из профиля
-      </Button>
-      <Button
-        className="block mt-4 ml-auto mr-0 bg-black text-white"
-        onClick={() => {
-          removeStorage()
-          navigate('/')
-          location.reload()
+          if (!WarningDialog) loadWarningDialog()
+          setIsResetOpen(true)
         }}
       >
         Очистить память
       </Button>
+
+      {isHeartOpen && <Heart />}
+      {WarningDialog && (
+        <WarningDialog
+          variant="exit"
+          isOpen={isExitOpen}
+          onOpenChange={setIsExitOpen}
+        />
+      )}
+      {WarningDialog && (
+        <WarningDialog
+          variant="reset"
+          isOpen={isResetOpen}
+          onOpenChange={setIsResetOpen}
+        />
+      )}
     </>
   )
 }

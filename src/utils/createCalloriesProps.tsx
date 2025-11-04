@@ -1,8 +1,9 @@
 import type { Storage, StorageSettedCallories } from '@/types/Storage'
 import { getDate } from './getDate'
-import { toast } from 'sonner'
 import { Carrot } from 'lucide-react'
 import type { BlockMainContentProps } from '@/types/BlockMainContentProps'
+import successToast from './successToast'
+import warningToast from './warningToast'
 
 type Result = Pick<
   Storage,
@@ -63,26 +64,14 @@ export function createCalloriesProps(
       }
       if (currentCalloriesDate !== getDate()) {
         result.currentCalloriesDate = getDate()
-        toast.success('Молодец! +100', {
-          classNames: {
-            toast:
-              'flex justify-center !w-fit relative left-[50%] translate-x-[-50%] ',
-            title: 'text-base ml-2 text-nowrap',
-          },
-        })
+        successToast('Молодец! +100')
         result.balance = balance + 100
       }
       if (
         currentCallories <= maxCallories &&
         currentCallories + newValue > maxCallories
       ) {
-        toast.warning('Переела! -200', {
-          classNames: {
-            toast:
-              'flex justify-center !w-fit relative left-[50%] translate-x-[-50%] ',
-            title: 'text-base ml-2 text-nowrap',
-          },
-        })
+        warningToast('Переела! -200')
         result.balance = result.balance - 200
       }
       onSave(result)

@@ -43,7 +43,7 @@ function InnerHeart({ className }: { className: string }) {
 }
 export function Heart() {
   return (
-    <div className="absolute inset-0 size-full bg-black/10 z-100">
+    <div className="absolute inset-0 w-[100vw] h-[100vh] bg-black/10 z-100">
       <InnerHeart className="relative left-1/2 top-1/2 -translate-1/2 size-30" />
     </div>
   )
@@ -52,7 +52,7 @@ export function Heart() {
 export function BlockHeart() {
   return (
     <Block>
-      <div className="relative py-5">
+      <div className="relative py-5 z-100">
         <InnerHeart className="mx-auto size-25" />
       </div>
     </Block>

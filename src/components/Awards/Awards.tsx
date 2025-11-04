@@ -1,9 +1,10 @@
 import { awards } from '@/constants/awards'
-import { toast } from 'sonner'
 import { useAppDispatch, useGetStorage } from '@/hooks/storageHooks'
 import { handleSave } from '@/store/store'
 import { useMediaQuery } from 'usehooks-ts'
 import { lazy } from 'react'
+import successToast from '@/utils/successToast'
+import warningToast from '@/utils/warningToast'
 
 const Item = lazy(() => import('../Item'))
 
@@ -26,15 +27,8 @@ export function AwardsDay({ styled }: { styled?: boolean }) {
               price={'-' + Math.abs(discount * price).toString()}
               onButtonClick={() => {
                 if (balance >= discount * Math.abs(price)) {
-                  toast.success(
+                  successToast(
                     `Покупочка оформлена! -${discount * Math.abs(price)}`,
-                    {
-                      classNames: {
-                        toast:
-                          'flex justify-center !w-fit relative left-[50%] translate-x-[-50%] ',
-                        title: 'text-base ml-2 text-nowrap',
-                      },
-                    },
                   )
                   dispatch(
                     handleSave({
@@ -43,13 +37,7 @@ export function AwardsDay({ styled }: { styled?: boolean }) {
                     }),
                   )
                 } else {
-                  toast.warning('Упс! Не хватает звёздочек!', {
-                    classNames: {
-                      toast:
-                        'flex justify-center !w-fit relative left-[50%] translate-x-[-50%] ',
-                      title: 'text-base ml-2 text-nowrap',
-                    },
-                  })
+                  warningToast('Упс! Не хватает звёздочек!')
                 }
               }}
             />
@@ -79,13 +67,7 @@ export default function Awards() {
                 price={'-' + Math.abs(price).toString()}
                 onButtonClick={() => {
                   if (balance >= Math.abs(price)) {
-                    toast.success(`Покупочка оформлена! -${Math.abs(price)}`, {
-                      classNames: {
-                        toast:
-                          'flex justify-center !w-fit relative left-[50%] translate-x-[-50%] ',
-                        title: 'text-base ml-2 text-nowrap',
-                      },
-                    })
+                    successToast(`Покупочка оформлена! -${Math.abs(price)}`)
                     dispatch(
                       handleSave({
                         balance: balance - Math.abs(price),
@@ -93,13 +75,7 @@ export default function Awards() {
                       }),
                     )
                   } else {
-                    toast.warning(`Упс! Не хватает звёздочек!`, {
-                      classNames: {
-                        toast:
-                          'flex justify-center !w-fit relative left-[50%] translate-x-[-50%] ',
-                        title: 'text-base ml-2 text-nowrap',
-                      },
-                    })
+                    warningToast('Упс! Не хватает звёздочек!')
                   }
                 }}
               />

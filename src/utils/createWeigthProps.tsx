@@ -1,8 +1,8 @@
 import type { Storage, StorageSettedWeigth } from '@/types/Storage'
 import { getDate } from './getDate'
-import { toast } from 'sonner'
 import { Gauge } from 'lucide-react'
 import type { BlockMainContentProps } from '@/types/BlockMainContentProps'
+import successToast from './successToast'
 
 type Result = Pick<Storage, 'currentWeigth' | 'balance' | 'currentWeigthDate'>
 
@@ -66,13 +66,7 @@ export function createWeigthProps(
       }
       if (currentWeigthDate !== getDate()) {
         result.currentWeigthDate = getDate()
-        toast.success('Молодец! +100', {
-          classNames: {
-            toast:
-              'flex justify-center !w-fit relative left-[50%] translate-x-[-50%] ',
-            title: 'text-base ml-2 text-nowrap',
-          },
-        })
+        successToast('Молодец! +100')
         result.balance += 100
       }
       onSave(result)
