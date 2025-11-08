@@ -10,7 +10,7 @@ import {
   DialogTitle,
 } from '../ui/dialog'
 import warningToast from '@/utils/warningToast'
-import { removeStorage } from '@/store/workWithStorage'
+import { removeStorage } from '@/store/removeStorage'
 
 type Variant = 'exit' | 'reset'
 

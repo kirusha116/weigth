@@ -1,9 +1,11 @@
-import { getStorage, saveStorage } from '@/store/workWithStorage'
+import { getStorage } from './getStorage'
 import {
   configureStore,
   createSlice,
   type PayloadAction,
 } from '@reduxjs/toolkit'
+import { saveStorage } from './saveStorage'
+import type { Storage } from '@/types/Storage'
 
 const storageSlice = createSlice({
   name: 'storage',
