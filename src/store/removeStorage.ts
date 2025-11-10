@@ -1,5 +1,6 @@
-import { localKey } from './localKeys'
+import { currentStorage, temporarilyStorage } from './localKeys'
 
 export function removeStorage(): void {
-  localStorage.removeItem(localKey)
+  localStorage.removeItem(currentStorage)
+  localStorage.removeItem(temporarilyStorage)
 }

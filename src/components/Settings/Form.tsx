@@ -1,10 +1,10 @@
-import FormDefaultValues from '@/hooks/FormDefaultValues'
 import { settings } from '@/constants/settings'
 import { useForm, type SubmitHandler } from 'react-hook-form'
-import type { InForm } from '@/types/InForm'
 import { useAppDispatch, useGetStorage } from '@/hooks/storageHooks'
 import { handleSave } from '@/store/store'
-import { lazy } from 'react'
+import { lazy, useEffect } from 'react'
+import { onFormSubmit } from '@/utils/onFormSubmit'
+import type { InForm } from '@/types/Storage'
 
 const InputString = lazy(() => import('./InputString'))
 const InputWeigth = lazy(() => import('./InputWeigth'))
@@ -13,15 +13,26 @@ const FormButtons = lazy(() => import('./FormButtons'))
 
 export default function Form() {
   const dispatch = useAppDispatch()
-  const { startWeigthDate } = useGetStorage()
+  const { name, startWeigth, targetWeigth, maxCallories, startWeigthDate } =
+    useGetStorage() ?? {}
 
-  const { register, handleSubmit, reset, setValue } = useForm<InForm>(
-    FormDefaultValues(),
-  )
+  const { register, handleSubmit, reset, setValue } = useForm<InForm>({
+    defaultValues: {
+      name,
+      startWeigth: startWeigth?.toString(),
+      targetWeigth: targetWeigth?.toString(),
+      maxCallories: maxCallories?.toString(),
+    },
+  })
+  useEffect(() => {
+    setValue('name', name as string)
+    setValue('startWeigth', startWeigth?.toString() as string)
+    setValue('targetWeigth', targetWeigth?.toString() as string)
+    setValue('maxCallories', maxCallories?.toString() as string)
+  })
 
   const onSubmit: SubmitHandler<InForm> = async data => {
-    const { onFormSubmit } = await import('@/utils/onFormSubmit')
-    dispatch(handleSave(onFormSubmit(data, startWeigthDate)))
+    dispatch(handleSave(onFormSubmit(data, startWeigthDate as string)))
   }
 
   return (

@@ -9,7 +9,6 @@ import { Input } from '../ui/input'
 import { useForm, type SubmitHandler } from 'react-hook-form'
 import '@/firebase.js'
 import {
-  getAuth,
   signInWithEmailAndPassword,
   createUserWithEmailAndPassword,
 } from 'firebase/auth'
@@ -19,6 +18,9 @@ import { useState } from 'react'
 import { Heart } from '../Heart.js'
 import warningToast from '@/utils/warningToast.js'
 import successToast from '@/utils/successToast.js'
+import { currentStorage } from '@/store/localKeys.js'
+import type { WarningDialog } from '@/types/WarningComp.js'
+import { auth } from '@/firebase.js'
 
 type Data = {
   email: string
@@ -32,14 +34,7 @@ export default function Login({
   isOpen: boolean
   onOpenChange: React.Dispatch<React.SetStateAction<boolean>>
 }) {
-  const auth = getAuth()
   const [isHeartOpen, setIsHeartOpen] = useState<boolean>(false)
-
-  const onFulfilled = () => {
-    onOpenChange(false)
-    setIsHeartOpen(false)
-    successToast('Успешно!')
-  }
 
   const onSubmit: SubmitHandler<Data> = ({ email, password }: Data) => {
     setIsHeartOpen(true)
@@ -73,6 +68,27 @@ export default function Login({
 
   const { register, handleSubmit } = useForm<Data>()
 
+  const [WarningDialog, setWarningDialog] = useState<WarningDialog>(null)
+
+  const getWarning = async () => {
+    setIsHeartOpen(true)
+    const WarningDialog = (await import('../WarningDialog')).default
+    setWarningDialog(() => WarningDialog)
+    setIsHeartOpen(false)
+  }
+
+  const [isWarningOpen, setIsWarningOpen] = useState<boolean>(false)
+
+  const onFulfilled = async () => {
+    onOpenChange(false)
+    setIsHeartOpen(false)
+    if (localStorage.getItem(currentStorage)) {
+      await getWarning().then(() => setIsWarningOpen(true))
+    } else {
+      successToast('Успешно!')
+    }
+  }
+
   return (
     <>
       <Dialog open={isOpen} onOpenChange={onOpenChange}>
@@ -103,6 +119,13 @@ export default function Login({
         </DialogContent>
       </Dialog>
       {isHeartOpen && <Heart />}
+      {WarningDialog && (
+        <WarningDialog
+          isOpen={isWarningOpen}
+          onOpenChange={setIsWarningOpen}
+          variant="delete"
+        />
+      )}
     </>
   )
 }

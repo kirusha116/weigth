@@ -1,10 +1,12 @@
-import type { Storage, StorageSettedWeigth } from '@/types/Storage'
+import type { Storage } from '@/types/Storage'
 import { getDate } from './getDate'
 import { Gauge } from 'lucide-react'
 import type { BlockMainContentProps } from '@/types/BlockMainContentProps'
 import successToast from './successToast'
 
-type Result = Pick<Storage, 'currentWeigth' | 'balance' | 'currentWeigthDate'>
+type Result = Pick<Storage, 'currentWeigth' | 'balance'> & {
+  ['currentWeigthDate']?: Storage['currentWeigthDate']
+}
 
 export function createWeigthProps(
   isMobile: boolean,
@@ -14,7 +16,15 @@ export function createWeigthProps(
     currentWeigth,
     currentWeigthDate,
     balance,
-  }: StorageSettedWeigth,
+  }: Pick<
+    { [K in keyof Storage]: NonNullable<Storage[K]> },
+    | 'startWeigth'
+    | 'targetWeigth'
+    | 'currentWeigth'
+    | 'currentWeigthDate'
+    | 'balance'
+  >,
+
   onSave: (newObj: Pick<Storage, 'currentWeigth' | 'balance'>) => void,
 ): BlockMainContentProps {
   const weigth: BlockMainContentProps = {

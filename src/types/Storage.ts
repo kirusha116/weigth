@@ -1,13 +1,13 @@
-export type PartialStorage = {
-  name?: string
-  startWeigth?: number
-  startWeigthDate?: string
-  targetWeigth?: number
-  maxCallories?: number
-  currentWeigth?: number
-  currentWeigthDate?: string
+export type Storage = {
+  name: string | null
+  startWeigth: number | null
+  startWeigthDate: string | null
+  targetWeigth: number | null
+  maxCallories: number | null
+  currentWeigth: number | null
+  currentWeigthDate: string | null
+  currentCalloriesDate: string | null
   currentCallories: number
-  currentCalloriesDate: string
   balance: number
   tasksDay: number[]
   awardsDay: number[]
@@ -17,24 +17,9 @@ export type PartialStorage = {
   timestamp: number
 }
 
-type WeigthKeys =
-  | 'startWeigth'
-  | 'targetWeigth'
-  | 'startWeigthDate'
-  | 'currentWeigth'
-  | 'currentWeigthDate'
-
-export type StorageSettedWeigth = Omit<PartialStorage, WeigthKeys> &
-  Required<Pick<PartialStorage, WeigthKeys>>
-
-export type StorageSettedCallories = Omit<PartialStorage, 'maxCallories'> &
-  Required<Pick<PartialStorage, 'maxCallories'>>
-
-export type StorageFullSetted = Required<Omit<PartialStorage, 'name'>> &
-  Partial<Pick<PartialStorage, 'name'>>
-
-export type Storage =
-  | PartialStorage
-  | StorageSettedWeigth
-  | StorageSettedCallories
-  | StorageFullSetted
+export type InForm = {
+  name: string | null | undefined
+  startWeigth: string | null | undefined
+  targetWeigth: string | null | undefined
+  maxCallories: string | null | undefined
+}

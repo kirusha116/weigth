@@ -1,9 +1,9 @@
 import { useAppDispatch, useGetStorage } from '@/hooks/storageHooks'
 import { createWeigthProps } from '@/utils/createWeigthProps'
-import type { StorageSettedWeigth } from '@/types/Storage'
 import { handleSave } from '@/store/store'
 import { useMediaQuery } from 'usehooks-ts'
 import { lazy } from 'react'
+import type { Storage } from '@/types/Storage'
 
 const Block = lazy(() =>
   import('./Block').then(module => ({ default: module.Block })),
@@ -33,7 +33,7 @@ export default function BlockWeigth() {
         <BlockMainContent
           {...createWeigthProps(
             isMobile || isSmallMobile,
-            storage as StorageSettedWeigth,
+            storage as { [K in keyof Storage]: NonNullable<Storage[K]> },
             (newObj: Partial<Storage>) => dispatch(handleSave(newObj)),
           )}
         />

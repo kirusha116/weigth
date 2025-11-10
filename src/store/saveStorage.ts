@@ -1,58 +1,30 @@
-import { localKey, temporarilyStorage } from './localKeys'
-
 import '@/firebase'
-import { db } from '@/firebase'
-import type { Storage } from '@/types/Storage'
+import { auth, db } from '@/firebase'
 import { getDate } from '@/utils/getDate'
-import successToast from '@/utils/successToast'
-import warningToast from '@/utils/warningToast'
-import { getAuth } from 'firebase/auth'
 import { doc, setDoc } from 'firebase/firestore'
-import { hasTemporarilyStorage } from './hasTemporarilyStorage'
+import { currentStorage, temporarilyStorage } from './localKeys'
+import type { Storage } from '@/types/Storage'
+import successToast from '@/utils/successToast'
 
-const auth = getAuth()
-
-export function saveStorage(storage: Storage) {
-  localStorage.setItem(localKey, JSON.stringify(storage))
+export const saveStorage = async (storage: Storage) => {
   if (auth.currentUser) {
-    dispatch(storage)
+    await setDoc(doc(db, auth.currentUser.uid, getDate()), storage)
   } else {
-    takeTemporarily(storage)
-  }
-}
+    localStorage.setItem(currentStorage, JSON.stringify(storage))
+    const hasStorage = localStorage.getItem(temporarilyStorage)
 
-const dispatch = async (storage: Storage) => {
-  pushTemporarily()
-  await setDoc(doc(db, auth.currentUser?.uid as string, getDate()), storage)
-    .then(() => successToast('Сохранено'))
-    .catch(() => {
-      warningToast('Ошибка синхронизации')
-    })
-}
-
-const getTemporarily = () => {
-  if (hasTemporarilyStorage()) {
-    return JSON.parse(localStorage.getItem(temporarilyStorage) as string)
-  }
-  return {}
-}
-
-const takeTemporarily = (storage: Storage) => {
-  localStorage.setItem(
-    temporarilyStorage,
-    JSON.stringify({ ...getTemporarily(), [getDate()]: storage }),
-  )
-}
-
-export const pushTemporarily = async () => {
-  if (!hasTemporarilyStorage()) return
-  const temporarily = Object.entries(getTemporarily())
-  for (const [key, value] of temporarily) {
-    try {
-      await setDoc(doc(db, auth.currentUser?.uid as string, key), value)
-    } catch (error) {
-      warningToast('Ошибка синхронизации')
-      throw error
+    if (hasStorage) {
+      const localTemporarilyStorage = JSON.parse(hasStorage)
+      localStorage.setItem(
+        temporarilyStorage,
+        JSON.stringify({ ...localTemporarilyStorage, [getDate()]: storage }),
+      )
+    } else {
+      localStorage.setItem(
+        temporarilyStorage,
+        JSON.stringify({ [getDate()]: storage }),
+      )
     }
   }
+  successToast('Сохранено')
 }

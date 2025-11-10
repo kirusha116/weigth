@@ -1,9 +1,9 @@
 import { useAppDispatch, useGetStorage } from '@/hooks/storageHooks'
-import type { StorageSettedCallories } from '@/types/Storage'
 import { handleSave } from '@/store/store'
 import { createCalloriesProps } from '@/utils/createCalloriesProps'
 import { useMediaQuery } from 'usehooks-ts'
 import { lazy } from 'react'
+import type { Storage } from '@/types/Storage'
 
 const Block = lazy(() =>
   import('./Block').then(module => ({ default: module.Block })),
@@ -23,7 +23,7 @@ export default function BlockCallories() {
         <BlockMainContent
           {...createCalloriesProps(
             isMobile || isSmallMobile,
-            storage as StorageSettedCallories,
+            storage as { [K in keyof Storage]: NonNullable<Storage[K]> },
             (newObj: Partial<Storage>) => dispatch(handleSave(newObj)),
           )}
         />

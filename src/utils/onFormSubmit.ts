@@ -1,5 +1,5 @@
-import type { InForm } from '@/types/InForm'
 import { getDate } from './getDate'
+import type { InForm, Storage } from '@/types/Storage'
 
 export function onFormSubmit(
   data: InForm,

@@ -1,11 +1,10 @@
 import { CheckCheck, Frown } from 'lucide-react'
 import { BrowserRouter, Route, Routes } from 'react-router-dom'
-import { Provider } from 'react-redux'
 import { Toaster } from './components/ui/sonner'
-import { store } from './store/store'
-import { lazy } from 'react'
+import { lazy, useEffect, useState } from 'react'
+import { useAppDispatch } from './hooks/storageHooks.js'
+import { initialState } from './store/store.js'
 import './firebase.js'
-
 const Layout = lazy(() => import('./pages/Layout'))
 const Dashboard = lazy(() => import('./pages/Dashboard'))
 const Tasks = lazy(() => import('./pages/Tasks'))
@@ -14,16 +13,24 @@ const Statistics = lazy(() => import('./pages/Statistics'))
 const Settings = lazy(() => import('./pages/Settings'))
 
 function App() {
+  const dispatch = useAppDispatch()
+  const [isDownloaded, setIsDownloaded] = useState(false)
+
+  useEffect(() => {
+    dispatch(initialState())
+    setIsDownloaded(true)
+  }, [dispatch])
+
   return (
     <>
-      <Provider store={store}>
-        <Toaster
-          richColors
-          expand
-          icons={{ success: <CheckCheck />, warning: <Frown /> }}
-          theme="light"
-          position="top-center"
-        />
+      <Toaster
+        mobileOffset={{ left: '50%' }}
+        richColors
+        icons={{ success: <CheckCheck />, warning: <Frown /> }}
+        theme="light"
+        position="top-center"
+      />
+      {isDownloaded && (
         <BrowserRouter basename="/weigth">
           <Routes>
             <Route path="" element={<Layout />}>
@@ -35,7 +42,7 @@ function App() {
             </Route>
           </Routes>
         </BrowserRouter>
-      </Provider>
+      )}
     </>
   )
 }

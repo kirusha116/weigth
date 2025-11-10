@@ -1,18 +1,24 @@
 import { Button } from '@/components/ui/button'
+import type { InForm } from '@/types/Storage'
 import type { UseFormReset } from 'react-hook-form'
-import type { Settings } from '@/constants/settings'
 
 export default function FormButtons({
   reset,
 }: {
-  reset: UseFormReset<Settings>
+  reset: UseFormReset<InForm>
 }) {
   return (
     <div className="flex mt-4 justify-end">
       <Button variant={'outline'} className="ml-auto mr-4" type="submit">
         Сохранить
       </Button>
-      <Button variant="rose" onClick={() => reset()}>
+      <Button
+        variant="rose"
+        onClick={e => {
+          e.preventDefault()
+          reset()
+        }}
+      >
         Cбросить
       </Button>
     </div>

@@ -1,2 +1,2 @@
-export const localKey = 'weigth'
+export const currentStorage = 'currentStorage'
 export const temporarilyStorage = 'temporarilyStorage'

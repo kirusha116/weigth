@@ -19,12 +19,11 @@ export default function BlockMainContent({
   footerText,
   onSave,
 }: BlockMainContentProps) {
-  const isMobile = !useMediaQuery('(min-width: 768px), (max-width: 639.5px)')
-  const isSmallMobile = !useMediaQuery('(min-width: 400.5px)')
+  const isMobile = !useMediaQuery('(min-width: 400.5px)')
 
   return (
     <>
-      {!(isMobile || isSmallMobile) && (
+      {!isMobile && (
         <div className="flex flex-row justify-around items-center mb-3">
           {icon}
           <div className="grow flex flex-row justify-center items-end">
@@ -36,7 +35,7 @@ export default function BlockMainContent({
           </div>
         </div>
       )}
-      {(isMobile || isSmallMobile) && (
+      {isMobile && (
         <div className="flex flex-row justify-around items-center mb-3">
           {icon}
           <div className="grow">

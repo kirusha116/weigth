@@ -1,58 +1,55 @@
-import { hasStorage } from './hasStorage'
 import { getDate } from '@/utils/getDate'
-import { localKey } from './localKeys'
-import { pushTemporarily, saveStorage } from './saveStorage'
 import type { Storage } from '@/types/Storage'
-import { getEmptyStorage, getUpDateStorage } from './getTemplStorage'
-import { hasTemporarilyStorage } from './hasTemporarilyStorage'
+import { getUpDateStorage } from './getTemplStorage'
 import '@/firebase'
-import { db } from '@/firebase'
-import { collection, query, orderBy, limit, getDocs } from 'firebase/firestore'
-import { getAuth } from 'firebase/auth'
+import { auth, db } from '@/firebase'
+import {
+  collection,
+  query,
+  orderBy,
+  limit,
+  getDocs,
+  type DocumentData,
+} from 'firebase/firestore'
+import { currentStorage } from './localKeys'
 
-const auth = getAuth()
 
 export const getServerStorage = async () => {
   if (auth.currentUser) {
-    const result: Storage[] = []
-    const citiesRef = collection(db, auth.currentUser.uid)
-    const q = query(citiesRef, orderBy('timestamp', 'desc'), limit(1))
+    const result: DocumentData[] = []
+    const q = query(
+      collection(db, auth.currentUser.uid),
+      orderBy('timestamp', 'desc'),
+      limit(1),
+    )
     const querySnapshot = await getDocs(q)
     querySnapshot.forEach(doc => {
-      result.push(doc.data() as Storage)
+      result.push(doc.data())
     })
     return result[0] as Storage
   }
 }
 
-export function getStorage(): Storage {
-  if (hasTemporarilyStorage()) pushTemporarily()
-
+export const getStorage = async (): Promise<Storage> => {
   let storage: Storage | null = null
-  const serverStorage: Storage | undefined =
-    getServerStorage() as unknown as Storage
 
-  if (!hasStorage() && !serverStorage) {
-    storage = getEmptyStorage()
-  } else if (!serverStorage) {
-    storage = JSON.parse(localStorage.getItem(localKey) as string)
-  } else if (!hasStorage()) {
-    storage = serverStorage as unknown as Storage
-  } else if (
-    serverStorage.timestamp >
-    JSON.parse(localStorage.getItem(localKey) as string).timestamp
-  ) {
-    storage = serverStorage
-    saveStorage(storage)
+  if (auth.currentUser) {
+    storage = (await getServerStorage()) as unknown as Storage
   } else {
+    if (localStorage.getItem(currentStorage)) {
+      storage = JSON.parse(localStorage.getItem(currentStorage) as string)
+    } else {
+      const getEmptyStorage = (await import('./getTemplStorage'))
+        .getEmptyStorage
+      storage = getEmptyStorage()
+    }
   }
 
   if (storage?.lastDateOfLoad !== getDate()) {
     storage = {
-      ...storage,
+      ...(storage as Storage),
       ...getUpDateStorage(),
     }
-    saveStorage(storage)
   }
 
   return storage

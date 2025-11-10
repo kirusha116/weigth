@@ -6,16 +6,17 @@ import { useGetStorage } from '@/hooks/storageHooks'
 import { getAuth, onAuthStateChanged } from 'firebase/auth'
 import { useState } from 'react'
 import { Heart } from '@/components/Heart'
-import type { AsyncStateOfComp } from '@/types/AsyncStateOfComp'
+import type { Dialog } from '@/types/Dialog'
 
 export default function Header() {
-  const balance = useGetStorage().balance
+  const { balance } = useGetStorage() ?? 0
+
   const isSmall = !useMediaQuery('(min-width: 480px)')
 
   const [isAuth, setIsAuth] = useState<boolean>(true)
   const [isLoginOpen, setIsLoginOpen] = useState<boolean>(false)
   const [isHeartVisible, setIsHeartVisible] = useState<boolean>(false)
-  const [Login, setLogin] = useState<AsyncStateOfComp>(null)
+  const [Login, setLogin] = useState<Dialog>(null)
 
   const loadLogin = async () => {
     setIsHeartVisible(true)
@@ -59,7 +60,12 @@ export default function Header() {
       )}
 
       {isHeartVisible && <Heart />}
-      {Login && <Login isOpen={isLoginOpen} onOpenChange={setIsLoginOpen} />}
+      {Login && (
+        <Login
+          isOpen={isLoginOpen}
+          onOpenChange={setIsLoginOpen}
+        />
+      )}
     </header>
   )
 }
