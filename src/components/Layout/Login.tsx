@@ -92,7 +92,11 @@ export default function Login({
   return (
     <>
       <Dialog open={isOpen} onOpenChange={onOpenChange}>
-        <DialogContent showCloseButton={false} className="sm:max-w-[425px]">
+        <DialogContent
+          showCloseButton={false}
+          className="sm:max-w-[425px]"
+          onOpenAutoFocus={(e: Event) => e.preventDefault()}
+        >
           <form onSubmit={handleSubmit(onSubmit)}>
             <DialogHeader className="mb-7">
               <DialogTitle>Вход по почте</DialogTitle>

@@ -1,0 +1,1 @@
+import{n as a}from"./index-DOlGj5kJ.js";function s(t){a.warning(t,{classNames:{toast:"flex justify-center !w-fit relative left-[50%] translate-x-[-50%] ",title:"text-base ml-2 text-nowrap"}})}export{s as w};
