@@ -3,10 +3,12 @@ import { useNavigate } from 'react-router-dom'
 import { auth } from '@/firebase'
 import { useState } from 'react'
 import { onAuthStateChanged } from 'firebase/auth'
+import { localeName } from '@/store/localKeys'
 
 export default function DashboardName() {
   const navigate = useNavigate()
-  const [name, setName] = useState(auth.currentUser?.displayName)
+  const [name, setName] =
+    useState(auth.currentUser?.displayName) || localStorage.getItem(localeName)
   onAuthStateChanged(auth, () => {
     setName(auth.currentUser?.displayName)
   })

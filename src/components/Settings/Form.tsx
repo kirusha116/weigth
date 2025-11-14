@@ -1,13 +1,14 @@
 import { settings } from '@/constants/settings'
 import { useForm, type SubmitHandler } from 'react-hook-form'
 import { useAppDispatch, useGetStorage } from '@/hooks/storageHooks'
-import { handleSave } from '@/store/store'
+import { handleSave, initialState } from '@/store/store'
 import { lazy, useEffect } from 'react'
 import { onFormSubmit } from '@/utils/onFormSubmit'
 import type { InForm } from '@/types/Storage'
 import { auth } from '@/firebase'
 import { onAuthStateChanged, updateProfile, type User } from 'firebase/auth'
 import successToast from '@/utils/successToast'
+import { localeName } from '@/store/localKeys'
 
 const InputString = lazy(() => import('./InputString'))
 const InputWeight = lazy(() => import('./InputWeight'))
@@ -17,7 +18,8 @@ const FormButtons = lazy(() => import('./FormButtons'))
 export default function Form() {
   const dispatch = useAppDispatch()
 
-  const name = auth.currentUser?.displayName
+  const name = auth.currentUser?.displayName || localStorage.getItem(localeName)
+
   const { startWeight, targetWeight, maxCallories, startWeightDate } =
     useGetStorage()
 
@@ -35,19 +37,25 @@ export default function Form() {
   })
 
   useEffect(() => {
-    reset({
-      name,
-      startWeight: startWeight?.toString(),
-      targetWeight: targetWeight?.toString(),
-      maxCallories: maxCallories?.toString(),
-    })
-  }, [dispatch, maxCallories, name, reset, startWeight, targetWeight])
+    ;(async () => {
+      await dispatch(initialState())
+      setValue('startWeight', startWeight?.toString())
+      setValue('targetWeight', targetWeight?.toString())
+      setValue('maxCallories', maxCallories?.toString())
+    })()
+  }, [dispatch, maxCallories, setValue, startWeight, targetWeight])
 
   const onSubmit: SubmitHandler<InForm> = async data => {
-    if (auth.currentUser?.displayName !== data.name) {
-      await updateProfile(auth.currentUser as User, {
-        displayName: data.name,
-      })
+    if (auth.currentUser) {
+      if (auth.currentUser?.displayName !== data.name) {
+        await updateProfile(auth.currentUser as User, {
+          displayName: data.name,
+        })
+      }
+    } else {
+      if (localStorage.getItem(localeName) !== data.name) {
+        localStorage.setItem(localeName, data.name as string)
+      }
     }
     const withOutName = Object.fromEntries(
       Object.entries(data).filter(elem => {
