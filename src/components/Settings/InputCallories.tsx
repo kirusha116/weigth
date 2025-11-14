@@ -21,7 +21,7 @@ export default function InputCallories({
         {...register}
         type="number"
         pattern="[0-9]*"
-        enterKeyHint="done"
+        enterKeyHint="next"
         onPaste={e => e.preventDefault()}
         onInput={e => {
           const input = e.target as HTMLInputElement

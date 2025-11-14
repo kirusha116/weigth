@@ -5,6 +5,7 @@ import { lazy, useEffect, useState } from 'react'
 import { useAppDispatch } from './hooks/storageHooks.js'
 import { initialState } from './store/store.js'
 import './firebase.js'
+import { Heart } from './components/Heart.js'
 const Layout = lazy(() => import('./pages/Layout'))
 const Dashboard = lazy(() => import('./pages/Dashboard'))
 const Tasks = lazy(() => import('./pages/Tasks'))
@@ -13,12 +14,14 @@ const Statistics = lazy(() => import('./pages/Statistics'))
 const Settings = lazy(() => import('./pages/Settings'))
 
 function App() {
-  const dispatch = useAppDispatch()
   const [isDownloaded, setIsDownloaded] = useState(false)
 
+  const dispatch = useAppDispatch()
   useEffect(() => {
-    dispatch(initialState())
-    setIsDownloaded(true)
+    ;(async () => {
+      await dispatch(initialState())
+      setIsDownloaded(true)
+    })()
   }, [dispatch])
 
   return (
@@ -30,7 +33,7 @@ function App() {
         theme="light"
         position="top-center"
       />
-      {isDownloaded && (
+      {isDownloaded ? (
         <BrowserRouter basename="/weight">
           <Routes>
             <Route path="" element={<Layout />}>
@@ -42,6 +45,8 @@ function App() {
             </Route>
           </Routes>
         </BrowserRouter>
+      ) : (
+        <Heart />
       )}
     </>
   )

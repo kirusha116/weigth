@@ -23,7 +23,7 @@ export default function InputWeight({
         inputMode="decimal"
         lang="en"
         step="any"
-        enterKeyHint="done"
+        enterKeyHint="next"
         onPaste={e => e.preventDefault()}
         onInput={e => {
           const input = e.target as HTMLInputElement

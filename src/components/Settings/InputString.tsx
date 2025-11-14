@@ -16,7 +16,7 @@ export default function InputString({
       <Input
         className="bg-white mt-2 mb-4"
         {...register}
-        enterKeyHint="done"
+        enterKeyHint="next"
       />
     </>
   )

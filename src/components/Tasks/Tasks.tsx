@@ -1,8 +1,8 @@
 import { useAppDispatch, useGetStorage } from '@/hooks/storageHooks'
-import { handleSave } from '@/store/store'
+import { handleSave, initialState } from '@/store/store'
 import { useMediaQuery } from 'usehooks-ts'
 import { tasks } from '@/constants/tasks'
-import { lazy } from 'react'
+import { lazy, useEffect } from 'react'
 import successToast from '@/utils/successToast'
 import { TasksDay } from './TasksDay'
 
@@ -10,8 +10,11 @@ const Item = lazy(() => import('../Item'))
 
 export default function Tasks() {
   const { completedTasks, balance, tasksDay } = useGetStorage()
-  const dispatch = useAppDispatch()
   const isMobile = !useMediaQuery('(min-width: 768px)')
+  const dispatch = useAppDispatch()
+  useEffect(() => {
+    dispatch(initialState())
+  }, [dispatch])
 
   return (
     <div className="flex flex-wrap gap-1">
