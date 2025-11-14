@@ -4,7 +4,6 @@ import { getDate } from '@/utils/getDate'
 import { doc, setDoc } from 'firebase/firestore'
 import { currentStorage, temporarilyStorage } from './localKeys'
 import type { Storage } from '@/types/Storage'
-import successToast from '@/utils/successToast'
 
 export const saveStorage = async (storage: Storage) => {
   if (auth.currentUser) {
@@ -26,5 +25,4 @@ export const saveStorage = async (storage: Storage) => {
       )
     }
   }
-  successToast('Сохранено')
 }

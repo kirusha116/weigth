@@ -2,25 +2,25 @@ import { useNavigate } from 'react-router-dom'
 import { Button } from '../ui/button'
 
 type VariantProps = {
-  weigth: string
+  weight: string
   callories: string
 }
 
 export default function BlockNoData({
   variant,
-  startWeigth,
-  targetWeigth,
+  startWeight,
+  targetWeight,
 }: {
   variant: keyof VariantProps
-  startWeigth?: boolean
-  targetWeigth?: boolean
+  startWeight?: boolean
+  targetWeight?: boolean
 }) {
   const navigate = useNavigate()
   const variantProps: VariantProps = {
-    weigth: `
-        ${startWeigth ? 'начальный вес' : ''} 
-        ${startWeigth && targetWeigth ? 'и' : ''} 
-        ${targetWeigth ? 'цель' : ''}
+    weight: `
+        ${startWeight ? 'начальный вес' : ''} 
+        ${startWeight && targetWeight ? 'и' : ''} 
+        ${targetWeight ? 'цель' : ''}
     `,
     callories: 'допустимое количество калорий в день',
   }

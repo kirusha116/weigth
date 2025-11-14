@@ -31,7 +31,7 @@ function App() {
         position="top-center"
       />
       {isDownloaded && (
-        <BrowserRouter basename="/weigth">
+        <BrowserRouter basename="/weight">
           <Routes>
             <Route path="" element={<Layout />}>
               <Route index element={<Dashboard />}></Route>

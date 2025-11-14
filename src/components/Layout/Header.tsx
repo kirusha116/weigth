@@ -9,7 +9,7 @@ import { Heart } from '@/components/Heart'
 import type { Dialog } from '@/types/Dialog'
 
 export default function Header() {
-  const { balance } = useGetStorage() ?? 0
+  const { balance } = useGetStorage()
 
   const isSmall = !useMediaQuery('(min-width: 480px)')
 
@@ -60,12 +60,7 @@ export default function Header() {
       )}
 
       {isHeartVisible && <Heart />}
-      {Login && (
-        <Login
-          isOpen={isLoginOpen}
-          onOpenChange={setIsLoginOpen}
-        />
-      )}
+      {Login && <Login isOpen={isLoginOpen} onOpenChange={setIsLoginOpen} />}
     </header>
   )
 }

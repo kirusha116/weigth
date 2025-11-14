@@ -1,11 +1,10 @@
 export type Storage = {
-  name: string | null
-  startWeigth: number | null
-  startWeigthDate: string | null
-  targetWeigth: number | null
+  startWeight: number | null
+  startWeightDate: string | null
+  targetWeight: number | null
   maxCallories: number | null
-  currentWeigth: number | null
-  currentWeigthDate: string | null
+  currentWeight: number | null
+  currentWeightDate: string | null
   currentCalloriesDate: string | null
   currentCallories: number
   balance: number
@@ -19,7 +18,7 @@ export type Storage = {
 
 export type InForm = {
   name: string | null | undefined
-  startWeigth: string | null | undefined
-  targetWeigth: string | null | undefined
+  startWeight: string | null | undefined
+  targetWeight: string | null | undefined
   maxCallories: string | null | undefined
 }

@@ -1,10 +1,15 @@
 import { Button } from '@/components/ui/button'
 import { useNavigate } from 'react-router-dom'
-import { useGetStorage } from '@/hooks/storageHooks'
+import { auth } from '@/firebase'
+import { useState } from 'react'
+import { onAuthStateChanged } from 'firebase/auth'
 
 export default function DashboardName() {
   const navigate = useNavigate()
-  const name = useGetStorage().name
+  const [name, setName] = useState(auth.currentUser?.displayName)
+  onAuthStateChanged(auth, () => {
+    setName(auth.currentUser?.displayName)
+  })
   return (
     <>
       <h1 className="text-2xl leading-6 inline-block">

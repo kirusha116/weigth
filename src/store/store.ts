@@ -7,7 +7,7 @@ import {
 } from '@reduxjs/toolkit'
 import { saveStorage } from './saveStorage'
 import type { Storage } from '@/types/Storage'
-import { getEmptyStorage } from './getTemplStorage'
+import { emptyStorage } from './getTemplStorage'
 
 export const initialState = createAsyncThunk<Storage>(
   'storage/initialState',
@@ -16,7 +16,7 @@ export const initialState = createAsyncThunk<Storage>(
 
 const storageSlice = createSlice({
   name: 'storage',
-  initialState: getEmptyStorage(),
+  initialState: emptyStorage,
   reducers: {
     handleSave: (state: Storage, action: PayloadAction<Partial<Storage>>) => {
       const newStorage = { ...state, ...action.payload }
@@ -26,7 +26,7 @@ const storageSlice = createSlice({
   },
   extraReducers(builder) {
     builder.addCase(initialState.fulfilled, (state, action) => {
-      state = action.payload
+      return action.payload
       console.log(state)
     })
   },

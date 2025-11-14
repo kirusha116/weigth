@@ -12,7 +12,7 @@ export const getParams = (
     secondBtnClick: () => {
       removeStorage()
       setTimeout(() => {
-        location.assign('/weigth')
+        location.assign('/weight')
       }, 400)
     },
   }

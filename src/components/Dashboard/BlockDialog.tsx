@@ -20,7 +20,7 @@ export default function BlockDialog({
   defaultValue,
   onSave,
 }: {
-  variant: 'weigth' | 'callories'
+  variant: 'weight' | 'callories'
   dialogTriggerText: string
   dialogHeader: string
   defaultValue: string
@@ -59,9 +59,15 @@ export default function BlockDialog({
             </span>
           </DialogDescription>
         </DialogHeader>
-        {variant === 'weigth' && (
+        {variant === 'weight' && (
           <Input
             className="mb-3"
+            type="text"
+            inputMode="decimal"
+            lang="en"
+            step="any"
+            pattern="[0-9]*"
+            enterKeyHint="done"
             onPaste={e => e.preventDefault()}
             value={inputValue}
             onInput={e => {
@@ -80,6 +86,7 @@ export default function BlockDialog({
         {variant === 'callories' && (
           <Input
             className="mb-3"
+            type='number'
             value={inputValue}
             onPaste={e => e.preventDefault()}
             onInput={e => {

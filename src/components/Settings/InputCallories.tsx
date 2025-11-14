@@ -19,10 +19,7 @@ export default function InputCallories({
       <Input
         className="bg-white mt-2 mb-4"
         {...register}
-        type="text"
-        inputMode="decimal"
-        lang="ru"
-        step="any"
+        type="number"
         pattern="[0-9]*"
         enterKeyHint="done"
         onPaste={e => e.preventDefault()}

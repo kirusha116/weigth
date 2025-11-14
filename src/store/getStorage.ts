@@ -1,6 +1,5 @@
 import { getDate } from '@/utils/getDate'
 import type { Storage } from '@/types/Storage'
-import { getUpDateStorage } from './getTemplStorage'
 import '@/firebase'
 import { auth, db } from '@/firebase'
 import {
@@ -12,7 +11,7 @@ import {
   type DocumentData,
 } from 'firebase/firestore'
 import { currentStorage } from './localKeys'
-
+import { upDateStorage } from './getTemplStorage'
 
 export const getServerStorage = async () => {
   if (auth.currentUser) {
@@ -39,18 +38,16 @@ export const getStorage = async (): Promise<Storage> => {
     if (localStorage.getItem(currentStorage)) {
       storage = JSON.parse(localStorage.getItem(currentStorage) as string)
     } else {
-      const getEmptyStorage = (await import('./getTemplStorage'))
-        .getEmptyStorage
-      storage = getEmptyStorage()
+      storage = (await import('./getTemplStorage')).emptyStorage
     }
   }
 
   if (storage?.lastDateOfLoad !== getDate()) {
     storage = {
       ...(storage as Storage),
-      ...getUpDateStorage(),
+      ...upDateStorage,
     }
   }
-
+  console.log(storage)
   return storage
 }

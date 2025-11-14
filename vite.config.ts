@@ -13,5 +13,5 @@ export default defineConfig({
   },
   build: { outDir: 'docs' },
 
-  base: '/weigth',
+  base: '/weight',
 })

@@ -1,7 +1,7 @@
 import type { JSX } from 'react'
 
 export type BlockMainContentProps = {
-  variant: 'weigth' | 'callories'
+  variant: 'weight' | 'callories'
   icon: JSX.Element
   title1: string
   title2: string

@@ -3,10 +3,14 @@ import { lazy, Suspense, type JSX, type ReactElement } from 'react'
 import { BlockHeart } from '../Heart'
 
 const TasksDay = lazy(() =>
-  import('../../components/Tasks/Tasks').then(module => ({ default: module.TasksDay })),
+  import('../../components/Tasks/TasksDay').then(module => ({
+    default: module.TasksDay,
+  })),
 )
 const AwardsDay = lazy(() =>
-  import('../../components/Awards/Awards').then(module => ({ default: module.AwardsDay })),
+  import('../../components/Awards/AwardsDay').then(module => ({
+    default: module.AwardsDay,
+  })),
 )
 
 type Variant = 'tasks' | 'awards'

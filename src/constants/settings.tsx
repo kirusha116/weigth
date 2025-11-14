@@ -1,20 +1,20 @@
 export type Settings = {
   name: string
-  startWeigth: string
-  targetWeigth: string
+  startWeight: string
+  targetWeight: string
   maxCallories: string
 }
 
 export const settings = {
   name: 'name',
-  startWeigth: 'startWeigth',
-  targetWeigth: 'targetWeigth',
+  startWeight: 'startWeight',
+  targetWeight: 'targetWeight',
   maxCallories: 'maxCallories',
 } as const
 
 export const settingsLabels = {
   [settings.name]: 'Имя',
-  [settings.startWeigth]: 'Начальный вес',
-  [settings.targetWeigth]: 'Цель',
+  [settings.startWeight]: 'Начальный вес',
+  [settings.targetWeight]: 'Цель',
   [settings.maxCallories]: 'Допустимое количество каллорий в день',
 } as const
