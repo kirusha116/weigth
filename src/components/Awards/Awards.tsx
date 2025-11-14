@@ -17,32 +17,34 @@ export default function Awards() {
     <>
       <div className="flex flex-wrap gap-1">
         <AwardsDay styled={!isMobile} />
-        {awards.map(({ icon, title, price, id }, index) => {
-          if (!awardsDay.includes(id)! && !completedAwards.includes(id)) {
-            return (
-              <Item
-                style={{ width: isMobile ? '' : 'calc(50% - 2px)' }}
-                key={index}
-                icon={icon}
-                title={title}
-                price={'-' + Math.abs(price).toString()}
-                onButtonClick={() => {
-                  if (balance >= Math.abs(price)) {
-                    successToast(`Покупочка оформлена! -${Math.abs(price)}`)
-                    dispatch(
-                      handleSave({
-                        balance: balance - Math.abs(price),
-                        completedAwards: [...completedAwards, id],
-                      }),
-                    )
-                  } else {
-                    warningToast('Упс! Не хватает звёздочек!')
-                  }
-                }}
-              />
-            )
-          }
-        })}
+        {awards
+          .sort((a, b) => b.price - a.price)
+          .map(({ icon, title, price, id }, index) => {
+            if (!awardsDay.includes(id)! && !completedAwards.includes(id)) {
+              return (
+                <Item
+                  style={{ width: isMobile ? '' : 'calc(50% - 2px)' }}
+                  key={index}
+                  icon={icon}
+                  title={title}
+                  price={'-' + Math.abs(price).toString()}
+                  onButtonClick={() => {
+                    if (balance >= Math.abs(price)) {
+                      successToast(`Покупочка оформлена! -${Math.abs(price)}`)
+                      dispatch(
+                        handleSave({
+                          balance: balance - Math.abs(price),
+                          completedAwards: [...completedAwards, id],
+                        }),
+                      )
+                    } else {
+                      warningToast('Упс! Не хватает звёздочек!')
+                    }
+                  }}
+                />
+              )
+            }
+          })}
       </div>
     </>
   )

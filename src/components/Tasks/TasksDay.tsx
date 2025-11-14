@@ -12,30 +12,32 @@ export function TasksDay({ styled }: { styled?: boolean }) {
 
   return (
     <>
-      {tasks.map(({ icon, id, price, title, discount }, index) => {
-        if (tasksDay.includes(id) && !completedTasks.includes(id)) {
-          return (
-            <Item
-              style={{ width: styled ? 'calc(50% - 2px)' : '' }}
-              key={index}
-              icon={icon}
-              title={title}
-              oldPrice={'+' + Math.abs(price).toString()}
-              discount={'+' + Math.round((discount - 1) * 100) + '%'}
-              price={'+' + Math.abs(discount * price).toString()}
-              onButtonClick={() => {
-                successToast(`Молодец! +${Math.abs(discount * price)}`)
-                dispatch(
-                  handleSave({
-                    balance: balance + discount * price,
-                    completedTasks: [...completedTasks, id],
-                  }),
-                )
-              }}
-            />
-          )
-        }
-      })}
+      {tasks
+        .sort((a, b) => b.price * b.discount - a.price * a.discount)
+        .map(({ icon, id, price, title, discount }, index) => {
+          if (tasksDay.includes(id) && !completedTasks.includes(id)) {
+            return (
+              <Item
+                style={{ width: styled ? 'calc(50% - 2px)' : '' }}
+                key={index}
+                icon={icon}
+                title={title}
+                oldPrice={'+' + Math.abs(price).toString()}
+                discount={'+' + Math.round((discount - 1) * 100) + '%'}
+                price={'+' + Math.abs(discount * price).toString()}
+                onButtonClick={() => {
+                  successToast(`Молодец! +${Math.abs(discount * price)}`)
+                  dispatch(
+                    handleSave({
+                      balance: balance + discount * price,
+                      completedTasks: [...completedTasks, id],
+                    }),
+                  )
+                }}
+              />
+            )
+          }
+        })}
     </>
   )
 }

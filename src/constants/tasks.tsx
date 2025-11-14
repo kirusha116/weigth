@@ -64,17 +64,23 @@ export const tasks: taskOrAward[] = [
   },
   {
     icon: <HeartHandshake className={className} />,
-    title: 'Массаж ручек по 5 мин',
+    title: 'Массаж ручек по 10 мин',
     price: 250,
     id: 8,
     discount: 1.2,
   },
   {
     icon: <HeartHandshake className={className} />,
-    title: 'Массаж ручек по 10 мин',
-    price: 250,
+    title: 'Распечатать фотографии для книги приключений',
+    price: 1000,
     id: 9,
-    discount: 1.2,
+    discount: 1.1,
+  },
+  {
+    icon: <HeartHandshake className={className} />,
+    title: 'Выполнить задание из книги приключений',
+    price: 1500,
+    id: 10,
+    discount: 1.25,
   },
 ]
-

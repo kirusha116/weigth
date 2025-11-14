@@ -9,7 +9,7 @@ export default function FormButtons({
 }) {
   return (
     <div className="flex mt-4 justify-end">
-      <Button variant={'outline'} className="ml-auto mr-4" type="submit">
+      <Button variant="green" className="ml-auto mr-4" type="submit">
         Сохранить
       </Button>
       <Button

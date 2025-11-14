@@ -17,28 +17,30 @@ export default function Tasks() {
     <div className="flex flex-wrap gap-1">
       <TasksDay styled={!isMobile} />
 
-      {tasks.map(({ icon, title, price, id }, index) => {
-        if (!tasksDay.includes(id) && !completedTasks.includes(id)) {
-          return (
-            <Item
-              style={{ width: isMobile ? '' : 'calc(50% - 2px)' }}
-              key={index}
-              icon={icon}
-              title={title}
-              price={'+' + Math.abs(price).toString()}
-              onButtonClick={() => {
-                successToast(`Молодец! +${Math.abs(price)}`)
-                dispatch(
-                  handleSave({
-                    balance: balance + price,
-                    completedTasks: [...completedTasks, id],
-                  }),
-                )
-              }}
-            />
-          )
-        }
-      })}
+      {tasks
+        .sort((a, b) => b.price - a.price)
+        .map(({ icon, title, price, id }, index) => {
+          if (!tasksDay.includes(id) && !completedTasks.includes(id)) {
+            return (
+              <Item
+                style={{ width: isMobile ? '' : 'calc(50% - 2px)' }}
+                key={index}
+                icon={icon}
+                title={title}
+                price={'+' + Math.abs(price).toString()}
+                onButtonClick={() => {
+                  successToast(`Молодец! +${Math.abs(price)}`)
+                  dispatch(
+                    handleSave({
+                      balance: balance + price,
+                      completedTasks: [...completedTasks, id],
+                    }),
+                  )
+                }}
+              />
+            )
+          }
+        })}
     </div>
   )
 }

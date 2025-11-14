@@ -9,7 +9,7 @@ export const awards: taskOrAward[] = [
     title: 'Поход в фастфуд',
     price: -1500,
     id: 1,
-    discount: 2/3,
+    discount: 2 / 3,
   },
   {
     icon: <Utensils className={className} />,
@@ -31,5 +31,19 @@ export const awards: taskOrAward[] = [
     price: -1000000,
     id: 4,
     discount: 0.85,
+  },
+  {
+    icon: <BriefcaseBusiness className={className} />,
+    title: 'Массаж спины 20 мин',
+    price: -2500,
+    id: 5,
+    discount: 0.5,
+  },
+  {
+    icon: <BriefcaseBusiness className={className} />,
+    title: 'Массаж ножек по 7 мин',
+    price: -1500,
+    id: 6,
+    discount: 2 / 3,
   },
 ]

@@ -17,7 +17,7 @@ const FormButtons = lazy(() => import('./FormButtons'))
 export default function Form() {
   const dispatch = useAppDispatch()
 
-  const name = undefined
+  const name = auth.currentUser?.displayName
   const { startWeight, targetWeight, maxCallories, startWeightDate } =
     useGetStorage()
 
@@ -46,7 +46,7 @@ export default function Form() {
   const onSubmit: SubmitHandler<InForm> = async data => {
     if (auth.currentUser?.displayName !== data.name) {
       await updateProfile(auth.currentUser as User, {
-        displayName: name,
+        displayName: data.name,
       })
     }
     const withOutName = Object.fromEntries(
