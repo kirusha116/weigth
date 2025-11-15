@@ -1,1 +1,0 @@
-import{j as t}from"./index-ChL8QKdY.js";import{B as e}from"./App-emmywXQ2.js";function i({reset:r}){return t.jsxs("div",{className:"flex mt-4 justify-end",children:[t.jsx(e,{variant:"green",className:"ml-auto mr-4",type:"submit",children:"Сохранить"}),t.jsx(e,{variant:"rose",onClick:s=>{s.preventDefault(),r()},children:"Cбросить"})]})}export{i as default};

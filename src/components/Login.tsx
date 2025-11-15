@@ -83,7 +83,7 @@ export default function Login() {
       <Dialog open={true}>
         <DialogContent
           showCloseButton={false}
-          className="sm:max-w-[425px]"
+          className="sm:max-w-[425px] z-200"
           onOpenAutoFocus={(e: Event) => e.preventDefault()}
         >
           <form onSubmit={handleSubmit(onSubmit)}>

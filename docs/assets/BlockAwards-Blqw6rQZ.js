@@ -1,0 +1,2 @@
+const __vite__mapDeps=(i,m=__vite__mapDeps,d=(m.f||(m.f=["assets/index-DdTxyPC8.js","assets/index-S790Z_yf.css","assets/BlockTasksOrAwardsDays-C8fNRs4w.js"])))=>i.map(i=>d[i]);
+import{j as r,r as t,_ as s}from"./index-DdTxyPC8.js";const o=t.lazy(()=>s(()=>import("./index-DdTxyPC8.js").then(a=>a.x),__vite__mapDeps([0,1])).then(a=>({default:a.Block}))),e=t.lazy(()=>s(()=>import("./BlockTasksOrAwardsDays-C8fNRs4w.js"),__vite__mapDeps([2,0,1])).then(a=>({default:a.BlockTasksOrAwardsDays})));function l(){return r.jsx(o,{children:r.jsx(e,{variant:"awards"})})}export{l as default};

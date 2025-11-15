@@ -1,2 +1,0 @@
-const __vite__mapDeps=(i,m=__vite__mapDeps,d=(m.f||(m.f=["assets/index-ChL8QKdY.js","assets/index-B3MVZZcz.css","assets/BlockTasksOrAwardsDays-zDIRPwTO.js"])))=>i.map(i=>d[i]);
-import{j as t,r as a,_ as r}from"./index-ChL8QKdY.js";const o=a.lazy(()=>r(()=>import("./index-ChL8QKdY.js").then(s=>s.x),__vite__mapDeps([0,1])).then(s=>({default:s.Block}))),e=a.lazy(()=>r(()=>import("./BlockTasksOrAwardsDays-zDIRPwTO.js"),__vite__mapDeps([2,0,1])).then(s=>({default:s.BlockTasksOrAwardsDays})));function l(){return t.jsx(o,{children:t.jsx(e,{variant:"tasks"})})}export{l as default};

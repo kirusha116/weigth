@@ -1,8 +1,8 @@
 import { useAppDispatch, useGetStorage } from '@/hooks/storageHooks'
 import { createWeightProps } from '@/utils/createWeightProps'
-import { handleSave, initialState } from '@/store/store'
+import { handleSave } from '@/store/store'
 import { useMediaQuery } from 'usehooks-ts'
-import { lazy, useEffect } from 'react'
+import { lazy } from 'react'
 import type { Storage } from '@/types/Storage'
 
 const Block = lazy(() =>
@@ -23,9 +23,6 @@ export default function BlockWeight() {
   const isMobile = !useMediaQuery('(min-width: 768px), (max-width: 639.5px)')
   const isSmallMobile = !useMediaQuery('(min-width: 400.5px)')
   const dispatch = useAppDispatch()
-  useEffect(() => {
-    dispatch(initialState())
-  }, [dispatch])
   return (
     <Block>
       {startWeight &&

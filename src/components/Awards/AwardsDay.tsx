@@ -1,18 +1,15 @@
 import { awards } from '@/constants/awards'
 import { useAppDispatch, useGetStorage } from '@/hooks/storageHooks'
-import { handleSave, initialState } from '@/store/store'
+import { handleSave } from '@/store/store'
 import successToast from '@/utils/successToast'
 import warningToast from '@/utils/warningToast'
-import { lazy, useEffect } from 'react'
+import { lazy } from 'react'
 
 const Item = lazy(() => import('../Item'))
 
 export function AwardsDay({ styled }: { styled?: boolean }) {
   const { completedAwards, balance, awardsDay } = useGetStorage()
   const dispatch = useAppDispatch()
-  useEffect(() => {
-    dispatch(initialState())
-  }, [dispatch])
 
   return (
     <>

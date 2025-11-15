@@ -2,12 +2,11 @@ import { NavLink } from 'react-router-dom'
 import { useMediaQuery } from 'usehooks-ts'
 import { Star } from 'lucide-react'
 import { Button } from '@/components/ui/button'
-import { useAppDispatch, useGetStorage } from '@/hooks/storageHooks'
+import { useGetStorage } from '@/hooks/storageHooks'
 import { getAuth, onAuthStateChanged } from 'firebase/auth'
-import { useEffect, useState } from 'react'
+import { useState } from 'react'
 import { Heart } from '@/components/Heart'
 import type { Dialog } from '@/types/Dialog'
-import { initialState } from '@/store/store'
 
 export default function Header() {
   const storage = useGetStorage()
@@ -30,10 +29,6 @@ export default function Header() {
   onAuthStateChanged(getAuth(), () => {
     setIsAuth(!!getAuth().currentUser)
   })
-  const dispatch = useAppDispatch()
-  useEffect(() => {
-    dispatch(initialState())
-  }, [dispatch])
 
   return (
     <header className="lg:container xl:max-w-7xl px-5 pt-5 m-auto flex justify-between items-center">

@@ -1,7 +1,7 @@
 import { useAppDispatch, useGetStorage } from '@/hooks/storageHooks'
-import { handleSave, initialState } from '@/store/store'
+import { handleSave } from '@/store/store'
 import { tasks } from '@/constants/tasks'
-import { lazy, useEffect } from 'react'
+import { lazy } from 'react'
 import successToast from '@/utils/successToast'
 
 const Item = lazy(() => import('../Item'))
@@ -9,10 +9,6 @@ const Item = lazy(() => import('../Item'))
 export function TasksDay({ styled }: { styled?: boolean }) {
   const { completedTasks, balance, tasksDay } = useGetStorage()
   const dispatch = useAppDispatch()
-  useEffect(() => {
-    dispatch(initialState())
-  }, [dispatch])
-
   return (
     <>
       {tasks

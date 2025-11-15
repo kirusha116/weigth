@@ -1,8 +1,8 @@
 import { useAppDispatch, useGetStorage } from '@/hooks/storageHooks'
-import { handleSave, initialState } from '@/store/store'
+import { handleSave } from '@/store/store'
 import { createCalloriesProps } from '@/utils/createCalloriesProps'
 import { useMediaQuery } from 'usehooks-ts'
-import { lazy, useEffect } from 'react'
+import { lazy } from 'react'
 import type { Storage } from '@/types/Storage'
 
 const Block = lazy(() =>
@@ -18,9 +18,6 @@ export default function BlockCallories() {
   const storage = useGetStorage()
   const { maxCallories } = storage
   const dispatch = useAppDispatch()
-  useEffect(() => {
-    dispatch(initialState())
-  }, [dispatch])
   return (
     <Block>
       {maxCallories ? (

@@ -1,8 +1,8 @@
 import { settings } from '@/constants/settings'
 import { useForm, type SubmitHandler } from 'react-hook-form'
 import { useAppDispatch, useGetStorage } from '@/hooks/storageHooks'
-import { handleSave, initialState } from '@/store/store'
-import { lazy, useEffect } from 'react'
+import { handleSave } from '@/store/store'
+import { lazy } from 'react'
 import { onFormSubmit } from '@/utils/onFormSubmit'
 import type { InForm } from '@/types/Storage'
 import { auth } from '@/firebase'
@@ -54,10 +54,6 @@ export default function Form() {
     )
     successToast('Сохранено!')
   }
-
-  useEffect(() => {
-    dispatch(initialState())
-  }, [dispatch])
 
   return (
     <form onSubmit={handleSubmit(onSubmit)}>
