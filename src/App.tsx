@@ -1,11 +1,14 @@
 import { CheckCheck, Frown } from 'lucide-react'
 import { BrowserRouter, Route, Routes } from 'react-router-dom'
 import { Toaster } from './components/ui/sonner'
-import { lazy, useEffect, useState } from 'react'
+import { lazy, useState } from 'react'
 import { useAppDispatch } from './hooks/storageHooks.js'
 import { initialState } from './store/store.js'
 import './firebase.js'
 import { Heart } from './components/Heart.js'
+import Login from './components/Login.js'
+import { auth } from './firebase.js'
+import { onAuthStateChanged } from 'firebase/auth'
 const Layout = lazy(() => import('./pages/Layout'))
 const Dashboard = lazy(() => import('./pages/Dashboard'))
 const Tasks = lazy(() => import('./pages/Tasks'))
@@ -16,14 +19,19 @@ const Settings = lazy(() => import('./pages/Settings'))
 function App() {
   const [isDownloaded, setIsDownloaded] = useState(false)
 
+  const [isLoginVisible, setIsLoginVisible] = useState<boolean>(false)
+
   const dispatch = useAppDispatch()
-  useEffect(() => {
-    const load = async () => {
-      await dispatch(initialState())
-      setIsDownloaded(true)
+  onAuthStateChanged(auth, () => {
+    setIsLoginVisible(!auth.currentUser)
+    if (auth.currentUser) {
+      const load = async () => {
+        await dispatch(initialState())
+        setIsDownloaded(true)
+      }
+      load()
     }
-    load()
-  }, [dispatch])
+  })
 
   return (
     <>
@@ -49,6 +57,7 @@ function App() {
       ) : (
         <Heart />
       )}
+      {isLoginVisible && <Login />}
     </>
   )
 }

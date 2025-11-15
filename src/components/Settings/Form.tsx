@@ -8,7 +8,6 @@ import type { InForm } from '@/types/Storage'
 import { auth } from '@/firebase'
 import { updateProfile, type User } from 'firebase/auth'
 import successToast from '@/utils/successToast'
-import { localeName } from '@/store/localKeys'
 
 const InputString = lazy(() => import('./InputString'))
 const InputWeight = lazy(() => import('./InputWeight'))
@@ -18,7 +17,7 @@ const FormButtons = lazy(() => import('./FormButtons'))
 export default function Form() {
   const dispatch = useAppDispatch()
 
-  const name = auth.currentUser?.displayName || localStorage.getItem(localeName)
+  const name = auth.currentUser?.displayName
 
   const { startWeight, targetWeight, maxCallories, startWeightDate } =
     useGetStorage()
@@ -33,17 +32,12 @@ export default function Form() {
   })
 
   const onSubmit: SubmitHandler<InForm> = async data => {
-    if (auth.currentUser) {
-      if (auth.currentUser?.displayName !== data.name) {
-        await updateProfile(auth.currentUser as User, {
-          displayName: data.name,
-        })
-      }
-    } else {
-      if (localStorage.getItem(localeName) !== data.name) {
-        localStorage.setItem(localeName, data.name as string)
-      }
+    if (auth.currentUser?.displayName !== data.name) {
+      await updateProfile(auth.currentUser as User, {
+        displayName: data.name,
+      })
     }
+
     const withOutName = Object.fromEntries(
       Object.entries(data).filter(elem => {
         return elem[0] !== 'name'

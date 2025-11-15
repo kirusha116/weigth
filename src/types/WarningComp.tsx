@@ -6,7 +6,7 @@ export type WarningDialog =
       isOpen,
       onOpenChange,
     }: {
-      variant: 'exit' | 'reset' | 'delete'
+      variant: 'exit' | 'reset'
       isOpen: boolean
       onOpenChange: React.Dispatch<React.SetStateAction<boolean>>
     }) => JSX.Element)

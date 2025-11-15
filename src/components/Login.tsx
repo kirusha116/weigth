@@ -1,0 +1,108 @@
+import {
+  Dialog,
+  DialogContent,
+  DialogFooter,
+  DialogHeader,
+  DialogTitle,
+} from './ui/dialog.js'
+import { Input } from './ui/input.js'
+import { useForm, type SubmitHandler } from 'react-hook-form'
+import '@/firebase.js'
+import {
+  signInWithEmailAndPassword,
+  createUserWithEmailAndPassword,
+} from 'firebase/auth'
+import { Label } from './ui/label.js'
+import { Button } from './ui/button.js'
+import { useState } from 'react'
+import { Heart } from './Heart.js'
+import warningToast from '@/utils/warningToast.js'
+import successToast from '@/utils/successToast.js'
+import { auth } from '@/firebase.js'
+import { getStorage } from '@/store/getStorage.js'
+import { useAppDispatch, useGetStorage } from '@/hooks/storageHooks.js'
+import { handleSave } from '@/store/store.js'
+
+type Data = {
+  email: string
+  password: string
+}
+
+export default function Login() {
+  const [isHeartOpen, setIsHeartOpen] = useState<boolean>(false)
+  const storage = useGetStorage()
+  const dispatch = useAppDispatch()
+
+  const onFulfilled = async () => {
+    let i = 0
+    let innerStorage = null
+    while (innerStorage === null && i < 5) {
+      innerStorage = await getStorage()
+      i++
+    }
+    console.log(innerStorage)
+    if (!innerStorage) dispatch(handleSave(storage))
+    setIsHeartOpen(false)
+    successToast('Успешно!')
+  }
+
+  const onSubmit: SubmitHandler<Data> = ({ email, password }: Data) => {
+    setIsHeartOpen(true)
+    signInWithEmailAndPassword(auth, email, password)
+      .then(onFulfilled)
+      .catch(error => {
+        switch (error.code) {
+          case 'auth/invalid-credential':
+            createUserWithEmailAndPassword(auth, email, password)
+              .then(onFulfilled)
+              .catch(error => {
+                setIsHeartOpen(false)
+                warningToast(error.code)
+              })
+            break
+          case 'auth/weak-password':
+            setIsHeartOpen(false)
+            warningToast('Неверный пароль')
+            break
+          case 'auth/invalid-email':
+            setIsHeartOpen(false)
+            warningToast('Неверный email')
+            break
+          default:
+            setIsHeartOpen(false)
+            warningToast(error.code)
+            break
+        }
+      })
+  }
+
+  const { register, handleSubmit } = useForm<Data>()
+
+  return (
+    <>
+      <Dialog open={true}>
+        <DialogContent
+          showCloseButton={false}
+          className="sm:max-w-[425px]"
+          onOpenAutoFocus={(e: Event) => e.preventDefault()}
+        >
+          <form onSubmit={handleSubmit(onSubmit)}>
+            <DialogHeader className="mb-7">
+              <DialogTitle>Вход по почте</DialogTitle>
+            </DialogHeader>
+            <Label className="mb-2">Адрес электронной почты</Label>
+            <Input {...register('email')} className="mb-5" />
+            <Label className="mb-2">Пароль</Label>
+            <Input {...register('password')} className="mb-5" />
+            <DialogFooter>
+              <Button type="submit" variant="rose">
+                Войти
+              </Button>
+            </DialogFooter>
+          </form>
+        </DialogContent>
+      </Dialog>
+      {isHeartOpen && <Heart />}
+    </>
+  )
+}

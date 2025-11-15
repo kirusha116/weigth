@@ -10,10 +10,10 @@ import {
   getDocs,
   type DocumentData,
 } from 'firebase/firestore'
-import { currentStorage } from './localKeys'
 import { upDateStorage } from './getTemplStorage'
 
-export const getServerStorage = async () => {
+export const getStorage = async () => {
+  let storage = null
   if (auth.currentUser) {
     const result: DocumentData[] = []
     const q = query(
@@ -25,27 +25,12 @@ export const getServerStorage = async () => {
     querySnapshot.forEach(doc => {
       result.push(doc.data())
     })
-    return result[0] as Storage
-  }
-}
-
-export const getStorage = async (): Promise<Storage> => {
-  let storage: Storage | null = null
-
-  if (auth.currentUser) {
-    storage = (await getServerStorage()) as unknown as Storage
-  } else {
-    if (localStorage.getItem(currentStorage)) {
-      storage = JSON.parse(localStorage.getItem(currentStorage) as string)
-    } else {
-      storage = (await import('./getTemplStorage')).emptyStorage
-    }
-  }
-
-  if (storage?.lastDateOfLoad !== getDate()) {
-    storage = {
-      ...(storage as Storage),
-      ...upDateStorage,
+    storage = result[0] as Storage
+    if (storage && storage?.lastDateOfLoad !== getDate()) {
+      storage = {
+        ...(storage as Storage),
+        ...upDateStorage,
+      }
     }
   }
   return storage

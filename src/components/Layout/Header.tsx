@@ -10,7 +10,9 @@ import type { Dialog } from '@/types/Dialog'
 import { initialState } from '@/store/store'
 
 export default function Header() {
-  const { balance } = useGetStorage()
+  const storage = useGetStorage()
+  console.log(storage)
+  const { balance } = storage
 
   const isSmall = !useMediaQuery('(min-width: 480px)')
 
@@ -21,7 +23,7 @@ export default function Header() {
 
   const loadLogin = async () => {
     setIsHeartVisible(true)
-    const loadedLogin = await import('./Login')
+    const loadedLogin = await import('../Login')
     setLogin(() => loadedLogin.default)
     setIsHeartVisible(false)
   }

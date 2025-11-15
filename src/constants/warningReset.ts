@@ -1,5 +1,3 @@
-import { removeStorage } from '@/store/removeStorage'
-
 export const getParams = (
   onOpenChange: React.Dispatch<React.SetStateAction<boolean>>,
 ) => {
@@ -10,7 +8,6 @@ export const getParams = (
     firstBtnClick: () => onOpenChange(false),
     secondBtnText: 'Удалить',
     secondBtnClick: () => {
-      removeStorage()
       setTimeout(() => {
         location.assign('/weight')
       }, 400)

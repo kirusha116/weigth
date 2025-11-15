@@ -9,7 +9,7 @@ import {
   DialogTitle,
 } from './ui/dialog'
 
-type Variant = 'exit' | 'reset' | 'delete'
+type Variant = 'exit' | 'reset'
 
 export default function WarningDialog({
   variant,
@@ -27,9 +27,6 @@ export default function WarningDialog({
       }
       case 'reset': {
         return (await import('@/constants/warningReset')).getParams
-      }
-      case 'delete': {
-        return (await import('@/constants/warningDelete')).getParams
       }
     }
   }

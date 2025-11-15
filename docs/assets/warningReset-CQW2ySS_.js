@@ -1,0 +1,1 @@
+const e=t=>({title:"Точно? Точно?",description:"Все данные будут удалены! Придется начать сначала!",firstBtnText:"Отмена",firstBtnClick:()=>t(!1),secondBtnText:"Удалить",secondBtnClick:()=>{setTimeout(()=>{location.assign("/weight")},400)}});export{e as getParams};
