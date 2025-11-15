@@ -28,11 +28,11 @@ export default function Header() {
   onAuthStateChanged(getAuth(), () => {
     setIsAuth(!!getAuth().currentUser)
   })
-
   const dispatch = useAppDispatch()
   useEffect(() => {
     dispatch(initialState())
   }, [dispatch])
+
   return (
     <header className="lg:container xl:max-w-7xl px-5 pt-5 m-auto flex justify-between items-center">
       <NavLink

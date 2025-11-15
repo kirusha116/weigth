@@ -20,9 +20,9 @@ export default function BlockWeight() {
     currentWeight,
     currentWeightDate,
   } = storage
-  const dispatch = useAppDispatch()
   const isMobile = !useMediaQuery('(min-width: 768px), (max-width: 639.5px)')
   const isSmallMobile = !useMediaQuery('(min-width: 400.5px)')
+  const dispatch = useAppDispatch()
   useEffect(() => {
     dispatch(initialState())
   }, [dispatch])

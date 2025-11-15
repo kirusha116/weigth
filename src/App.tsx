@@ -18,10 +18,11 @@ function App() {
 
   const dispatch = useAppDispatch()
   useEffect(() => {
-    ;(async () => {
+    const load = async () => {
       await dispatch(initialState())
       setIsDownloaded(true)
-    })()
+    }
+    load()
   }, [dispatch])
 
   return (

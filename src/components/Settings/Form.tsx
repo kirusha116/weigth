@@ -6,7 +6,7 @@ import { lazy, useEffect } from 'react'
 import { onFormSubmit } from '@/utils/onFormSubmit'
 import type { InForm } from '@/types/Storage'
 import { auth } from '@/firebase'
-import { onAuthStateChanged, updateProfile, type User } from 'firebase/auth'
+import { updateProfile, type User } from 'firebase/auth'
 import successToast from '@/utils/successToast'
 import { localeName } from '@/store/localKeys'
 
@@ -31,19 +31,6 @@ export default function Form() {
       maxCallories: maxCallories?.toString(),
     },
   })
-
-  onAuthStateChanged(auth, () => {
-    setValue('name', auth.currentUser?.displayName)
-  })
-
-  useEffect(() => {
-    ;(async () => {
-      await dispatch(initialState())
-      setValue('startWeight', startWeight?.toString())
-      setValue('targetWeight', targetWeight?.toString())
-      setValue('maxCallories', maxCallories?.toString())
-    })()
-  }, [dispatch, maxCallories, setValue, startWeight, targetWeight])
 
   const onSubmit: SubmitHandler<InForm> = async data => {
     if (auth.currentUser) {
@@ -73,6 +60,10 @@ export default function Form() {
     )
     successToast('Сохранено!')
   }
+
+  useEffect(() => {
+    dispatch(initialState())
+  }, [dispatch])
 
   return (
     <form onSubmit={handleSubmit(onSubmit)}>

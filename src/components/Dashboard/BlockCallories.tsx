@@ -12,12 +12,12 @@ const BlockMainContent = lazy(() => import('./BlockMainContent'))
 const BlockNoData = lazy(() => import('./BlockNoData'))
 
 export default function BlockCallories() {
-  const dispatch = useAppDispatch()
   const isMobile = !useMediaQuery('(min-width: 768px), (max-width: 639.5px)')
   const isSmallMobile = !useMediaQuery('(min-width: 400.5px)')
 
   const storage = useGetStorage()
   const { maxCallories } = storage
+  const dispatch = useAppDispatch()
   useEffect(() => {
     dispatch(initialState())
   }, [dispatch])

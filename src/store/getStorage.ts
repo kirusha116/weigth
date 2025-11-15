@@ -48,6 +48,5 @@ export const getStorage = async (): Promise<Storage> => {
       ...upDateStorage,
     }
   }
-  console.log(storage)
   return storage
 }

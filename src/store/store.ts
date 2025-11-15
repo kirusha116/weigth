@@ -11,7 +11,12 @@ import { emptyStorage } from './getTemplStorage'
 
 export const initialState = createAsyncThunk<Storage>(
   'storage/initialState',
-  async () => await getStorage(),
+  async () => {
+    const data = await new Promise<Storage>(resolve => {
+      setTimeout(() => resolve(getStorage()), 0)
+    })
+    return data
+  },
 )
 
 const storageSlice = createSlice({
