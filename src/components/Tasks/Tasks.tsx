@@ -19,8 +19,12 @@ export default function Tasks() {
 
       {tasks
         .sort((a, b) => b.price - a.price)
-        .map(({ icon, title, price, id }, index) => {
-          if (!tasksDay.includes(id) && !completedTasks.includes(id)) {
+        .map(({ icon, title, price, id, display }, index) => {
+          if (
+            !tasksDay.includes(id) &&
+            !completedTasks.includes(id) &&
+            display
+          ) {
             return (
               <Item
                 style={{ width: isMobile ? '' : 'calc(50% - 2px)' }}

@@ -1,0 +1,1 @@
+import{D as r,i as a}from"./index-Dsi6zhP-.js";import{w as s}from"./App-SCCq2xCo.js";const o=t=>({title:"Точно? Точно?",description:"Так данные будут храниться только на телефоне!",firstBtnText:"Отмена",firstBtnClick:()=>t(!1),secondBtnText:"Выйти",secondBtnClick:()=>{r(a).then(()=>{s("Вы вышли из аккаунта"),t(!1)}).catch(i=>{s(i.code),t(!1)})}});export{o as getParams};

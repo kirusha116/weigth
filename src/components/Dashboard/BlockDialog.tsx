@@ -86,7 +86,7 @@ export default function BlockDialog({
         {variant === 'callories' && (
           <Input
             className="mb-3"
-            type='number'
+            type="number"
             value={inputValue}
             onPaste={e => e.preventDefault()}
             onInput={e => {
@@ -99,7 +99,7 @@ export default function BlockDialog({
         <DialogFooter>
           <DialogClose asChild>
             <Button
-              variant="outline"
+              variant="green"
               onClick={() => {
                 if (inputValue) {
                   onSave(Number(inputValue))

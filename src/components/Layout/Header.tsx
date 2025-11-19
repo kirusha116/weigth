@@ -10,7 +10,6 @@ import type { Dialog } from '@/types/Dialog'
 
 export default function Header() {
   const storage = useGetStorage()
-  console.log(storage)
   const { balance } = storage
 
   const isSmall = !useMediaQuery('(min-width: 480px)')

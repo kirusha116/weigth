@@ -15,8 +15,12 @@ export function AwardsDay({ styled }: { styled?: boolean }) {
     <>
       {awards
         .sort((a, b) => b.price * b.discount - a.price * a.discount)
-        .map(({ icon, id, price, title, discount }, index) => {
-          if (awardsDay.includes(id) && !completedAwards.includes(id)) {
+        .map(({ icon, id, price, title, discount, display }, index) => {
+          if (
+            awardsDay.includes(id) &&
+            !completedAwards.includes(id) &&
+            display
+          ) {
             return (
               <Item
                 style={{ width: styled ? 'calc(50% - 2px)' : '' }}

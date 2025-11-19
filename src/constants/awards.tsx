@@ -10,6 +10,7 @@ export const awards: taskOrAward[] = [
     price: -1500,
     id: 1,
     discount: 2 / 3,
+    display: true,
   },
   {
     icon: <Utensils className={className} />,
@@ -17,6 +18,7 @@ export const awards: taskOrAward[] = [
     price: -4000,
     id: 2,
     discount: 0.75,
+    display: true,
   },
   {
     icon: <PlugZap className={className} />,
@@ -24,6 +26,7 @@ export const awards: taskOrAward[] = [
     price: -200000,
     id: 3,
     discount: 0.7,
+    display: true,
   },
   {
     icon: <BriefcaseBusiness className={className} />,
@@ -31,6 +34,7 @@ export const awards: taskOrAward[] = [
     price: -1000000,
     id: 4,
     discount: 0.85,
+    display: true,
   },
   {
     icon: <BriefcaseBusiness className={className} />,
@@ -38,6 +42,7 @@ export const awards: taskOrAward[] = [
     price: -2500,
     id: 5,
     discount: 0.5,
+    display: true,
   },
   {
     icon: <BriefcaseBusiness className={className} />,
@@ -45,5 +50,6 @@ export const awards: taskOrAward[] = [
     price: -1500,
     id: 6,
     discount: 2 / 3,
+    display: true,
   },
 ]

@@ -9,12 +9,17 @@ const Item = lazy(() => import('../Item'))
 export function TasksDay({ styled }: { styled?: boolean }) {
   const { completedTasks, balance, tasksDay } = useGetStorage()
   const dispatch = useAppDispatch()
+
   return (
     <>
       {tasks
         .sort((a, b) => b.price * b.discount - a.price * a.discount)
-        .map(({ icon, id, price, title, discount }, index) => {
-          if (tasksDay.includes(id) && !completedTasks.includes(id)) {
+        .map(({ icon, id, price, title, discount, display }, index) => {
+          if (
+            tasksDay.includes(id) &&
+            !completedTasks.includes(id) &&
+            display
+          ) {
             return (
               <Item
                 style={{ width: styled ? 'calc(50% - 2px)' : '' }}

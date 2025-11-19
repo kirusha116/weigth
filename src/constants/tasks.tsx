@@ -19,6 +19,7 @@ export const tasks: taskOrAward[] = [
     price: 50,
     id: 1,
     discount: 2,
+    display: false,
   },
   {
     icon: <CookingPot className={className} />,
@@ -26,6 +27,7 @@ export const tasks: taskOrAward[] = [
     price: 100,
     id: 2,
     discount: 1.5,
+    display: true,
   },
   {
     icon: <Footprints className={className} />,
@@ -33,6 +35,7 @@ export const tasks: taskOrAward[] = [
     price: 100,
     id: 3,
     discount: 2.5,
+    display: true,
   },
   {
     icon: <Smile className={className} />,
@@ -40,6 +43,7 @@ export const tasks: taskOrAward[] = [
     price: 100,
     id: 4,
     discount: 1.2,
+    display: true,
   },
   {
     icon: <BicepsFlexed className={className} />,
@@ -47,6 +51,7 @@ export const tasks: taskOrAward[] = [
     price: 100,
     id: 5,
     discount: 1.2,
+    display: true,
   },
   {
     icon: <BrushCleaning className={className} />,
@@ -54,6 +59,7 @@ export const tasks: taskOrAward[] = [
     price: 100,
     id: 6,
     discount: 1.5,
+    display: true,
   },
   {
     icon: <Bike className={className} />,
@@ -61,6 +67,7 @@ export const tasks: taskOrAward[] = [
     price: 150,
     id: 7,
     discount: 2,
+    display: true,
   },
   {
     icon: <HeartHandshake className={className} />,
@@ -68,6 +75,7 @@ export const tasks: taskOrAward[] = [
     price: 250,
     id: 8,
     discount: 1.2,
+    display: true,
   },
   {
     icon: <HeartHandshake className={className} />,
@@ -75,6 +83,7 @@ export const tasks: taskOrAward[] = [
     price: 1000,
     id: 9,
     discount: 1.1,
+    display: true,
   },
   {
     icon: <HeartHandshake className={className} />,
@@ -82,5 +91,14 @@ export const tasks: taskOrAward[] = [
     price: 1500,
     id: 10,
     discount: 1.25,
+    display: true,
+  },
+  {
+    icon: <BedDouble className={className} />,
+    title: 'Лечь спать до 11 часов',
+    price: 50,
+    id: 11,
+    discount: 2,
+    display: true,
   },
 ]

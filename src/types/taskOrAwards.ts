@@ -6,4 +6,5 @@ export type taskOrAward = {
   price: number
   id: number
   discount: number
+  display: boolean
 }

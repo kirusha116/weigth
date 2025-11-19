@@ -12,15 +12,19 @@ const Item = lazy(() => import('../Item'))
 export default function Awards() {
   const { completedAwards, balance, awardsDay } = useGetStorage()
   const isMobile = !useMediaQuery('(min-width: 768px)')
-    const dispatch = useAppDispatch()
+  const dispatch = useAppDispatch()
   return (
     <>
       <div className="flex flex-wrap gap-1">
         <AwardsDay styled={!isMobile} />
         {awards
           .sort((a, b) => b.price - a.price)
-          .map(({ icon, title, price, id }, index) => {
-            if (!awardsDay.includes(id)! && !completedAwards.includes(id)) {
+          .map(({ icon, title, price, id, display }, index) => {
+            if (
+              !awardsDay.includes(id)! &&
+              !completedAwards.includes(id) &&
+              display
+            ) {
               return (
                 <Item
                   style={{ width: isMobile ? '' : 'calc(50% - 2px)' }}
