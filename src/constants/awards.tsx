@@ -52,4 +52,12 @@ export const awards: taskOrAward[] = [
     discount: 2 / 3,
     display: true,
   },
+  {
+    icon: <BriefcaseBusiness className={className} />,
+    title: 'Старик хинкалыч',
+    price: -2500,
+    id: 7,
+    discount: 4 / 5,
+    display: true,
+  },
 ]
