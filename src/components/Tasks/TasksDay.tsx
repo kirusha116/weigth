@@ -13,7 +13,7 @@ export function TasksDay({ styled }: { styled?: boolean }) {
   return (
     <>
       {tasks
-        .sort((a, b) => b.price * b.discount - a.price * a.discount)
+        .sort((a, b) => a.price * a.discount - b.price * b.discount)
         .map(({ icon, id, price, title, discount, display }, index) => {
           if (
             tasksDay.includes(id) &&

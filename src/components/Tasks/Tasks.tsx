@@ -18,7 +18,7 @@ export default function Tasks() {
       <TasksDay styled={!isMobile} />
 
       {tasks
-        .sort((a, b) => b.price - a.price)
+        .sort((a, b) => a.price - b.price)
         .map(({ icon, title, price, id, display }, index) => {
           if (
             !tasksDay.includes(id) &&
