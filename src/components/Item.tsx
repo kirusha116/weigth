@@ -11,7 +11,7 @@ export default function Item({
   oldPrice,
   discount,
 }: {
-  icon: JSX.Element
+  icon: string
   title: string
   price: string
   onButtonClick: () => void
@@ -22,9 +22,16 @@ export default function Item({
   const parentBlock = useRef<HTMLDivElement | null>(null)
   const [strokeWidth, setStrokeWidth] = useState<number | null>(null)
 
+  const [innerIcon, setInnerIcon] = useState<JSX.Element | null>(null)
+
   useEffect(() => {
     if (parentBlock) setStrokeWidth(parentBlock.current?.offsetWidth as number)
-  }, [parentBlock])
+    async function getIcon(icon: string) {
+      const receivedIcon = await import(`@/icons/${icon}.tsx`)
+      setInnerIcon(receivedIcon.default)
+    }
+    getIcon(icon)
+  }, [icon, parentBlock])
 
   return (
     <div
@@ -42,7 +49,7 @@ export default function Item({
         </div>
       )}
       <div className="h-9 rounded-md aspect-square bg-rose-300 mr-4 flex justify-center items-center">
-        {icon}
+        {innerIcon && innerIcon}
       </div>
       <div>
         <p>

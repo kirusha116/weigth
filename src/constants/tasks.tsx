@@ -1,20 +1,8 @@
 import type { taskOrAward } from '@/types/taskOrAwards'
-import {
-  BedDouble,
-  BicepsFlexed,
-  Bike,
-  BrushCleaning,
-  CookingPot,
-  Footprints,
-  HeartHandshake,
-  Smile,
-} from 'lucide-react'
-
-const className = 'stroke-white'
 
 export const tasks: taskOrAward[] = [
   {
-    icon: <BedDouble className={className} />,
+    icon: 'BedDouble',
     title: 'Лечь спать до 10 часов',
     price: 50,
     id: 1,
@@ -22,7 +10,7 @@ export const tasks: taskOrAward[] = [
     display: false,
   },
   {
-    icon: <CookingPot className={className} />,
+    icon: 'CookingPot',
     title: 'Помыть посуду',
     price: 100,
     id: 2,
@@ -30,7 +18,7 @@ export const tasks: taskOrAward[] = [
     display: true,
   },
   {
-    icon: <Footprints className={className} />,
+    icon: 'Footprints',
     title: 'Прогулка 20 минут по парку',
     price: 100,
     id: 3,
@@ -38,7 +26,7 @@ export const tasks: taskOrAward[] = [
     display: true,
   },
   {
-    icon: <Smile className={className} />,
+    icon: 'Smile',
     title: 'Чистка зубов 2 раза в день',
     price: 100,
     id: 4,
@@ -46,15 +34,15 @@ export const tasks: taskOrAward[] = [
     display: true,
   },
   {
-    icon: <BicepsFlexed className={className} />,
+    icon: 'BicepsFlexed',
     title: 'Зарядка для спины',
-    price: 100,
+    price: 200,
     id: 5,
     discount: 1.2,
     display: true,
   },
   {
-    icon: <BrushCleaning className={className} />,
+    icon: 'BrushCleaning',
     title: 'Уборка 15 минут',
     price: 100,
     id: 6,
@@ -62,15 +50,15 @@ export const tasks: taskOrAward[] = [
     display: true,
   },
   {
-    icon: <Bike className={className} />,
-    title: '10 минут на велотренажёре',
+    icon: 'Bike',
+    title: 'Велотренажёр 10 минут',
     price: 150,
     id: 7,
     discount: 2,
     display: true,
   },
   {
-    icon: <HeartHandshake className={className} />,
+    icon: 'HeartHandshake',
     title: 'Массаж ручек по 10 мин',
     price: 250,
     id: 8,
@@ -78,7 +66,7 @@ export const tasks: taskOrAward[] = [
     display: true,
   },
   {
-    icon: <HeartHandshake className={className} />,
+    icon: 'HeartHandshake',
     title: 'Распечатать фотографии для книги приключений',
     price: 1000,
     id: 9,
@@ -86,7 +74,7 @@ export const tasks: taskOrAward[] = [
     display: true,
   },
   {
-    icon: <HeartHandshake className={className} />,
+    icon: 'HeartHandshake',
     title: 'Выполнить задание из книги приключений',
     price: 1500,
     id: 10,
@@ -94,7 +82,7 @@ export const tasks: taskOrAward[] = [
     display: true,
   },
   {
-    icon: <BedDouble className={className} />,
+    icon: 'BedDouble',
     title: 'Лечь спать до 11 часов',
     price: 50,
     id: 11,

@@ -19,12 +19,8 @@ export default function Awards() {
         <AwardsDay styled={!isMobile} />
         {awards
           .sort((a, b) => b.price - a.price)
-          .map(({ icon, title, price, id, display }, index) => {
-            if (
-              !awardsDay.includes(id)! &&
-              !completedAwards.includes(id) &&
-              display
-            ) {
+          .map(({ icon, title, price, id }, index) => {
+            if (!awardsDay.includes(id)! && !completedAwards.includes(id)) {
               return (
                 <Item
                   style={{ width: isMobile ? '' : 'calc(50% - 2px)' }}

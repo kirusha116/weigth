@@ -1,7 +1,5 @@
-import type { JSX } from 'react'
-
 export type taskOrAward = {
-  icon: JSX.Element
+  icon: string
   title: string
   price: number
   id: number

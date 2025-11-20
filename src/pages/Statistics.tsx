@@ -2,6 +2,7 @@ import Header from '@/components/Statistics/Header'
 import { auth, db } from '@/firebase'
 import type { Storage } from '@/types/Storage'
 import { collection, getDocs, orderBy, query, where } from 'firebase/firestore'
+import { ArrowBigDown, ArrowBigUp, Minus } from 'lucide-react'
 import { useEffect, useState } from 'react'
 
 export default function Statistics() {
@@ -27,7 +28,21 @@ export default function Statistics() {
     <>
       <Header />
       <ul className="flex flex-col-reverse">
-        {history?.map(elem => {
+        {history?.map((elem, index, arr) => {
+          const arrow = (index => {
+            if (!index || elem.currentWeight === arr[index - 1].currentWeight)
+              return () => <Minus className="stroke-gray-400 fill-gray-400 " />
+            if (
+              (elem.currentWeight as number) >
+              (arr[index - 1].currentWeight as number)
+            )
+              return () => (
+                <ArrowBigUp className="stroke-red-300 fill-red-300" />
+              )
+            return () => (
+              <ArrowBigDown className="stroke-green-300 fill-green-300" />
+            )
+          })(index)
           return (
             <li
               key={elem.lastDateOfLoad}
@@ -35,15 +50,23 @@ export default function Statistics() {
                 'flex mb-1 items-center rounded-lg bg-white border shadow-xs px-3 py-2 relative w-full'
               }
             >
-              <div className="h-9 rounded-md aspect-square bg-rose-300 mr-4 flex justify-center items-center">
-                {}
+              <div className="h-8 rounded-md aspect-square border-rose-300 border-2 mr-4 flex justify-center items-center">
+                {arrow()}
               </div>
               <p>
-                <b>{elem.lastDateOfLoad}</b>
+                <b>
+                  {new Date(elem.lastDateOfLoad).toLocaleDateString('ru-RU', {
+                    day: 'numeric',
+                    month: 'long',
+                    year: 'numeric',
+                  })}
+                </b>
               </p>
               <div className="grow"></div>
               <p>
-                <b>{elem.currentWeight + ' кг'}</b>
+                <b>{`${elem.currentWeight?.toString()}${
+                  !((elem.currentWeight as number) % 1) ? '.0' : ''
+                } кг`}</b>
               </p>
             </li>
           )

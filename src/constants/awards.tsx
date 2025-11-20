@@ -1,11 +1,8 @@
 import type { taskOrAward } from '@/types/taskOrAwards'
-import { BriefcaseBusiness, Hamburger, PlugZap, Utensils } from 'lucide-react'
-
-const className = 'stroke-white'
 
 export const awards: taskOrAward[] = [
   {
-    icon: <Hamburger className={className} />,
+    icon: 'Hamburger',
     title: 'Поход в фастфуд',
     price: -1500,
     id: 1,
@@ -13,7 +10,7 @@ export const awards: taskOrAward[] = [
     display: true,
   },
   {
-    icon: <Utensils className={className} />,
+    icon: 'Utensils',
     title: 'Поход в ресторан',
     price: -4000,
     id: 2,
@@ -21,7 +18,7 @@ export const awards: taskOrAward[] = [
     display: true,
   },
   {
-    icon: <PlugZap className={className} />,
+    icon: 'PlugZap',
     title: 'Аналог дайсон',
     price: -200000,
     id: 3,
@@ -29,7 +26,7 @@ export const awards: taskOrAward[] = [
     display: true,
   },
   {
-    icon: <BriefcaseBusiness className={className} />,
+    icon: 'BriefcaseBusiness',
     title: 'Уволиться с работы',
     price: -1000000,
     id: 4,
@@ -37,7 +34,7 @@ export const awards: taskOrAward[] = [
     display: true,
   },
   {
-    icon: <BriefcaseBusiness className={className} />,
+    icon: 'BriefcaseBusiness',
     title: 'Массаж спины 20 мин',
     price: -2500,
     id: 5,
@@ -45,7 +42,7 @@ export const awards: taskOrAward[] = [
     display: true,
   },
   {
-    icon: <BriefcaseBusiness className={className} />,
+    icon: 'BriefcaseBusiness',
     title: 'Массаж ножек по 7 мин',
     price: -1500,
     id: 6,
@@ -53,10 +50,18 @@ export const awards: taskOrAward[] = [
     display: true,
   },
   {
-    icon: <BriefcaseBusiness className={className} />,
+    icon: 'BriefcaseBusiness',
     title: 'Старик хинкалыч',
     price: -2500,
     id: 7,
+    discount: 4 / 5,
+    display: true,
+  },
+  {
+    icon: 'BriefcaseBusiness',
+    title: 'Купить домашнее растение',
+    price: -1500,
+    id: 8,
     discount: 4 / 5,
     display: true,
   },
