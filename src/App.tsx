@@ -1,33 +1,39 @@
-import { CheckCheck, Frown } from 'lucide-react'
 import { BrowserRouter, Route, Routes } from 'react-router-dom'
-import { Toaster } from './components/ui/sonner'
-import { lazy, useState } from 'react'
+import React, { lazy, useEffect, useState, type JSX } from 'react'
 import { useAppDispatch } from './hooks/storageHooks.js'
-import './firebase.js'
 import { Heart } from './components/Heart.js'
-import Login from './components/Login.js'
 import { auth } from './firebase.js'
 import { onAuthStateChanged } from 'firebase/auth'
-import { initialState } from './store/storageSlice.js'
-import { getTasks } from './store/tasksSlice.js'
-import { getAwards } from './store/awardsSlice.js'
+import type { ToasterProps } from 'sonner'
+import './firebase.js'
+import { DynamicIcon } from 'lucide-react/dynamic'
 const Layout = lazy(() => import('./pages/Layout'))
 const Dashboard = lazy(() => import('./pages/Dashboard'))
 const Tasks = lazy(() => import('./pages/Tasks'))
 const Awards = lazy(() => import('./pages/Awards'))
 const Statistics = lazy(() => import('./pages/Statistics'))
 const Settings = lazy(() => import('./pages/Settings'))
+const Login = lazy(() => import('./components/Login.js'))
 
 function App() {
   const [isDownloaded, setIsDownloaded] = useState(false)
 
   const [isLoginVisible, setIsLoginVisible] = useState<boolean>(false)
 
+  const [Toaster, setToaster] = useState<
+    (({ ...props }: ToasterProps) => JSX.Element) | null
+  >(null)
+  const [CheckCheck, setCheckCheck] = useState<React.FC | null>(null)
+  const [Frown, setFrown] = useState<React.FC | null>(null)
+
   const dispatch = useAppDispatch()
   onAuthStateChanged(auth, () => {
     setIsLoginVisible(!auth.currentUser)
     if (auth.currentUser) {
       const load = async () => {
+        const { initialState } = await import('./store/storageSlice.js')
+        const { getTasks } = await import('./store/tasksSlice.js')
+        const { getAwards } = await import('./store/awardsSlice.js')
         await dispatch(initialState())
         await dispatch(getTasks())
         await dispatch(getAwards())
@@ -37,15 +43,27 @@ function App() {
     }
   })
 
+  useEffect(() => {
+    async function getToaster() {
+      const { Toaster } = await import('./components/ui/sonner')
+      setToaster(() => Toaster)
+      setCheckCheck(() => () => <DynamicIcon name={'check-check'} />)
+      setFrown(() => () => <DynamicIcon name={'frown'} />)
+    }
+    if (!Toaster) getToaster()
+  })
+
   return (
     <>
-      <Toaster
-        mobileOffset={{ left: '50%' }}
-        richColors
-        icons={{ success: <CheckCheck />, warning: <Frown /> }}
-        theme="light"
-        position="top-center"
-      />
+      {Toaster && CheckCheck && Frown && (
+        <Toaster
+          mobileOffset={{ left: '50%' }}
+          richColors
+          icons={{ success: <CheckCheck />, warning: <Frown /> }}
+          theme="light"
+          position="top-center"
+        />
+      )}
       {isDownloaded ? (
         <BrowserRouter basename="/weight">
           <Routes>

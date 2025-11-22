@@ -1,1 +1,0 @@
-import{v as i,d as a}from"./index-DGQ20GTJ.js";import{w as s}from"./warningToast-DFKbTw2L.js";const o=t=>({title:"Точно? Точно?",description:"Так данные будут храниться только на телефоне!",firstBtnText:"Отмена",firstBtnClick:()=>t(!1),secondBtnText:"Выйти",secondBtnClick:()=>{i(a).then(()=>{s("Вы вышли из аккаунта"),t(!1)}).catch(r=>{s(r.code),t(!1)})}});export{o as getParams};

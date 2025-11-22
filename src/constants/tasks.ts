@@ -105,4 +105,12 @@ export const tasks: TaskOrAward[] = [
     discount: 4 / 3,
     display: true,
   },
+  {
+    icon: 'user',
+    title: 'Массаж спины 15 мин',
+    price: 1000,
+    id: 14,
+    discount: 5 / 4,
+    display: true,
+  },
 ]

@@ -17,13 +17,13 @@ export default function Grid() {
             <BlockWeight />
           </Suspense>
           <Suspense fallback={<BlockHeart />}>
-            <BlockCallories />
-          </Suspense>
-          <Suspense fallback={<BlockHeart />}>
             <BlockTasks />
           </Suspense>
           <Suspense fallback={<BlockHeart />}>
             <BlockAwards />
+          </Suspense>
+          <Suspense fallback={<BlockHeart />}>
+            <BlockCallories />
           </Suspense>
         </div>
       )}

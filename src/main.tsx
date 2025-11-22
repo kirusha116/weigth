@@ -1,9 +1,9 @@
 import { lazy, StrictMode, Suspense } from 'react'
 import { createRoot } from 'react-dom/client'
-import './index.css'
 import { Heart } from './components/Heart'
 import { Provider } from 'react-redux'
 import { store } from './store/store'
+import './index.css'
 
 const App = lazy(() => import('./App'))
 
