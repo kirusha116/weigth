@@ -1,0 +1,1 @@
+import{j as t}from"./index-DGQ20GTJ.js";import{s as r}from"./Form-D-j2syzu.js";import{L as m,g as n}from"./App-BkPy5VyQ.js";import"./warningToast-DFKbTw2L.js";function x({settingsKey:s,register:e}){return t.jsxs(t.Fragment,{children:[t.jsx(m,{className:"text-md",children:r[s]}),t.jsx(n,{className:"bg-white mt-2 mb-4",...e,enterKeyHint:"next"})]})}export{x as default};

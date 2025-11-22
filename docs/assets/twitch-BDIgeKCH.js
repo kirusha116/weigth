@@ -1,0 +1,6 @@
+import{f as t}from"./App-BkPy5VyQ.js";import"./index-DGQ20GTJ.js";import"./warningToast-DFKbTw2L.js";/**
+ * @license lucide-react v0.545.0 - ISC
+ *
+ * This source code is licensed under the ISC license.
+ * See the LICENSE file in the root directory of this source tree.
+ */const o=[["path",{d:"M21 2H3v16h5v4l4-4h5l4-4V2zm-10 9V7m5 4V7",key:"c0yzno"}]],m=t("twitch",o);export{o as __iconNode,m as default};

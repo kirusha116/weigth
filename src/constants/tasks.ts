@@ -59,8 +59,8 @@ export const tasks: TaskOrAward[] = [
   },
   {
     icon: 'heart-handshake',
-    title: 'Массаж ручек по 10 мин',
-    price: 250,
+    title: 'Массаж ручек по 7 мин',
+    price: 1000,
     id: 8,
     discount: 1.2,
     display: true,
@@ -100,9 +100,9 @@ export const tasks: TaskOrAward[] = [
   {
     icon: 'person-standing',
     title: 'Медитация 5 минут',
-    price: 1000,
-    id: 12,
-    discount: 1.2,
+    price: 75,
+    id: 13,
+    discount: 4 / 3,
     display: true,
   },
 ]
