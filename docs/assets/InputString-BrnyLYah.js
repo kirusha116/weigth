@@ -1,1 +1,0 @@
-import{j as t}from"./index-CMFhOMCn.js";import{s as r}from"./Form-BxC8Ilr1.js";import{L as n,I as a}from"./App-Blfn8m0Q.js";function x({settingsKey:s,register:e}){return t.jsxs(t.Fragment,{children:[t.jsx(n,{className:"text-md",children:r[s]}),t.jsx(a,{className:"bg-white mt-2 mb-4",...e,enterKeyHint:"next"})]})}export{x as default};

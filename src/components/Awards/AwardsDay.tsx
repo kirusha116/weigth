@@ -1,5 +1,8 @@
-import { awards } from '@/constants/awards'
-import { useAppDispatch, useGetStorage } from '@/hooks/storageHooks'
+import {
+  useAppDispatch,
+  useGetAwards,
+  useGetStorage,
+} from '@/hooks/storageHooks'
 import { handleSave } from '@/store/store'
 import successToast from '@/utils/successToast'
 import warningToast from '@/utils/warningToast'
@@ -9,11 +12,15 @@ const Item = lazy(() => import('../Item'))
 
 export function AwardsDay({ styled }: { styled?: boolean }) {
   const { completedAwards, balance, awardsDay } = useGetStorage()
+  const awards = useGetAwards()
+  const sortedAwards = [...awards].sort(
+    (a, b) => b.price * b.discount - a.price * a.discount,
+  )
   const dispatch = useAppDispatch()
 
   return (
     <>
-      {awards
+      {sortedAwards
         .sort((a, b) => b.price * b.discount - a.price * a.discount)
         .map(({ icon, id, price, title, discount, display }, index) => {
           if (

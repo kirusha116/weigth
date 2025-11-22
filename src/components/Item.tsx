@@ -1,4 +1,5 @@
 import { Badge, CircleCheck, Star } from 'lucide-react'
+import { DynamicIcon, type IconName } from 'lucide-react/dynamic'
 import { Button } from './ui/button'
 import { useEffect, useRef, useState, type JSX } from 'react'
 
@@ -11,7 +12,7 @@ export default function Item({
   oldPrice,
   discount,
 }: {
-  icon: string
+  icon: IconName
   title: string
   price: string
   onButtonClick: () => void
@@ -26,9 +27,8 @@ export default function Item({
 
   useEffect(() => {
     if (parentBlock) setStrokeWidth(parentBlock.current?.offsetWidth as number)
-    async function getIcon(icon: string) {
-      const receivedIcon = await import(`@/icons/${icon}.tsx`)
-      setInnerIcon(receivedIcon.default)
+    async function getIcon(icon: IconName) {
+      setInnerIcon(<DynamicIcon name={icon} className={'stroke-white'} />)
     }
     getIcon(icon)
   }, [icon, parentBlock])

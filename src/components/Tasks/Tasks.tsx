@@ -1,7 +1,10 @@
-import { useAppDispatch, useGetStorage } from '@/hooks/storageHooks'
+import {
+  useAppDispatch,
+  useGetStorage,
+  useGetTasks,
+} from '@/hooks/storageHooks'
 import { handleSave } from '@/store/store'
 import { useMediaQuery } from 'usehooks-ts'
-import { tasks } from '@/constants/tasks'
 import { lazy } from 'react'
 import successToast from '@/utils/successToast'
 import { TasksDay } from './TasksDay'
@@ -10,15 +13,15 @@ const Item = lazy(() => import('../Item'))
 
 export default function Tasks() {
   const { completedTasks, balance, tasksDay } = useGetStorage()
+  const tasks = useGetTasks()
+  const sortedTasks = [...tasks].sort((a, b) => a.price - b.price)
   const isMobile = !useMediaQuery('(min-width: 768px)')
   const dispatch = useAppDispatch()
-
   return (
     <div className="flex flex-wrap gap-1">
       <TasksDay styled={!isMobile} />
 
-      {tasks
-        .sort((a, b) => a.price - b.price)
+      {sortedTasks
         .map(({ icon, title, price, id, display }, index) => {
           if (
             !tasksDay.includes(id) &&

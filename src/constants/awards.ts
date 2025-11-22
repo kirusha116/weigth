@@ -1,0 +1,68 @@
+import type { TaskOrAward } from '@/types/TaskOrAwards'
+
+export const awards: TaskOrAward[] = [
+  {
+    icon: 'hamburger',
+    title: 'Поход в фастфуд',
+    price: -1500,
+    id: 1,
+    discount: 2 / 3,
+    display: true,
+  },
+  {
+    icon: 'utensils',
+    title: 'Поход в ресторан',
+    price: -4000,
+    id: 2,
+    discount: 0.75,
+    display: true,
+  },
+  {
+    icon: 'plug-zap',
+    title: 'Аналог дайсон',
+    price: -200000,
+    id: 3,
+    discount: 0.7,
+    display: true,
+  },
+  {
+    icon: 'briefcase-business',
+    title: 'Уволиться с работы',
+    price: -1000000,
+    id: 4,
+    discount: 0.85,
+    display: true,
+  },
+  {
+    icon: 'user',
+    title: 'Массаж спины 20 мин',
+    price: -2500,
+    id: 5,
+    discount: 0.5,
+    display: true,
+  },
+  {
+    icon: 'footprints',
+    title: 'Массаж ножек по 7 мин',
+    price: -1500,
+    id: 6,
+    discount: 2 / 3,
+    display: true,
+  },
+  {
+    icon: 'egg-fried',
+    title: 'Старик хинкалыч',
+    price: -2500,
+    id: 7,
+    discount: 4 / 5,
+    display: true,
+  },
+  {
+    icon: 'sprout',
+    title: 'Купить домашнее растение',
+    price: -1500,
+    id: 8,
+    discount: 4 / 5,
+    display: true,
+  },
+]

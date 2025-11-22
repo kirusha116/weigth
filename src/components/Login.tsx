@@ -19,7 +19,7 @@ import { Heart } from './Heart.js'
 import warningToast from '@/utils/warningToast.js'
 import successToast from '@/utils/successToast.js'
 import { auth } from '@/firebase.js'
-import { getStorage } from '@/store/getStorage.js'
+import { getStorage } from '@/utils/getStorage.js'
 import { useAppDispatch, useGetStorage } from '@/hooks/storageHooks.js'
 import { handleSave } from '@/store/store.js'
 

@@ -1,6 +1,9 @@
-import { useAppDispatch, useGetStorage } from '@/hooks/storageHooks'
+import {
+  useAppDispatch,
+  useGetStorage,
+  useGetTasks,
+} from '@/hooks/storageHooks'
 import { handleSave } from '@/store/store'
-import { tasks } from '@/constants/tasks'
 import { lazy } from 'react'
 import successToast from '@/utils/successToast'
 
@@ -8,11 +11,15 @@ const Item = lazy(() => import('../Item'))
 
 export function TasksDay({ styled }: { styled?: boolean }) {
   const { completedTasks, balance, tasksDay } = useGetStorage()
+  const tasks = useGetTasks()
+  const sortedTasks = [...tasks].sort(
+    (a, b) => a.price * a.discount - b.price * b.discount,
+  )
   const dispatch = useAppDispatch()
 
   return (
     <>
-      {tasks
+      {sortedTasks
         .sort((a, b) => a.price * a.discount - b.price * b.discount)
         .map(({ icon, id, price, title, discount, display }, index) => {
           if (

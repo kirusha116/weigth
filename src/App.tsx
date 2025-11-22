@@ -3,12 +3,14 @@ import { BrowserRouter, Route, Routes } from 'react-router-dom'
 import { Toaster } from './components/ui/sonner'
 import { lazy, useState } from 'react'
 import { useAppDispatch } from './hooks/storageHooks.js'
-import { initialState } from './store/store.js'
 import './firebase.js'
 import { Heart } from './components/Heart.js'
 import Login from './components/Login.js'
 import { auth } from './firebase.js'
 import { onAuthStateChanged } from 'firebase/auth'
+import { initialState } from './store/storageSlice.js'
+import { getTasks } from './store/tasksSlice.js'
+import { getAwards } from './store/awardsSlice.js'
 const Layout = lazy(() => import('./pages/Layout'))
 const Dashboard = lazy(() => import('./pages/Dashboard'))
 const Tasks = lazy(() => import('./pages/Tasks'))
@@ -27,6 +29,8 @@ function App() {
     if (auth.currentUser) {
       const load = async () => {
         await dispatch(initialState())
+        await dispatch(getTasks())
+        await dispatch(getAwards())
         setIsDownloaded(true)
       }
       load()
