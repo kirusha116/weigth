@@ -1,6 +1,6 @@
-import type { TaskOrAward } from '@/types/TaskOrAwards'
+import type { TasksOrAward } from '@/types/TasksOrAwards'
 
-export const tasks: TaskOrAward[] = [
+export const tasks: TasksOrAward[] = [
   {
     icon: 'bed-double',
     title: 'Лечь спать до 10 часов',
@@ -8,6 +8,7 @@ export const tasks: TaskOrAward[] = [
     id: 1,
     discount: 2,
     display: false,
+    daily: true,
   },
   {
     icon: 'cooking-pot',
@@ -16,6 +17,7 @@ export const tasks: TaskOrAward[] = [
     id: 2,
     discount: 1.5,
     display: true,
+    daily: true,
   },
   {
     icon: 'footprints',
@@ -24,6 +26,7 @@ export const tasks: TaskOrAward[] = [
     id: 3,
     discount: 2.5,
     display: true,
+    daily: true,
   },
   {
     icon: 'smile',
@@ -32,6 +35,7 @@ export const tasks: TaskOrAward[] = [
     id: 4,
     discount: 1.2,
     display: true,
+    daily: true,
   },
   {
     icon: 'biceps-flexed',
@@ -40,6 +44,7 @@ export const tasks: TaskOrAward[] = [
     id: 5,
     discount: 1.2,
     display: true,
+    daily: true,
   },
   {
     icon: 'brush-cleaning',
@@ -48,6 +53,7 @@ export const tasks: TaskOrAward[] = [
     id: 6,
     discount: 1.5,
     display: true,
+    daily: true,
   },
   {
     icon: 'bike',
@@ -56,6 +62,7 @@ export const tasks: TaskOrAward[] = [
     id: 7,
     discount: 2,
     display: true,
+    daily: true,
   },
   {
     icon: 'heart-handshake',
@@ -64,6 +71,7 @@ export const tasks: TaskOrAward[] = [
     id: 8,
     discount: 1.2,
     display: true,
+    daily: true,
   },
   {
     icon: 'instagram',
@@ -72,6 +80,7 @@ export const tasks: TaskOrAward[] = [
     id: 9,
     discount: 1.1,
     display: true,
+    daily: false,
   },
   {
     icon: 'book-heart',
@@ -80,6 +89,7 @@ export const tasks: TaskOrAward[] = [
     id: 10,
     discount: 1.25,
     display: true,
+    daily: true,
   },
   {
     icon: 'bed-double',
@@ -88,6 +98,7 @@ export const tasks: TaskOrAward[] = [
     id: 11,
     discount: 2,
     display: true,
+    daily: true,
   },
   {
     icon: 'volleyball',
@@ -96,6 +107,7 @@ export const tasks: TaskOrAward[] = [
     id: 12,
     discount: 1.2,
     display: true,
+    daily: false,
   },
   {
     icon: 'person-standing',
@@ -104,6 +116,7 @@ export const tasks: TaskOrAward[] = [
     id: 13,
     discount: 4 / 3,
     display: true,
+    daily: true,
   },
   {
     icon: 'user',
@@ -112,5 +125,6 @@ export const tasks: TaskOrAward[] = [
     id: 14,
     discount: 5 / 4,
     display: true,
+    daily: true,
   },
 ]

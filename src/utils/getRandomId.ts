@@ -1,6 +1,6 @@
-import type { TaskOrAward } from '@/types/TaskOrAwards'
+import type { TasksOrAward } from '@/types/TasksOrAwards'
 
-export function getRandomsId(arr: TaskOrAward[], length: number) {
+export function getRandomsId(arr: TasksOrAward[], length: number) {
   const result: number[] = []
   let i = 0
   while (i < length) {

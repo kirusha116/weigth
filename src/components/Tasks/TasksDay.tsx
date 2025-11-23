@@ -6,6 +6,7 @@ import {
 import { handleSave } from '@/store/store'
 import { lazy } from 'react'
 import successToast from '@/utils/successToast'
+import { makeDisplayFalse } from '@/utils/makeDisplayFalse'
 
 const Item = lazy(() => import('../Item'))
 
@@ -21,7 +22,7 @@ export function TasksDay({ styled }: { styled?: boolean }) {
     <>
       {sortedTasks
         .sort((a, b) => a.price * a.discount - b.price * b.discount)
-        .map(({ icon, id, price, title, discount, display }, index) => {
+        .map(({ icon, id, price, title, discount, display, daily }, index) => {
           if (
             tasksDay.includes(id) &&
             !completedTasks.includes(id) &&
@@ -44,6 +45,7 @@ export function TasksDay({ styled }: { styled?: boolean }) {
                       completedTasks: [...completedTasks, id],
                     }),
                   )
+                  if (!daily) makeDisplayFalse('tasks', id)
                 }}
               />
             )

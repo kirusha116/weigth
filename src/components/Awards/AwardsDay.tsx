@@ -4,6 +4,7 @@ import {
   useGetStorage,
 } from '@/hooks/storageHooks'
 import { handleSave } from '@/store/store'
+import { makeDisplayFalse } from '@/utils/makeDisplayFalse'
 import successToast from '@/utils/successToast'
 import warningToast from '@/utils/warningToast'
 import { lazy } from 'react'
@@ -22,7 +23,7 @@ export function AwardsDay({ styled }: { styled?: boolean }) {
     <>
       {sortedAwards
         .sort((a, b) => b.price * b.discount - a.price * a.discount)
-        .map(({ icon, id, price, title, discount, display }, index) => {
+        .map(({ icon, id, price, title, discount, display, daily }, index) => {
           if (
             awardsDay.includes(id) &&
             !completedAwards.includes(id) &&
@@ -48,6 +49,7 @@ export function AwardsDay({ styled }: { styled?: boolean }) {
                         completedAwards: [...completedAwards, id],
                       }),
                     )
+                    if (!daily) makeDisplayFalse('awards', id)
                   } else {
                     warningToast('Упс! Не хватает звёздочек!')
                   }

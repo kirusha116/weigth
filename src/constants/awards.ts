@@ -1,6 +1,6 @@
-import type { TaskOrAward } from '@/types/TaskOrAwards'
+import type { TasksOrAward } from '@/types/TasksOrAwards'
 
-export const awards: TaskOrAward[] = [
+export const awards: TasksOrAward[] = [
   {
     icon: 'hamburger',
     title: 'Поход в фастфуд',
@@ -8,6 +8,7 @@ export const awards: TaskOrAward[] = [
     id: 1,
     discount: 2 / 3,
     display: true,
+    daily: true,
   },
   {
     icon: 'utensils',
@@ -16,6 +17,7 @@ export const awards: TaskOrAward[] = [
     id: 2,
     discount: 0.75,
     display: true,
+    daily: true,
   },
   {
     icon: 'plug-zap',
@@ -24,6 +26,7 @@ export const awards: TaskOrAward[] = [
     id: 3,
     discount: 0.7,
     display: true,
+    daily: false,
   },
   {
     icon: 'briefcase-business',
@@ -32,6 +35,7 @@ export const awards: TaskOrAward[] = [
     id: 4,
     discount: 0.85,
     display: true,
+    daily: false,
   },
   {
     icon: 'user',
@@ -40,6 +44,7 @@ export const awards: TaskOrAward[] = [
     id: 5,
     discount: 0.5,
     display: true,
+    daily: true,
   },
   {
     icon: 'footprints',
@@ -48,6 +53,7 @@ export const awards: TaskOrAward[] = [
     id: 6,
     discount: 2 / 3,
     display: true,
+    daily: true,
   },
   {
     icon: 'egg-fried',
@@ -56,6 +62,7 @@ export const awards: TaskOrAward[] = [
     id: 7,
     discount: 4 / 5,
     display: true,
+    daily: true,
   },
   {
     icon: 'sprout',
@@ -64,5 +71,6 @@ export const awards: TaskOrAward[] = [
     id: 8,
     discount: 4 / 5,
     display: true,
+    daily: true,
   },
 ]

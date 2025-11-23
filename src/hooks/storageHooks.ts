@@ -5,13 +5,13 @@ import {
 } from 'react-redux'
 import { type RootState, type AppDispatch } from '../store/store'
 import type { Storage } from '@/types/Storage'
-import type { TaskOrAward } from '@/types/TaskOrAwards'
+import type { TasksOrAward } from '@/types/TasksOrAwards'
 
 export const useAppDispatch: () => AppDispatch = useDispatch
 const useAppSelector: TypedUseSelectorHook<RootState> = useSelector
 export const useGetStorage: () => Storage = () =>
   useAppSelector(state => state.storage)
-export const useGetTasks: () => TaskOrAward[] = () =>
+export const useGetTasks: () => TasksOrAward[] = () =>
   useAppSelector(state => state.tasks)
-export const useGetAwards: () => TaskOrAward[] = () =>
+export const useGetAwards: () => TasksOrAward[] = () =>
   useAppSelector(state => state.awards)
