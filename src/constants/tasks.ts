@@ -127,4 +127,13 @@ export const tasks: TasksOrAward[] = [
     display: true,
     daily: true,
   },
+  {
+    icon: 'bike',
+    title: 'Велотренажёр 15 минут',
+    price: 250,
+    id: 15,
+    discount: 2,
+    display: true,
+    daily: true,
+  },
 ]
