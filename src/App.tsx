@@ -27,23 +27,23 @@ function App() {
   const [Frown, setFrown] = useState<React.FC | null>(null)
 
   const dispatch = useAppDispatch()
-  onAuthStateChanged(auth, () => {
-    setIsLoginVisible(!auth.currentUser)
-    if (auth.currentUser) {
-      const load = async () => {
-        const { initialState } = await import('./store/storageSlice.js')
-        const { getTasks } = await import('./store/tasksSlice.js')
-        const { getAwards } = await import('./store/awardsSlice.js')
-        await dispatch(initialState())
-        await dispatch(getTasks())
-        await dispatch(getAwards())
-        setIsDownloaded(true)
-      }
-      load()
-    }
-  })
 
   useEffect(() => {
+    const unsubscribe = onAuthStateChanged(auth, () => {
+      setIsLoginVisible(!auth.currentUser)
+      if (auth.currentUser) {
+        const load = async () => {
+          const { initialState } = await import('./store/storageSlice.js')
+          const { getTasks } = await import('./store/tasksSlice.js')
+          const { getAwards } = await import('./store/awardsSlice.js')
+          await dispatch(initialState())
+          await dispatch(getTasks())
+          await dispatch(getAwards())
+          setIsDownloaded(true)
+        }
+        load()
+      }
+    })
     async function getToaster() {
       const { Toaster } = await import('./components/ui/sonner')
       setToaster(() => Toaster)
@@ -51,7 +51,8 @@ function App() {
       setFrown(() => () => <DynamicIcon name={'frown'} />)
     }
     if (!Toaster) getToaster()
-  })
+    return () => unsubscribe()
+  }, [Toaster, dispatch])
 
   return (
     <>

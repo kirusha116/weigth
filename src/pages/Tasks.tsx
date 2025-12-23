@@ -1,10 +1,10 @@
 import { Heart } from '@/components/Heart'
-import { lazy, Suspense } from 'react'
+import { lazy, memo, Suspense } from 'react'
 
 const Header = lazy(() => import('@/components/Tasks/Header'))
 const InnerTasks = lazy(() => import('@/components/Tasks/Tasks'))
 
-export default function Tasks() {
+function Tasks() {
   return (
     <>
       <Suspense>
@@ -16,3 +16,5 @@ export default function Tasks() {
     </>
   )
 }
+
+export default memo(Tasks)

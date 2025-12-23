@@ -15,7 +15,7 @@ import {
 import { Label } from './ui/label.js'
 import { Button } from './ui/button.js'
 import { useState } from 'react'
-import { Heart } from './Heart.js'
+import { Heart } from './Heart'
 import warningToast from '@/utils/warningToast.js'
 import successToast from '@/utils/successToast.js'
 import { auth } from '@/firebase.js'
@@ -40,7 +40,6 @@ export default function Login() {
       innerStorage = await getStorage()
       i++
     }
-    console.log(innerStorage)
     if (!innerStorage) dispatch(handleSave(storage))
     setIsHeartOpen(false)
     successToast('Успешно!')

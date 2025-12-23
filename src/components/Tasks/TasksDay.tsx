@@ -4,13 +4,13 @@ import {
   useGetTasks,
 } from '@/hooks/storageHooks'
 import { handleSave } from '@/store/store'
-import { lazy } from 'react'
+import { lazy, memo } from 'react'
 import successToast from '@/utils/successToast'
 import { makeDisplayFalse } from '@/utils/makeDisplayFalse'
 
 const Item = lazy(() => import('../Item'))
 
-export function TasksDay({ styled }: { styled?: boolean }) {
+function TasksDay({ styled }: { styled?: boolean }) {
   const { completedTasks, balance, tasksDay } = useGetStorage()
   const tasks = useGetTasks()
   const sortedTasks = [...tasks].sort(
@@ -21,7 +21,6 @@ export function TasksDay({ styled }: { styled?: boolean }) {
   return (
     <>
       {sortedTasks
-        .sort((a, b) => a.price * a.discount - b.price * b.discount)
         .map(({ icon, id, price, title, discount, display, daily }, index) => {
           if (
             tasksDay.includes(id) &&
@@ -54,3 +53,4 @@ export function TasksDay({ styled }: { styled?: boolean }) {
     </>
   )
 }
+export default memo(TasksDay)

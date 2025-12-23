@@ -43,7 +43,7 @@ function InnerHeart({ className }: { className: string }) {
 }
 export function Heart() {
   return (
-    <div className="absolute inset-0 w-[100vw] h-[100vh] bg-black/10 z-100">
+    <div className="absolute inset-0 w-screen h-screen bg-black/10 z-100">
       <InnerHeart className="relative left-1/2 top-1/2 -translate-1/2 size-30" />
     </div>
   )

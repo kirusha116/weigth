@@ -5,14 +5,13 @@ import {
 } from '@/hooks/storageHooks'
 import { handleSave } from '@/store/store'
 import { useMediaQuery } from 'usehooks-ts'
-import { lazy } from 'react'
+import { lazy, memo } from 'react'
 import successToast from '@/utils/successToast'
-import { TasksDay } from './TasksDay'
+import TasksDay from './TasksDay'
 import { makeDisplayFalse } from '@/utils/makeDisplayFalse'
 
 const Item = lazy(() => import('../Item'))
-
-export default function Tasks() {
+function Tasks() {
   const { completedTasks, balance, tasksDay } = useGetStorage()
   const tasks = useGetTasks()
   const sortedTasks = [...tasks].sort((a, b) => a.price - b.price)
@@ -48,3 +47,5 @@ export default function Tasks() {
     </div>
   )
 }
+
+export default memo(Tasks)
