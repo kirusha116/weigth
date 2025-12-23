@@ -2,11 +2,7 @@ import { BicepsFlexed, Sparkles } from 'lucide-react'
 import { lazy, Suspense, type JSX, type ReactElement } from 'react'
 import { BlockHeart } from '../Heart'
 
-const TasksDay = lazy(() =>
-  import('../../components/Tasks/TasksDay').then(module => ({
-    default: module.TasksDay,
-  })),
-)
+const TasksDay = lazy(() => import('../../components/Tasks/TasksDay'))
 const AwardsDay = lazy(() =>
   import('../../components/Awards/AwardsDay').then(module => ({
     default: module.AwardsDay,
