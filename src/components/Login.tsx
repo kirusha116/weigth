@@ -20,7 +20,7 @@ import warningToast from '@/utils/warningToast.js'
 import successToast from '@/utils/successToast.js'
 import { auth } from '@/firebase.js'
 import { getStorage } from '@/utils/getStorage.js'
-import { useAppDispatch, useGetStorage } from '@/hooks/storageHooks.js'
+import { useAppDispatch, useGetStorage } from '@/hooks/storeHooks.js'
 import { handleSave } from '@/store/store.js'
 
 type Data = {

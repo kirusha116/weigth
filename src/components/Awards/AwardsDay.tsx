@@ -1,9 +1,9 @@
 import {
   useAppDispatch,
   useGetAwards,
-  useGetStorage,
-} from '@/hooks/storageHooks'
-import { handleSave } from '@/store/store'
+  useGetBalance,
+} from '@/hooks/storeHooks'
+import { updateBalance } from '@/store/store'
 import { makeDisplayFalse } from '@/utils/makeDisplayFalse'
 import successToast from '@/utils/successToast'
 import warningToast from '@/utils/warningToast'
@@ -12,7 +12,9 @@ import { lazy } from 'react'
 const Item = lazy(() => import('../Item'))
 
 export function AwardsDay({ styled }: { styled?: boolean }) {
-  const { completedAwards, balance, awardsDay } = useGetStorage()
+
+  const balance = useGetBalance()
+
   const awards = useGetAwards()
   const sortedAwards = [...awards].sort(
     (a, b) => b.price * b.discount - a.price * a.discount,
@@ -43,9 +45,9 @@ export function AwardsDay({ styled }: { styled?: boolean }) {
                     successToast(
                       `Покупочка оформлена! -${discount * Math.abs(price)}`,
                     )
+                    dispatch(updateBalance(-discount * Math.abs(price)))
                     dispatch(
                       handleSave({
-                        balance: balance - discount * Math.abs(price),
                         completedAwards: [...completedAwards, id],
                       }),
                     )

@@ -1,24 +1,30 @@
-import {
-  useAppDispatch,
-  useGetAwards,
-  useGetStorage,
-} from '@/hooks/storageHooks'
-import { handleSave } from '@/store/store'
+import { useAppDispatch, useGetBalance } from '@/hooks/storeHooks'
+import { updateBalance } from '@/store/store'
 import { useMediaQuery } from 'usehooks-ts'
-import { lazy } from 'react'
+import { lazy, memo, useEffect, useState } from 'react'
 import successToast from '@/utils/successToast'
 import warningToast from '@/utils/warningToast'
 import { AwardsDay } from './AwardsDay'
 import { makeDisplayFalse } from '@/utils/makeDisplayFalse'
+import type { TasksOrAwards } from '@/types/TasksOrAwards'
 
 const Item = lazy(() => import('../Item'))
 
-export default function Awards() {
-  const { completedAwards, balance, awardsDay } = useGetStorage()
-  const awards = useGetAwards()
+function Awards() {
+  const balance = useGetBalance()
+  const [awards, setAwards] = useState<TasksOrAwards[] | null>(null)
   const sortedAwards = [...awards].sort((a, b) => b.price - a.price)
   const isMobile = !useMediaQuery('(min-width: 768px)')
   const dispatch = useAppDispatch()
+
+  useEffect(() => {
+    const get = async () => {
+      const getList = (await import('@/utils/getList')).getList
+      const awards = (await getList('awards')) as TasksOrAwards[]
+      setAwards(awards)
+    }
+    get()
+  }, [])
   return (
     <>
       <div className="flex flex-wrap gap-1">
@@ -40,9 +46,9 @@ export default function Awards() {
                   onButtonClick={() => {
                     if (balance >= Math.abs(price)) {
                       successToast(`Покупочка оформлена! -${Math.abs(price)}`)
+                      dispatch(updateBalance(-Math.abs(price)))
                       dispatch(
                         handleSave({
-                          balance: balance - Math.abs(price),
                           completedAwards: [...completedAwards, id],
                         }),
                       )
@@ -60,3 +66,5 @@ export default function Awards() {
     </>
   )
 }
+
+export default memo(Awards)

@@ -1,5 +1,5 @@
 import { Button } from '@/components/ui/button'
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import { Heart } from '../Heart'
 import type { WarningDialog } from '@/types/WarningComp'
 import { getAuth, onAuthStateChanged } from 'firebase/auth'
@@ -18,8 +18,11 @@ export default function Bottom() {
     setIsHeartOpen(false)
   }
 
-  onAuthStateChanged(getAuth(), () => {
-    setIsAuth(!!getAuth().currentUser)
+  useEffect(() => {
+    const unsubscribe = onAuthStateChanged(getAuth(), () => {
+      setIsAuth(!!getAuth().currentUser)
+    })
+    return unsubscribe
   })
 
   return (

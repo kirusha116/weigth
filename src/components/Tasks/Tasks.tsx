@@ -1,9 +1,5 @@
-import {
-  useAppDispatch,
-  useGetStorage,
-  useGetTasks,
-} from '@/hooks/storageHooks'
-import { handleSave } from '@/store/store'
+import { useAppDispatch, useGetTasks } from '@/hooks/storeHooks'
+import { updateBalance } from '@/store/store'
 import { useMediaQuery } from 'usehooks-ts'
 import { lazy, memo } from 'react'
 import successToast from '@/utils/successToast'
@@ -12,7 +8,6 @@ import { makeDisplayFalse } from '@/utils/makeDisplayFalse'
 
 const Item = lazy(() => import('../Item'))
 function Tasks() {
-  const { completedTasks, balance, tasksDay } = useGetStorage()
   const tasks = useGetTasks()
   const sortedTasks = [...tasks].sort((a, b) => a.price - b.price)
   const isMobile = !useMediaQuery('(min-width: 768px)')
@@ -32,9 +27,9 @@ function Tasks() {
               price={'+' + Math.abs(price).toString()}
               onButtonClick={() => {
                 successToast(`Молодец! +${Math.abs(price)}`)
+                dispatch(updateBalance(price))
                 dispatch(
                   handleSave({
-                    balance: balance + price,
                     completedTasks: [...completedTasks, id],
                   }),
                 )

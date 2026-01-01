@@ -1,6 +1,6 @@
 import type { IconName } from 'lucide-react/dynamic'
 
-export type TasksOrAward = {
+export type TasksOrAwards = {
   icon: IconName
   title: string
   price: number

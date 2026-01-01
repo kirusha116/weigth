@@ -9,11 +9,6 @@ export const emptyStorage: Storage = {
   startWeightDate: null,
   targetWeight: null,
   maxCallories: null,
-  currentWeight: null,
-  currentWeightDate: null,
-  currentCalloriesDate: null,
-  currentCallories: 0,
-  balance: 0,
   completedTasks: [],
   completedAwards: [],
   tasksDay: getRandomsId(tasks, 2),
@@ -23,7 +18,6 @@ export const emptyStorage: Storage = {
 }
 
 export const upDateStorage: Partial<Storage> = {
-  currentCallories: 0,
   completedAwards: [],
   completedTasks: [],
   tasksDay: getRandomsId(tasks, 2),

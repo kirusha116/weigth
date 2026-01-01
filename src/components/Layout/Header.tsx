@@ -2,15 +2,14 @@ import { NavLink } from 'react-router-dom'
 import { useMediaQuery } from 'usehooks-ts'
 import { Star } from 'lucide-react'
 import { Button } from '@/components/ui/button'
-import { useGetStorage } from '@/hooks/storageHooks'
+import { useGetBalance } from '@/hooks/storeHooks'
 import { getAuth, onAuthStateChanged } from 'firebase/auth'
 import { useState } from 'react'
 import { Heart } from '@/components/Heart'
 import type { Dialog } from '@/types/Dialog'
 
 export default function Header() {
-  const storage = useGetStorage()
-  const { balance } = storage
+  const balance = useGetBalance()
 
   const isSmall = !useMediaQuery('(min-width: 480px)')
 

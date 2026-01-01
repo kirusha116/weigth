@@ -1,11 +1,11 @@
+import './firebase.js'
 import { BrowserRouter, Route, Routes } from 'react-router-dom'
 import React, { lazy, useEffect, useState, type JSX } from 'react'
-import { useAppDispatch } from './hooks/storageHooks.js'
+import { useAppDispatch } from './hooks/storeHooks.js'
 import { Heart } from './components/Heart.js'
 import { auth } from './firebase.js'
 import { onAuthStateChanged } from 'firebase/auth'
 import type { ToasterProps } from 'sonner'
-import './firebase.js'
 import { DynamicIcon } from 'lucide-react/dynamic'
 const Layout = lazy(() => import('./pages/Layout'))
 const Dashboard = lazy(() => import('./pages/Dashboard'))
@@ -17,9 +17,7 @@ const Login = lazy(() => import('./components/Login.js'))
 
 function App() {
   const [isDownloaded, setIsDownloaded] = useState(false)
-
   const [isLoginVisible, setIsLoginVisible] = useState<boolean>(false)
-
   const [Toaster, setToaster] = useState<
     (({ ...props }: ToasterProps) => JSX.Element) | null
   >(null)
@@ -33,26 +31,22 @@ function App() {
       setIsLoginVisible(!auth.currentUser)
       if (auth.currentUser) {
         const load = async () => {
-          const { initialState } = await import('./store/storageSlice.js')
           const { getTasks } = await import('./store/tasksSlice.js')
-          const { getAwards } = await import('./store/awardsSlice.js')
-          await dispatch(initialState())
           await dispatch(getTasks())
-          await dispatch(getAwards())
           setIsDownloaded(true)
         }
         load()
       }
+      async function getToaster() {
+        const { Toaster } = await import('./components/ui/sonner')
+        setToaster(() => Toaster)
+        setCheckCheck(() => () => <DynamicIcon name={'check-check'} />)
+        setFrown(() => () => <DynamicIcon name={'frown'} />)
+      }
+      getToaster()
     })
-    async function getToaster() {
-      const { Toaster } = await import('./components/ui/sonner')
-      setToaster(() => Toaster)
-      setCheckCheck(() => () => <DynamicIcon name={'check-check'} />)
-      setFrown(() => () => <DynamicIcon name={'frown'} />)
-    }
-    if (!Toaster) getToaster()
-    return () => unsubscribe()
-  }, [Toaster, dispatch])
+    return unsubscribe
+  }, [dispatch])
 
   return (
     <>

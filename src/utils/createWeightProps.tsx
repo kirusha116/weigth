@@ -1,31 +1,13 @@
-import type { Storage } from '@/types/Storage'
 import { getDate } from './getDate'
 import { Gauge } from 'lucide-react'
 import type { BlockMainContentProps } from '@/types/BlockMainContentProps'
-import successToast from './successToast'
-
-type Result = Pick<Storage, 'currentWeight' | 'balance'> & {
-  ['currentWeightDate']?: Storage['currentWeightDate']
-}
 
 export function createWeightProps(
   isMobile: boolean,
-  {
-    startWeight,
-    targetWeight,
-    currentWeight,
-    currentWeightDate,
-    balance,
-  }: Pick<
-    { [K in keyof Storage]: NonNullable<Storage[K]> },
-    | 'startWeight'
-    | 'targetWeight'
-    | 'currentWeight'
-    | 'currentWeightDate'
-    | 'balance'
-  >,
-
-  onSave: (newObj: Pick<Storage, 'currentWeight' | 'balance'>) => void,
+  currentWeight: number,
+  currentWeightDate: string,
+  startWeight: number,
+  targetWeight: number,
 ): BlockMainContentProps {
   const weight: BlockMainContentProps = {
     variant: 'weight',
@@ -68,19 +50,6 @@ export function createWeightProps(
     }\u00A0кг`,
 
     indicatorStyle: 'bg-gradient-to-r from-red-400 via-yellow-400 to-green-400',
-
-    onSave: (newValue: number) => {
-      const result: Result = {
-        currentWeight: newValue,
-        balance: balance,
-      }
-      if (currentWeightDate !== getDate()) {
-        result.currentWeightDate = getDate()
-        successToast('Молодец! +100')
-        result.balance += 100
-      }
-      onSave(result)
-    },
   }
   return weight
 }

@@ -2,8 +2,9 @@ import BlockDialog from './BlockDialog'
 import { Progress } from '../ui/progress'
 import { useMediaQuery } from 'usehooks-ts'
 import type { BlockMainContentProps } from '@/types/BlockMainContentProps'
+import { memo } from 'react'
 
-export default function BlockMainContent({
+function BlockMainContent({
   variant,
   icon,
   title1,
@@ -18,7 +19,7 @@ export default function BlockMainContent({
   indicatorStyle,
   footerText,
   onSave,
-}: BlockMainContentProps) {
+}: BlockMainContentProps & { onSave: (newValue: number) => void }) {
   const isMobile = !useMediaQuery('(min-width: 400.5px)')
 
   return (
@@ -65,3 +66,5 @@ export default function BlockMainContent({
     </>
   )
 }
+
+export default memo(BlockMainContent)

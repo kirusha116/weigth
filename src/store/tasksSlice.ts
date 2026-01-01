@@ -1,10 +1,12 @@
 import { createAsyncThunk, createSlice } from '@reduxjs/toolkit'
-import { getList } from '@/utils/getList'
 import type { TasksOrAward } from '@/types/TasksOrAwards'
 
 export const getTasks = createAsyncThunk<TasksOrAward[]>(
   'storage/getTasks',
-  async () => (await getList('tasks')) as TasksOrAward[],
+  async () => {
+    const getList = (await import('@/utils/getList')).getList
+    return (await getList('tasks')) as TasksOrAward[]
+  },
 )
 
 export const tasksSlice = createSlice({
@@ -12,9 +14,8 @@ export const tasksSlice = createSlice({
   initialState: [] as TasksOrAward[],
   reducers: {},
   extraReducers(builder) {
-    builder.addCase(getTasks.fulfilled, (state, action) => {
+    builder.addCase(getTasks.fulfilled, (_, action) => {
       return action.payload
-      console.log(state)
     })
   },
 })

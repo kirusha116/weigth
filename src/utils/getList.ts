@@ -1,18 +1,18 @@
 import { auth, db } from '@/firebase'
-import type { TasksOrAward } from '@/types/TasksOrAwards'
+import type { TasksOrAwards } from '@/types/TasksOrAwards'
 import { collection, getDocs, orderBy, query } from 'firebase/firestore'
 
 export const getList = async (
   variant: 'tasks' | 'awards',
-): Promise<TasksOrAward[]> => {
+): Promise<TasksOrAwards[]> => {
   const q = query(
-    collection(db, `${auth.currentUser?.uid}/tasksOrAwards/${variant}`),
+    collection(db, `${auth.currentUser?.uid}_new/${variant}`),
     orderBy('id'),
   )
   const querySnapshot = await getDocs(q)
-  const result: TasksOrAward[] = []
+  const result: TasksOrAwards[] = []
   querySnapshot.forEach(doc => {
-    result.push(doc.data() as TasksOrAward)
+    result.push(doc.data() as TasksOrAwards)
   })
   if (result.length) return result
   const { getDefaultList } = await import('@/utils/getDefaultList')

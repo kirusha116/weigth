@@ -14,5 +14,4 @@ export type BlockMainContentProps = {
   progressValue: number
   progressText: string
   indicatorStyle: string
-  onSave: (newValue: number) => void
 }

@@ -1,9 +1,5 @@
-import {
-  useAppDispatch,
-  useGetStorage,
-  useGetTasks,
-} from '@/hooks/storageHooks'
-import { handleSave } from '@/store/store'
+import { useAppDispatch, useGetTasks } from '@/hooks/storeHooks'
+import { updateBalance } from '@/store/store'
 import { lazy, memo } from 'react'
 import successToast from '@/utils/successToast'
 import { makeDisplayFalse } from '@/utils/makeDisplayFalse'
@@ -11,7 +7,6 @@ import { makeDisplayFalse } from '@/utils/makeDisplayFalse'
 const Item = lazy(() => import('../Item'))
 
 function TasksDay({ styled }: { styled?: boolean }) {
-  const { completedTasks, balance, tasksDay } = useGetStorage()
   const tasks = useGetTasks()
   const sortedTasks = [...tasks].sort(
     (a, b) => a.price * a.discount - b.price * b.discount,
@@ -20,8 +15,8 @@ function TasksDay({ styled }: { styled?: boolean }) {
 
   return (
     <>
-      {sortedTasks
-        .map(({ icon, id, price, title, discount, display, daily }, index) => {
+      {sortedTasks.map(
+        ({ icon, id, price, title, discount, display, daily }, index) => {
           if (
             tasksDay.includes(id) &&
             !completedTasks.includes(id) &&
@@ -38,9 +33,9 @@ function TasksDay({ styled }: { styled?: boolean }) {
                 price={'+' + Math.abs(discount * price).toString()}
                 onButtonClick={() => {
                   successToast(`Молодец! +${Math.abs(discount * price)}`)
+                  dispatch(updateBalance(discount * price))
                   dispatch(
                     handleSave({
-                      balance: balance + discount * price,
                       completedTasks: [...completedTasks, id],
                     }),
                   )
@@ -49,7 +44,8 @@ function TasksDay({ styled }: { styled?: boolean }) {
               />
             )
           }
-        })}
+        },
+      )}
     </>
   )
 }

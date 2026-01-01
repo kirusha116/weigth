@@ -1,25 +1,31 @@
 import Header from '@/components/Statistics/Header'
 import { auth, db } from '@/firebase'
-import type { Storage } from '@/types/Storage'
-import { collection, getDocs, orderBy, query, where } from 'firebase/firestore'
+import { collection, getDocs, orderBy, query } from 'firebase/firestore'
 import { ArrowBigDown, ArrowBigUp, Minus } from 'lucide-react'
 import { useEffect, useState } from 'react'
 
+type WeigthHistory = { data: number; timestamp: number }
+
 export default function Statistics() {
-  const [history, setHistory] = useState<Storage[]>()
+  const [history, setHistory] = useState<WeigthHistory[]>()
 
   useEffect(() => {
     async function loadHistory() {
-      const history: Storage[] = []
-      const q = query(
-        collection(db, auth.currentUser?.uid as string),
-        where('timestamp', '!=', 'undefined'),
-        orderBy('timestamp'),
-      )
-      const querySnapShot = await getDocs(q)
-      querySnapShot.forEach(elem =>
-        history.push(elem.data() as unknown as Storage),
-      )
+      const history: WeigthHistory[] = []
+      if (auth.currentUser) {
+        const querySnapShot = await getDocs(
+          query(
+            collection(
+              db,
+              `${auth.currentUser.uid}_new/currentWeight/currentWeight`,
+            ),
+            orderBy('timestamp'),
+          ),
+        )
+        querySnapShot.forEach(elem =>
+          history.push(elem.data() as WeigthHistory),
+        )
+      }
       setHistory(history)
     }
     loadHistory()
@@ -30,12 +36,9 @@ export default function Statistics() {
       <ul className="flex flex-col-reverse">
         {history?.map((elem, index, arr) => {
           const arrow = (index => {
-            if (!index || elem.currentWeight === arr[index - 1].currentWeight)
+            if (!index || elem.data === arr[index - 1].data)
               return () => <Minus className="stroke-gray-400 fill-gray-400 " />
-            if (
-              (elem.currentWeight as number) >
-              (arr[index - 1].currentWeight as number)
-            )
+            if ((elem.data as number) > (arr[index - 1].data as number))
               return () => (
                 <ArrowBigUp className="stroke-red-300 fill-red-300" />
               )
@@ -45,7 +48,7 @@ export default function Statistics() {
           })(index)
           return (
             <li
-              key={elem.lastDateOfLoad}
+              key={elem.data}
               className={
                 'flex mb-1 items-center rounded-lg bg-white border shadow-xs px-3 py-2 relative w-full'
               }
@@ -55,7 +58,7 @@ export default function Statistics() {
               </div>
               <p>
                 <b>
-                  {new Date(elem.lastDateOfLoad).toLocaleDateString('ru-RU', {
+                  {new Date(elem.data).toLocaleDateString('ru-RU', {
                     day: 'numeric',
                     month: 'long',
                     year: 'numeric',
@@ -64,8 +67,8 @@ export default function Statistics() {
               </p>
               <div className="grow"></div>
               <p>
-                <b>{`${elem.currentWeight?.toString()}${
-                  !((elem.currentWeight as number) % 1) ? '.0' : ''
+                <b>{`${elem.data?.toString()}${
+                  !((elem.data as number) % 1) ? '.0' : ''
                 } кг`}</b>
               </p>
             </li>

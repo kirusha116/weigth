@@ -1,0 +1,7 @@
+export type Target =
+  | 'balance'
+  | 'currentWeight'
+  | 'startWeight'
+  | 'targetWeight'
+  | 'maxCallories'
+  | 'currentCallories'

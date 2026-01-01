@@ -1,15 +1,15 @@
 import { configureStore } from '@reduxjs/toolkit'
-import { storageSlice } from './storageSlice'
 import { tasksSlice } from './tasksSlice'
 import { awardsSlice } from './awardsSlice'
+import { balanceSlice } from './balanceSlice'
 
-export const { handleSave } = storageSlice.actions
+export const { updateBalance } = balanceSlice.actions
 
 export const store = configureStore({
   reducer: {
-    storage: storageSlice.reducer,
     tasks: tasksSlice.reducer,
     awards: awardsSlice.reducer,
+    balance: balanceSlice.reducer,
   },
 })
 

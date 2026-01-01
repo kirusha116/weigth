@@ -1,12 +1,13 @@
 import { useNavigate } from 'react-router-dom'
 import { Button } from '../ui/button'
+import { memo } from 'react'
 
 type VariantProps = {
   weight: string
   callories: string
 }
 
-export default function BlockNoData({
+function BlockNoData({
   variant,
   startWeight,
   targetWeight,
@@ -37,3 +38,5 @@ export default function BlockNoData({
     </>
   )
 }
+
+export default memo(BlockNoData)
